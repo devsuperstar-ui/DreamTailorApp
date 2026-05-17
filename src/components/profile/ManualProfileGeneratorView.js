@@ -22,6 +22,26 @@ export default function ManualProfileGeneratorView({
 
   const expectedJobCount = selectedProfileData?.experience?.length ?? 0;
 
+  const filenameInputStyle = {
+    width: "100%",
+    padding: "8px 12px",
+    fontSize: "13px",
+    fontFamily: "inherit",
+    color: colors.text,
+    background: colors.inputBg,
+    border: `1px solid ${colors.inputBorder}`,
+    borderRadius: "6px",
+    boxSizing: "border-box",
+  };
+
+  const filenameLabelStyle = {
+    display: "block",
+    fontSize: "12px",
+    fontWeight: "500",
+    color: colors.textSecondary,
+    marginBottom: "4px",
+  };
+
   useEffect(() => {
     loadPdfDownload().catch(() => {});
   }, []);
@@ -301,42 +321,56 @@ export default function ManualProfileGeneratorView({
             />
           </div>
 
-          <div style={{ marginBottom: "12px" }}>
-            <label style={{ fontSize: "11px", fontWeight: 600, color: colors.textSecondary }}>
-              Company Name (Optional)
-            </label>
-            <input
-              type="text"
-              value={companyName}
-              onChange={(e) => setCompanyName(e.target.value)}
-              placeholder="e.g. Google"
+          <div style={{ marginBottom: "16px" }}>
+            <p
               style={{
-                width: "100%",
-                marginTop: "4px",
-                padding: "6px 10px",
-                fontSize: "13px",
-                boxSizing: "border-box",
+                fontSize: "11px",
+                fontWeight: "600",
+                color: colors.textSecondary,
+                margin: "0 0 4px",
+                textTransform: "uppercase",
+                letterSpacing: "0.02em",
               }}
-            />
-          </div>
-
-          <div style={{ marginBottom: "12px" }}>
-            <label style={{ fontSize: "11px", fontWeight: 600, color: colors.textSecondary }}>
-              Role Name (Optional)
-            </label>
-            <input
-              type="text"
-              value={roleName}
-              onChange={(e) => setRoleName(e.target.value)}
-              placeholder="e.g. Senior Software Engineer"
+            >
+              PDF filename
+            </p>
+            <p style={{ fontSize: "11px", color: colors.textMuted, margin: "0 0 10px" }}>
+              Optional — adds company and role to the downloaded file name
+            </p>
+            <div
               style={{
-                width: "100%",
-                marginTop: "4px",
-                padding: "6px 10px",
-                fontSize: "13px",
-                boxSizing: "border-box",
+                display: "grid",
+                gridTemplateColumns: "repeat(auto-fit, minmax(160px, 1fr))",
+                gap: "12px",
               }}
-            />
+            >
+              <div>
+                <label htmlFor="manual-resume-company" style={filenameLabelStyle}>
+                  Company
+                </label>
+                <input
+                  id="manual-resume-company"
+                  type="text"
+                  value={companyName}
+                  onChange={(e) => setCompanyName(e.target.value)}
+                  placeholder="e.g. Google"
+                  style={filenameInputStyle}
+                />
+              </div>
+              <div>
+                <label htmlFor="manual-resume-role" style={filenameLabelStyle}>
+                  Role
+                </label>
+                <input
+                  id="manual-resume-role"
+                  type="text"
+                  value={roleName}
+                  onChange={(e) => setRoleName(e.target.value)}
+                  placeholder="e.g. Senior Software Engineer"
+                  style={filenameInputStyle}
+                />
+              </div>
+            </div>
           </div>
 
           <button

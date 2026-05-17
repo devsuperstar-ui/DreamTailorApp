@@ -95,6 +95,26 @@ export default function ProfileGeneratorView({
     { key: "github", label: "GitHub", value: selectedProfileData.github, icon: "💻" },
   ].filter((field) => field.value);
 
+  const filenameInputStyle = {
+    width: "100%",
+    padding: "8px 12px",
+    fontSize: "13px",
+    fontFamily: "inherit",
+    color: colors.text,
+    background: colors.inputBg,
+    border: `1px solid ${colors.inputBorder}`,
+    borderRadius: "6px",
+    boxSizing: "border-box",
+  };
+
+  const filenameLabelStyle = {
+    display: "block",
+    fontSize: "12px",
+    fontWeight: "500",
+    color: colors.textSecondary,
+    marginBottom: "4px",
+  };
+
   return (
     <div
       style={{
@@ -238,65 +258,55 @@ export default function ProfileGeneratorView({
           </div>
 
           <div style={{ marginBottom: "16px" }}>
-            <label
+            <p
               style={{
-                display: "block",
                 fontSize: "11px",
                 fontWeight: "600",
                 color: colors.textSecondary,
-                marginBottom: "6px",
+                margin: "0 0 4px",
                 textTransform: "uppercase",
+                letterSpacing: "0.02em",
               }}
             >
-              Company Name <span style={{ fontWeight: 400, textTransform: "none" }}>(Optional)</span>
-            </label>
-            <input
-              type="text"
-              value={companyName}
-              onChange={(e) => setCompanyName(e.target.value)}
-              placeholder="e.g. Google"
+              PDF filename
+            </p>
+            <p style={{ fontSize: "11px", color: colors.textMuted, margin: "0 0 10px" }}>
+              Optional — adds company and role to the downloaded file name
+            </p>
+            <div
               style={{
-                width: "100%",
-                padding: "8px 12px",
-                fontSize: "13px",
-                color: colors.text,
-                background: colors.inputBg,
-                border: `1px solid ${colors.inputBorder}`,
-                borderRadius: "6px",
-                boxSizing: "border-box",
-              }}
-            />
-          </div>
-
-          <div style={{ marginBottom: "16px" }}>
-            <label
-              style={{
-                display: "block",
-                fontSize: "11px",
-                fontWeight: "600",
-                color: colors.textSecondary,
-                marginBottom: "6px",
-                textTransform: "uppercase",
+                display: "grid",
+                gridTemplateColumns: "repeat(auto-fit, minmax(160px, 1fr))",
+                gap: "12px",
               }}
             >
-              Role Name <span style={{ fontWeight: 400, textTransform: "none" }}>(Optional)</span>
-            </label>
-            <input
-              type="text"
-              value={roleName}
-              onChange={(e) => setRoleName(e.target.value)}
-              placeholder="e.g. Senior Software Engineer"
-              style={{
-                width: "100%",
-                padding: "8px 12px",
-                fontSize: "13px",
-                color: colors.text,
-                background: colors.inputBg,
-                border: `1px solid ${colors.inputBorder}`,
-                borderRadius: "6px",
-                boxSizing: "border-box",
-              }}
-            />
+              <div>
+                <label htmlFor="api-resume-company" style={filenameLabelStyle}>
+                  Company
+                </label>
+                <input
+                  id="api-resume-company"
+                  type="text"
+                  value={companyName}
+                  onChange={(e) => setCompanyName(e.target.value)}
+                  placeholder="e.g. Google"
+                  style={filenameInputStyle}
+                />
+              </div>
+              <div>
+                <label htmlFor="api-resume-role" style={filenameLabelStyle}>
+                  Role
+                </label>
+                <input
+                  id="api-resume-role"
+                  type="text"
+                  value={roleName}
+                  onChange={(e) => setRoleName(e.target.value)}
+                  placeholder="e.g. Senior Software Engineer"
+                  style={filenameInputStyle}
+                />
+              </div>
+            </div>
           </div>
 
           <button
