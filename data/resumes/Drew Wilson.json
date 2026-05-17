@@ -1,0 +1,56 @@
+{
+  "name": "Drew Wilson",
+  "email": "edw.rey@outlook.com",
+  "phone": "",
+  "location": "",
+  "address": "",
+  "postalCode": "",
+  "linkedin": "https://linkedin.com/in/drew-wilson-48940b63",
+  "linkedinShow": "show",
+  "website": "",
+  "github": "",
+  "experience": [
+    {
+      "company": "Algolia",
+      "industry": "AI Search & Search-as-a-Service Software",
+      "location": "Remote | Palo Alto, CA",
+      "title": "Senior Software Engineer",
+      "start_date": "Mar 2022",
+      "end_date": "Present"
+    },
+    {
+      "company": "Cargo Express Freight Corp",
+      "industry": "Logistics & Freight Transportation",
+      "location": "Remote | Anaheim, CA",
+      "title": "Software Engineer",
+      "start_date": "Sep 2019",
+      "end_date": "Mar 2022"
+    },
+    {
+      "company": "Nearpod",
+      "industry": "Education Technology (EdTech)",
+      "location": "Dania Beach, FL",
+      "title": "Software Developer",
+      "start_date": "Jul 2016",
+      "end_date": "Sep 2019"
+    },
+    {
+      "company": "OfficeRnD",
+      "industry": "Workplace Management & Coworking Software",
+      "location": "Miami, FL",
+      "title": "Junior Software Engineer",
+      "start_date": "Jun 2015",
+      "end_date": "Jun 2016"
+    }
+  ],
+  "education": [
+    {
+      "degree": "Bachelor of Science in Computer Science",
+      "school": "The College of Saint Rose",
+      "start_year": "2011",
+      "end_year": "2015"
+    }
+  ],
+  "certifications": [],
+  "resumeStyle": "classic"
+}

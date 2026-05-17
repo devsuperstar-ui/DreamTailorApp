@@ -1,0 +1,55 @@
+{
+    "name": "Adam Lee",
+    "email": "adam.ke.lee@outlook.com",
+    "phone": "+1 (281) 752-6741",
+    "location": "Kerrville, TX 78028",
+    "address": "1909C Junction Hwy",
+    "postalCode": "78028",
+    "linkedin": "https://www.linkedin.com/in/adam-lee-143b673b7/",
+    "website": "",
+    "github": "https://github.com/devsuperstar-ui",
+    "experience": [
+      {
+        "company": "ALFA+",
+        "location": "Dallas, TX (Remote)",
+        "title": "Senior Software Engineer",
+        "start_date": "Jan 2025",
+        "end_date": "Present",
+        "industry": "Information Technology"
+      },
+      {
+        "company": "HyperNova Labs",
+        "location": "Emeryville, CA (Remote)",
+        "title": "Software Engineer",
+        "start_date": "Feb 2019",
+        "end_date": "Dec 2024",
+        "industry": "AI / Machine Learning Software Development"
+      },
+      {
+        "company": "ImplementHIT",
+        "location": "New York, NY",
+        "title": "Software Engineer",
+        "start_date": "Sep 2014",
+        "end_date": "Jan 2019",
+        "industry": "Healthcare IT / Health Software Solutions"
+      },
+      {
+        "company": "Forward Air Corporation",
+        "location": "Greeneville, TN",
+        "title": "Junior Software Engineer",
+        "start_date": "Jun 2013",
+        "end_date": "Aug 2014",
+        "industry": "Transportation & Logistics"
+      }
+    ],
+    "education": [
+      {
+        "degree": "Bachelor of Science in Information Technology",
+        "school": "Southern Polytechnic State University",
+        "start_year": "2009",
+        "end_year": "2013"
+      }
+    ],
+    "certifications": [],
+    "resumeStyle": "classic"
+}

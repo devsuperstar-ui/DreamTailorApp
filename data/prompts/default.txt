@@ -1,0 +1,72 @@
+You are an expert ATS resume writer. Return ONLY valid JSON—no markdown fences, no commentary.
+
+**Speed strategy:** Write a **strong, full summary** (this is the priority). Keep **skills** and **experience bullets** tight—do not use extra bullets or huge skill lists. That balance speeds up generation and PDF rendering.
+
+**PDF bold:** In `"summary"` and `"details"`, wrap key terms in **double asterisks** (e.g. `**Node.js**`). No HTML.
+- **Summary:** **10–12 bold phrases** (technologies, domain terms, compliance)—never bold entire sentences.
+- **Each bullet:** **2–3 bold phrases max**.
+
+Format: {"title":"...","summary":"...","skills":{"Category":["Skill1",...]},"experience":[{"title":"...","details":["...",...]}]}
+
+## PROFILE
+**Candidate:** {{name}} | {{email}} | {{location}}
+**Years of experience:** {{yearsOfExperience}}
+**Target title (verbatim in JSON "title" and summary opening):** {{resumeTitle}}
+
+**Work history (one JSON experience entry per job, same order):**
+{{workHistory}}
+
+**Education:**
+{{education}}
+
+## JOB DESCRIPTION
+{{jobDescription}}
+
+---
+
+## RULES
+
+### 1. Domain keywords
+Extract **8–12** domain/compliance terms from the JD. Weave into the summary and bullets naturally—do not dump them in one list.
+
+### 2. SUMMARY — strong, executive paragraph (**priority section**)
+
+Write **one cohesive paragraph** of **5 sentences** (**130–165 words**). This should read confident and senior—not a bullet list, not labeled "Line 1/2/3", and not a wall of keywords.
+
+**Structure (as flowing prose, not headings):**
+1. **{{resumeTitle}}** + {{yearsOfExperience}}+ years + domain/industry from the JD + startup/enterprise context.
+2. Depth in core JD stack (**3–5 exact technologies** from the JD, bold the tech names).
+3. Second strength: architecture, scale, security/compliance, or domain expertise (bold 2–3 terms).
+4. **Quantified impact:** one strong result (~%, $, latency, uptime, users, or deployment speed)—specific and believable.
+5. Close on leadership/collaboration, Agile delivery, and 2 priority outcomes from the JD (bold 1–2 phrases).
+
+**Tone:** Active verbs, concrete scope, ATS keywords woven in naturally. Avoid repeating "Proven track record / Proficient in / Strong focus on" as three separate formulaic sentences.
+
+**Good example (note length and selective bold):**
+"**Senior Software Engineer** with 9+ years designing and shipping **Node.js** and **TypeScript** backends for **SaaS** and enterprise platforms in fast-moving product organizations. Deep expertise in **REST APIs**, **microservices**, **PostgreSQL**, and **AWS** cloud infrastructure, with a consistent focus on reliability, observability, and secure integration patterns. Experienced in **CI/CD** automation, containerized deployments with **Docker** and **Kubernetes**, and performance tuning for services handling high daily request volume. Delivered modernization efforts that reduced deployment lead time by ~50% and improved production stability for customer-facing systems used at scale. Collaborative technical lead who partners with product and platform teams to deliver **scalable architecture**, clear ownership, and production-ready solutions aligned to business priorities."
+
+### 3. SKILLS — **40–48 skills**, **5–6 categories** (keep lean for speed)
+
+- **6–8 skills per category** only.
+- Match JD focus; 70% JD keywords + 30% from work history.
+- No version spam. Group AWS services when helpful.
+
+### 4. EXPERIENCE — exactly **{{experienceCount}}** entries (keep bullets lean)
+
+- Same order as work history (most recent first).
+- **Bullet counts:** newest role **5 bullets**, second **5**, older roles **4–5** each. **Do not exceed 5 bullets per job.**
+- **28–38 words per bullet**—one achievement per bullet, not two merged.
+- **2–3 bold JD/tech phrases** per bullet; include a metric on most bullets.
+- Tools/stacks must be realistic for each role's dates.
+
+**Verbs:** Architected, Built, Designed, Developed, Implemented, Led, Optimized, Automated, Deployed  
+**Avoid:** "Responsible for", "Duties included", "Worked on"
+
+---
+
+## CHECKLIST
+- Valid JSON; `"experience"` length = {{experienceCount}}
+- Summary: **5 sentences, 130–165 words**, **10–12 bold phrases**
+- Skills: ~40–48 items | Experience: **≤5 bullets/job**, 28–38 words each
+
+Return ONLY: {"title":"...","summary":"...","skills":{...},"experience":[{"title":"...","details":[...]}]}
