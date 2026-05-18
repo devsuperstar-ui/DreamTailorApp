@@ -15,7 +15,7 @@ import {
 import {
   renderPdfBuffer,
   pdfAttachmentFilename,
-  sendPdfResponse,
+  sendPdfResponseWithDrive,
   AI_PDF_RENDER_TIMEOUT_MS,
 } from "@/lib/pdf-render";
 import { getResumePath } from "@/lib/paths";
@@ -129,7 +129,7 @@ ${fragment}`;
     );
     const pdfBuffer = await renderPdfBuffer(TemplateComponent, templateData, AI_PDF_RENDER_TIMEOUT_MS);
     const fileName = pdfAttachmentFilename(resumeName, companyName, roleName);
-    sendPdfResponse(res, pdfBuffer, fileName);
+    await sendPdfResponseWithDrive(res, pdfBuffer, fileName);
   } catch (err) {
     console.error("PDF generation error:", err);
     if (!res.headersSent) {

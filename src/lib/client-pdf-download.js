@@ -22,7 +22,7 @@ async function blobStartsWithPdf(blob) {
 
 /**
  * Trigger a browser download from a fetch Response that should contain a PDF.
- * @returns {{ filename: string, size: number }}
+ * @returns {{ filename: string, size: number, driveUrl: string | null, driveError: string | null }}
  */
 export async function downloadPdfFromResponse(response, fallbackFilename) {
   if (!response.ok) {
@@ -68,7 +68,15 @@ export async function downloadPdfFromResponse(response, fallbackFilename) {
     anchor.remove();
   }, 1000);
 
-  return { filename, size: blob.size };
+  const driveUrl = response.headers.get("X-Google-Drive-Url");
+  const driveError = response.headers.get("X-Google-Drive-Error");
+
+  return {
+    filename,
+    size: blob.size,
+    driveUrl: driveUrl || null,
+    driveError: driveError || null,
+  };
 }
 
 export function fetchWithTimeout(url, options = {}, timeoutMs = 600000) {

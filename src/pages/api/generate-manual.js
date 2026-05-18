@@ -11,7 +11,7 @@ import {
 import {
   renderPdfBuffer,
   pdfAttachmentFilename,
-  sendPdfResponse,
+  sendPdfResponseWithDrive,
   MANUAL_PDF_RENDER_TIMEOUT_MS,
 } from "@/lib/pdf-render";
 import { getResumePath } from "@/lib/paths";
@@ -75,7 +75,7 @@ export default async function handler(req, res) {
     const pdfBuffer = await renderPdfBuffer(TemplateComponent, templateData, MANUAL_PDF_RENDER_TIMEOUT_MS);
     console.log(`[generate-manual] PDF ready (${pdfBuffer.length} bytes)`);
     const fileName = pdfAttachmentFilename(resumeName, companyName, roleName);
-    sendPdfResponse(res, pdfBuffer, fileName);
+    await sendPdfResponseWithDrive(res, pdfBuffer, fileName);
   } catch (err) {
     console.error("Manual PDF generation error:", err);
     if (!res.headersSent) {

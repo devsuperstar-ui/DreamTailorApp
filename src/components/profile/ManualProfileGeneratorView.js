@@ -3,6 +3,7 @@ import { loadPdfDownload } from "@/lib/load-pdf-download";
 import { useGenerationTimer } from "@/hooks/useGenerationTimer";
 import { profileColors as colors } from "@/lib/theme-colors";
 import ProfileModeSwitch from "@/components/profile/ProfileModeSwitch";
+import DriveUrlCopy from "@/components/profile/DriveUrlCopy";
 
 export default function ManualProfileGeneratorView({
   profileSlug,
@@ -15,6 +16,8 @@ export default function ManualProfileGeneratorView({
   const [roleName, setRoleName] = useState("");
   const [disable, setDisable] = useState(false);
   const [lastGenerationTime, setLastGenerationTime] = useState(null);
+  const [driveUrl, setDriveUrl] = useState(null);
+  const [driveError, setDriveError] = useState(null);
   const [copiedField, setCopiedField] = useState(null);
   const [copyPromptLoading, setCopyPromptLoading] = useState(false);
   const [generateError, setGenerateError] = useState(null);
@@ -104,6 +107,8 @@ export default function ManualProfileGeneratorView({
 
     setDisable(true);
     setLastGenerationTime(null);
+    setDriveUrl(null);
+    setDriveError(null);
     setGenerateError(null);
     startTimer();
 
@@ -133,7 +138,12 @@ export default function ManualProfileGeneratorView({
       );
 
       const fallbackFilename = `${profileName?.replace(/\s+/g, "_") || profileSlug}.pdf`;
-      await downloadPdfFromResponse(response, fallbackFilename);
+      const { driveUrl: url, driveError: uploadError } = await downloadPdfFromResponse(
+        response,
+        fallbackFilename
+      );
+      setDriveUrl(url);
+      setDriveError(uploadError);
       setLastGenerationTime(finishElapsed());
     } catch (error) {
       console.error("Generation error:", error);
@@ -412,20 +422,23 @@ export default function ManualProfileGeneratorView({
           ) : null}
 
           {lastGenerationTime ? (
-            <div
-              style={{
-                marginTop: "12px",
-                padding: "10px",
-                background: colors.successBg,
-                border: `1px solid ${colors.successText}`,
-                borderRadius: "6px",
-                color: colors.successText,
-                fontSize: "12px",
-                textAlign: "center",
-              }}
-            >
-              ✓ Resume generated successfully in {lastGenerationTime}s
-            </div>
+            <>
+              <div
+                style={{
+                  marginTop: "12px",
+                  padding: "10px",
+                  background: colors.successBg,
+                  border: `1px solid ${colors.successText}`,
+                  borderRadius: "6px",
+                  color: colors.successText,
+                  fontSize: "12px",
+                  textAlign: "center",
+                }}
+              >
+                ✓ Resume generated successfully in {lastGenerationTime}s
+              </div>
+              <DriveUrlCopy url={driveUrl} error={driveError} colors={colors} />
+            </>
           ) : null}
         </div>
       </div>
