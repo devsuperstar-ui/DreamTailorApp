@@ -7,6 +7,7 @@ import GoogleDriveConnect from "@/components/profile/GoogleDriveConnect";
 import GenerationFooter from "@/components/profile/GenerationFooter";
 import FilenameFields from "@/components/profile/FilenameFields";
 import { getProfileFormStyles } from "@/components/profile/profile-form-styles";
+import { buildManualPrompt } from "@/lib/profile-prompt";
 
 export default function ManualProfileGeneratorView({
   profileSlug,
@@ -22,7 +23,6 @@ export default function ManualProfileGeneratorView({
   const [driveUrl, setDriveUrl] = useState(null);
   const [driveError, setDriveError] = useState(null);
   const [copiedField, setCopiedField] = useState(null);
-  const [copyPromptLoading, setCopyPromptLoading] = useState(false);
   const [generateError, setGenerateError] = useState(null);
   const { elapsedTime, start: startTimer, stop: stopTimer, finishElapsed } = useGenerationTimer();
   const styles = getProfileFormStyles(colors);
@@ -55,30 +55,24 @@ export default function ManualProfileGeneratorView({
   const getLastCompany = () => selectedProfileData?.experience?.[0]?.company || null;
   const getLastRole = () => selectedProfileData?.experience?.[0]?.title || null;
 
+  const promptTemplate = selectedProfileData?.promptTemplate;
+
   const copyPromptToClipboard = async () => {
     if (!jd.trim()) {
       alert("Please enter a job description first");
       return;
     }
-    setCopyPromptLoading(true);
+    if (!promptTemplate) {
+      alert("Prompt template not loaded. Refresh the page.");
+      return;
+    }
     try {
-      const response = await fetch("/api/manual-prompt", {
-        method: "POST",
-        headers: { "Content-Type": "application/json" },
-        body: JSON.stringify({ profile: profileSlug, jd }),
-      });
-      if (!response.ok) {
-        const errData = await response.json().catch(() => ({}));
-        throw new Error(errData.error || "Failed to build prompt");
-      }
-      const { prompt } = await response.json();
+      const prompt = buildManualPrompt(selectedProfileData, jd, promptTemplate);
       await navigator.clipboard.writeText(prompt);
       setCopiedField("prompt");
       setTimeout(() => setCopiedField(null), 2000);
     } catch (err) {
       alert("Failed to copy prompt: " + err.message);
-    } finally {
-      setCopyPromptLoading(false);
     }
   };
 
@@ -242,20 +236,20 @@ export default function ManualProfileGeneratorView({
             <button
               type="button"
               onClick={copyPromptToClipboard}
-              disabled={copyPromptLoading || !jd.trim()}
+              disabled={!jd.trim() || !promptTemplate}
               style={{
                 width: "100%",
                 padding: "10px",
                 fontWeight: 600,
                 fontSize: "13px",
                 color: colors.buttonText,
-                background: copyPromptLoading || !jd.trim() ? colors.buttonDisabled : colors.buttonBg,
+                background: !jd.trim() || !promptTemplate ? colors.buttonDisabled : colors.buttonBg,
                 border: "none",
                 borderRadius: "6px",
-                cursor: copyPromptLoading || !jd.trim() ? "not-allowed" : "pointer",
+                cursor: !jd.trim() || !promptTemplate ? "not-allowed" : "pointer",
               }}
             >
-              {copiedField === "prompt" ? "Copied" : copyPromptLoading ? "…" : "Copy prompt"}
+              {copiedField === "prompt" ? "Copied" : "Copy prompt"}
             </button>
           </div>
 

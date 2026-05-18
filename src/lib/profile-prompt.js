@@ -1,8 +1,6 @@
-import fs from "fs";
-import { getPromptForProfile } from "./profile-template-mapping";
-import { getPromptPath, defaultPromptPath } from "./paths";
+/** Client-safe prompt building (no Node fs). */
 
-function processTemplate(template, variables) {
+export function applyPromptVariables(template, variables) {
   let out = template;
   for (const [key, value] of Object.entries(variables)) {
     out = out.replace(new RegExp(`\\{\\{${key}\\}\\}`, "g"), String(value ?? ""));
@@ -53,16 +51,10 @@ export function buildPromptVariables(profileData, jd) {
   };
 }
 
-export function loadPromptForProfile(profileSlug, variables) {
-  const promptName = getPromptForProfile(profileSlug);
-  const specific = getPromptPath(promptName);
-  const fallback = defaultPromptPath;
-  const filePath = fs.existsSync(specific) ? specific : fallback;
-  if (!fs.existsSync(filePath)) {
-    throw new Error(`Prompt file missing: ${filePath}`);
+/** Build the ChatGPT prompt in the browser (template loaded once with the profile). */
+export function buildManualPrompt(profileData, jd, promptTemplate) {
+  if (!promptTemplate?.trim()) {
+    throw new Error("Prompt template not loaded");
   }
-  if (!fs.existsSync(specific)) {
-    console.log(`Using default prompt (${promptName}.txt not found)`);
-  }
-  return processTemplate(fs.readFileSync(filePath, "utf-8"), variables);
+  return applyPromptVariables(promptTemplate, buildPromptVariables(profileData, jd));
 }

@@ -4,7 +4,7 @@ import { callAI } from "@/lib/ai-service";
 import { getTemplateForProfile, getProfileBySlug } from "@/lib/profile-template-mapping";
 import { buildResumePdfData } from "@/lib/profile-utils";
 import { sanitizeResumeContentForPdf } from "@/lib/sanitize-resume-content";
-import { loadPromptForProfile, buildPromptVariables } from "@/lib/profile-prompt";
+import { loadPromptForProfile, buildPromptVariables } from "@/lib/profile-prompt-server";
 import {
   makeConcisePrompt,
   extractJsonObjectString,

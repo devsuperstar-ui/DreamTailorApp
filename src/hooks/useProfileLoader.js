@@ -4,7 +4,7 @@ import { useState, useEffect } from "react";
  * Resolves profile slug → JSON via API. Mapping module is dynamically imported
  * so the home page route does not pull profile-template-mapping into its bundle.
  */
-export function useProfileLoader(profileSlug, router, redirectPath = "/") {
+export function useProfileLoader(profileSlug, router, redirectPath = "/", { includePromptTemplate = false } = {}) {
   const [loading, setLoading] = useState(true);
   const [profileName, setProfileName] = useState("");
   const [selectedProfileData, setSelectedProfileData] = useState(null);
@@ -30,8 +30,12 @@ export function useProfileLoader(profileSlug, router, redirectPath = "/") {
       setProfileName(profileNameFromSlug);
 
       try {
+        const promptQs =
+          includePromptTemplate && profileSlug
+            ? `?includePrompt=1&slug=${encodeURIComponent(String(profileSlug))}`
+            : "";
         const response = await fetch(
-          `/api/profiles/${encodeURIComponent(profileNameFromSlug)}`
+          `/api/profiles/${encodeURIComponent(profileNameFromSlug)}${promptQs}`
         );
         if (!response.ok) {
           if (response.status === 404) {
@@ -55,7 +59,7 @@ export function useProfileLoader(profileSlug, router, redirectPath = "/") {
     return () => {
       cancelled = true;
     };
-  }, [profileSlug, router, redirectPath]);
+  }, [profileSlug, router, redirectPath, includePromptTemplate]);
 
   return { loading, profileName, selectedProfileData };
 }

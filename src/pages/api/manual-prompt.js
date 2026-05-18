@@ -1,6 +1,6 @@
 import fs from "fs";
 import { getProfileBySlug } from "@/lib/profile-template-mapping";
-import { loadPromptForProfile, buildPromptVariables } from "@/lib/profile-prompt";
+import { loadPromptForProfile, buildPromptVariables } from "@/lib/profile-prompt-server";
 import { getResumePath } from "@/lib/paths";
 
 /**

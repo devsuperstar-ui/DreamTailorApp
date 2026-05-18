@@ -16,7 +16,8 @@ export default function ManualProfilePage() {
   const { loading, profileName, selectedProfileData } = useProfileLoader(
     profileSlug,
     router,
-    "/manual"
+    "/manual",
+    { includePromptTemplate: true }
   );
 
   const isBootstrapping =
