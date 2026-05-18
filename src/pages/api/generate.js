@@ -129,7 +129,9 @@ ${fragment}`;
     );
     const pdfBuffer = await renderPdfBuffer(TemplateComponent, templateData, AI_PDF_RENDER_TIMEOUT_MS);
     const fileName = pdfAttachmentFilename(resumeName, companyName, roleName);
-    await sendPdfResponseWithDrive(res, pdfBuffer, fileName);
+    await sendPdfResponseWithDrive(res, pdfBuffer, fileName, {
+      profileName: profileData.name || resumeName,
+    });
   } catch (err) {
     console.error("PDF generation error:", err);
     if (!res.headersSent) {

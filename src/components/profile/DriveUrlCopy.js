@@ -24,104 +24,92 @@ export default function DriveUrlCopy({ url, error, colors }) {
   if (!url && !error) return null;
 
   if (error && !url) {
+    const showConnect = error.includes("/api/google-drive/auth");
     return (
       <div
         style={{
-          marginTop: "12px",
           padding: "10px 12px",
-          background: "rgba(234, 179, 8, 0.1)",
-          border: "1px solid #eab308",
+          background: "rgba(234, 179, 8, 0.08)",
+          border: "1px solid rgba(234, 179, 8, 0.4)",
           borderRadius: "6px",
-          color: "#eab308",
           fontSize: "12px",
+          color: "#eab308",
+          lineHeight: 1.4,
+          wordBreak: "break-word",
         }}
       >
-        PDF downloaded, but Google Drive upload failed: {error}
+        Drive upload failed
+        {showConnect && (
+          <>
+            {" · "}
+            <a href="/api/google-drive/auth" style={{ color: "#eab308", fontWeight: 600 }}>
+              Connect
+            </a>
+          </>
+        )}
+        {!showConnect && error.length < 120 ? `: ${error}` : null}
       </div>
     );
   }
 
   return (
-    <div
-      style={{
-        marginTop: "12px",
-        padding: "12px",
-        background: colors.infoBg,
-        border: `1px solid ${colors.infoText}`,
-        borderRadius: "6px",
-      }}
-    >
-      <div
+    <div style={{ display: "flex", gap: "6px", alignItems: "stretch" }}>
+      <input
+        type="text"
+        readOnly
+        value={url}
+        onFocus={(e) => e.target.select()}
+        aria-label="Drive link"
         style={{
-          fontSize: "11px",
+          flex: 1,
+          minWidth: 0,
+          padding: "8px 10px",
+          fontSize: "12px",
+          fontFamily: "inherit",
+          color: colors.text,
+          background: colors.inputBg,
+          border: `1px solid ${colors.inputBorder}`,
+          borderRadius: "6px",
+          boxSizing: "border-box",
+        }}
+      />
+      <button
+        type="button"
+        onClick={copyUrl}
+        style={{
+          flexShrink: 0,
+          padding: "8px 12px",
+          fontSize: "12px",
           fontWeight: "600",
-          color: colors.infoText,
-          marginBottom: "8px",
-          textTransform: "uppercase",
-          letterSpacing: "0.02em",
+          color: colors.buttonText,
+          background: copied ? colors.successText : colors.buttonBg,
+          border: "none",
+          borderRadius: "6px",
+          cursor: "pointer",
         }}
       >
-        Google Drive link
-      </div>
-      <div style={{ display: "flex", gap: "8px", alignItems: "stretch" }}>
-        <input
-          type="text"
-          readOnly
-          value={url}
-          onFocus={(e) => e.target.select()}
-          style={{
-            flex: 1,
-            minWidth: 0,
-            padding: "8px 10px",
-            fontSize: "12px",
-            fontFamily: "inherit",
-            color: colors.text,
-            background: colors.inputBg,
-            border: `1px solid ${colors.inputBorder}`,
-            borderRadius: "6px",
-            boxSizing: "border-box",
-          }}
-        />
-        <button
-          type="button"
-          onClick={copyUrl}
-          style={{
-            flexShrink: 0,
-            padding: "8px 14px",
-            fontSize: "12px",
-            fontWeight: "600",
-            color: colors.buttonText,
-            background: copied ? colors.successText : colors.buttonBg,
-            border: "none",
-            borderRadius: "6px",
-            cursor: "pointer",
-            whiteSpace: "nowrap",
-          }}
-        >
-          {copied ? "Copied!" : "Copy"}
-        </button>
-        <a
-          href={url}
-          target="_blank"
-          rel="noopener noreferrer"
-          style={{
-            flexShrink: 0,
-            display: "flex",
-            alignItems: "center",
-            padding: "8px 12px",
-            fontSize: "12px",
-            fontWeight: "600",
-            color: colors.linkColor,
-            background: colors.inputBg,
-            border: `1px solid ${colors.inputBorder}`,
-            borderRadius: "6px",
-            textDecoration: "none",
-            whiteSpace: "nowrap",
-          }}
-        >
-          Open
-        </a>
-      </div>
+        {copied ? "Copied" : "Copy"}
+      </button>
+      <a
+        href={url}
+        target="_blank"
+        rel="noopener noreferrer"
+        style={{
+          flexShrink: 0,
+          display: "flex",
+          alignItems: "center",
+          padding: "8px 10px",
+          fontSize: "12px",
+          fontWeight: "600",
+          color: colors.linkColor,
+          background: colors.inputBg,
+          border: `1px solid ${colors.inputBorder}`,
+          borderRadius: "6px",
+          textDecoration: "none",
+        }}
+      >
+        Open
+      </a>
     </div>
   );
 }

@@ -3,7 +3,10 @@ import { loadPdfDownload } from "@/lib/load-pdf-download";
 import { useGenerationTimer } from "@/hooks/useGenerationTimer";
 import { profileColors as colors } from "@/lib/theme-colors";
 import ProfileModeSwitch from "@/components/profile/ProfileModeSwitch";
-import DriveUrlCopy from "@/components/profile/DriveUrlCopy";
+import GoogleDriveConnect from "@/components/profile/GoogleDriveConnect";
+import GenerationFooter from "@/components/profile/GenerationFooter";
+import FilenameFields from "@/components/profile/FilenameFields";
+import { getProfileFormStyles } from "@/components/profile/profile-form-styles";
 
 export default function ProfileGeneratorView({
   profileSlug,
@@ -19,6 +22,7 @@ export default function ProfileGeneratorView({
   const [driveError, setDriveError] = useState(null);
   const [copiedField, setCopiedField] = useState(null);
   const { elapsedTime, start: startTimer, stop: stopTimer, finishElapsed } = useGenerationTimer();
+  const styles = getProfileFormStyles(colors);
 
   const copyToClipboard = async (text, fieldName) => {
     if (!text) return;
@@ -26,7 +30,7 @@ export default function ProfileGeneratorView({
       await navigator.clipboard.writeText(text);
       setCopiedField(fieldName);
       setTimeout(() => setCopiedField(null), 2000);
-    } catch (err) {
+    } catch {
       const textArea = document.createElement("textarea");
       textArea.value = text;
       textArea.style.position = "fixed";
@@ -98,31 +102,19 @@ export default function ProfileGeneratorView({
     { key: "email", label: "Email", value: selectedProfileData.email, icon: "📧" },
     { key: "phone", label: "Phone", value: selectedProfileData.phone, icon: "📞" },
     { key: "location", label: "Address", value: selectedProfileData.location, icon: "📍" },
-    { key: "postalCode", label: "Postal Code", value: selectedProfileData.postalCode, icon: "✉️" },
-    { key: "lastCompany", label: "Last Company", value: getLastCompany(), icon: "🏢" },
-    { key: "lastRole", label: "Last Role", value: getLastRole(), icon: "💼" },
-    { key: "linkedin", label: "LinkedIn", value: selectedProfileData.linkedin, icon: "💼" },
+    { key: "postalCode", label: "Postal", value: selectedProfileData.postalCode, icon: "✉️" },
+    { key: "lastCompany", label: "Company", value: getLastCompany(), icon: "🏢" },
+    { key: "lastRole", label: "Role", value: getLastRole(), icon: "💼" },
+    { key: "linkedin", label: "LinkedIn", value: selectedProfileData.linkedin, icon: "🔗" },
     { key: "github", label: "GitHub", value: selectedProfileData.github, icon: "💻" },
   ].filter((field) => field.value);
 
-  const filenameInputStyle = {
-    width: "100%",
-    padding: "8px 12px",
-    fontSize: "13px",
-    fontFamily: "inherit",
-    color: colors.text,
-    background: colors.inputBg,
-    border: `1px solid ${colors.inputBorder}`,
-    borderRadius: "6px",
-    boxSizing: "border-box",
-  };
-
-  const filenameLabelStyle = {
-    display: "block",
-    fontSize: "12px",
-    fontWeight: "500",
-    color: colors.textSecondary,
-    marginBottom: "4px",
+  const cardStyle = {
+    background: colors.cardBg,
+    borderRadius: "8px",
+    border: `1px solid ${disable ? colors.infoText : colors.cardBorder}`,
+    padding: "16px",
+    transition: "border-color 0.2s ease",
   };
 
   return (
@@ -134,40 +126,21 @@ export default function ProfileGeneratorView({
         fontFamily:
           "-apple-system, BlinkMacSystemFont, 'Segoe UI', 'Roboto', 'Oxygen', 'Ubuntu', 'Cantarell', sans-serif",
         padding: "16px",
-        transition: "background 0.3s ease, color 0.3s ease",
       }}
     >
       <div style={{ maxWidth: "800px", margin: "0 auto" }}>
-        <div
-          style={{
-            background: colors.cardBg,
-            borderRadius: "8px",
-            border: `1px solid ${colors.cardBorder}`,
-            padding: "16px",
-            marginBottom: "12px",
-            boxShadow: "0 2px 4px rgba(0, 0, 0, 0.2)",
-          }}
-        >
+        <div style={{ ...cardStyle, marginBottom: "12px", boxShadow: "0 2px 4px rgba(0, 0, 0, 0.2)" }}>
           <div
             style={{
               display: "flex",
               justifyContent: "space-between",
               alignItems: "flex-start",
               gap: "12px",
-              marginBottom: "12px",
+              marginBottom: quickCopyFields.length ? "12px" : 0,
             }}
           >
             <div>
-              <h1
-                style={{
-                  fontSize: "18px",
-                  fontWeight: "600",
-                  color: colors.text,
-                  margin: "0 0 2px 0",
-                }}
-              >
-                {profileName}
-              </h1>
+              <h1 style={{ fontSize: "18px", fontWeight: "600", margin: "0 0 2px 0" }}>{profileName}</h1>
               {selectedProfileData.title && (
                 <p style={{ fontSize: "12px", color: colors.textSecondary, margin: 0 }}>
                   {selectedProfileData.title}
@@ -181,8 +154,8 @@ export default function ProfileGeneratorView({
             <div
               style={{
                 display: "grid",
-                gridTemplateColumns: "repeat(auto-fill, minmax(90px, 1fr))",
-                gap: "8px",
+                gridTemplateColumns: "repeat(auto-fill, minmax(72px, 1fr))",
+                gap: "6px",
                 paddingTop: "12px",
                 borderTop: `1px solid ${colors.cardBorder}`,
               }}
@@ -192,131 +165,60 @@ export default function ProfileGeneratorView({
                   key={key}
                   type="button"
                   onClick={() => copyToClipboard(value, key)}
+                  title={label}
                   style={{
-                    padding: "8px 6px",
+                    padding: "8px 4px",
                     background: copiedField === key ? colors.copyBg : colors.inputBg,
                     border: `1px solid ${copiedField === key ? colors.infoText : colors.inputBorder}`,
                     borderRadius: "6px",
                     cursor: "pointer",
-                    textAlign: "center",
                     display: "flex",
                     flexDirection: "column",
                     alignItems: "center",
-                    gap: "4px",
-                    minHeight: "60px",
-                    justifyContent: "center",
+                    gap: "2px",
+                    minHeight: "52px",
                   }}
                 >
-                  <span style={{ fontSize: "16px" }}>{icon}</span>
-                  <div
+                  <span style={{ fontSize: "15px" }}>{icon}</span>
+                  <span
                     style={{
-                      fontSize: "10px",
-                      fontWeight: "500",
+                      fontSize: "9px",
+                      fontWeight: 500,
                       color: copiedField === key ? colors.successText : colors.textMuted,
-                      textTransform: "uppercase",
                     }}
                   >
-                    {copiedField === key ? "Copied!" : label}
-                  </div>
+                    {copiedField === key ? "✓" : label}
+                  </span>
                 </button>
               ))}
             </div>
           )}
         </div>
 
-        <div
-          style={{
-            background: colors.cardBg,
-            borderRadius: "8px",
-            border: `1px solid ${colors.cardBorder}`,
-            padding: "16px",
-          }}
-        >
-          <div style={{ marginBottom: "16px" }}>
-            <label
-              style={{
-                display: "block",
-                fontSize: "11px",
-                fontWeight: "600",
-                color: colors.textSecondary,
-                marginBottom: "6px",
-                textTransform: "uppercase",
-              }}
-            >
-              Job Description
-            </label>
+        <div style={cardStyle}>
+          <div style={{ marginBottom: "14px" }}>
+            <label style={styles.label}>Job description</label>
             <textarea
               value={jd}
               onChange={(e) => setJd(e.target.value)}
-              placeholder="Paste the job description here..."
+              placeholder="Paste job description…"
               rows={10}
-              style={{
-                width: "100%",
-                padding: "10px 12px",
-                fontSize: "13px",
-                fontFamily: "inherit",
-                color: colors.text,
-                background: colors.textareaBg,
-                border: `1px solid ${colors.inputBorder}`,
-                borderRadius: "6px",
-                outline: "none",
-                resize: "vertical",
-                minHeight: "180px",
-                boxSizing: "border-box",
-              }}
+              style={{ ...styles.textarea, minHeight: "160px" }}
             />
           </div>
 
-          <div style={{ marginBottom: "16px" }}>
-            <p
-              style={{
-                fontSize: "11px",
-                fontWeight: "600",
-                color: colors.textSecondary,
-                margin: "0 0 4px",
-                textTransform: "uppercase",
-                letterSpacing: "0.02em",
-              }}
-            >
-              PDF filename
-            </p>
-            <p style={{ fontSize: "11px", color: colors.textMuted, margin: "0 0 10px" }}>
-              Optional — adds company and role to the downloaded file name
-            </p>
-            <div
-              style={{
-                display: "grid",
-                gridTemplateColumns: "repeat(auto-fit, minmax(160px, 1fr))",
-                gap: "12px",
-              }}
-            >
-              <div>
-                <label htmlFor="api-resume-company" style={filenameLabelStyle}>
-                  Company
-                </label>
-                <input
-                  id="api-resume-company"
-                  type="text"
-                  value={companyName}
-                  onChange={(e) => setCompanyName(e.target.value)}
-                  placeholder="e.g. Google"
-                  style={filenameInputStyle}
-                />
-              </div>
-              <div>
-                <label htmlFor="api-resume-role" style={filenameLabelStyle}>
-                  Role
-                </label>
-                <input
-                  id="api-resume-role"
-                  type="text"
-                  value={roleName}
-                  onChange={(e) => setRoleName(e.target.value)}
-                  placeholder="e.g. Senior Software Engineer"
-                  style={filenameInputStyle}
-                />
-              </div>
-            </div>
+          <GoogleDriveConnect colors={colors} />
+
+          <div style={{ marginBottom: "14px" }}>
+            <FilenameFields
+              idPrefix="api-resume"
+              companyName={companyName}
+              roleName={roleName}
+              onCompanyChange={setCompanyName}
+              onRoleChange={setRoleName}
+              colors={colors}
+              styles={styles}
+            />
           </div>
 
           <button
@@ -325,7 +227,7 @@ export default function ProfileGeneratorView({
             disabled={disable || !jd.trim()}
             style={{
               width: "100%",
-              padding: "10px 16px",
+              padding: "11px 16px",
               fontSize: "14px",
               fontWeight: "600",
               color: colors.buttonText,
@@ -333,30 +235,18 @@ export default function ProfileGeneratorView({
               border: "none",
               borderRadius: "6px",
               cursor: disable || !jd.trim() ? "not-allowed" : "pointer",
-              marginBottom: "12px",
             }}
           >
-            {disable ? `Generating... (${elapsedTime}s)` : "Generate Resume PDF"}
+            {disable ? `Generating · ${elapsedTime}s` : "Generate PDF"}
           </button>
 
-          {lastGenerationTime ? (
-            <>
-              <div
-                style={{
-                  padding: "10px 12px",
-                  background: colors.successBg,
-                  border: `1px solid ${colors.successText}`,
-                  borderRadius: "6px",
-                  color: colors.successText,
-                  fontSize: "12px",
-                  textAlign: "center",
-                }}
-              >
-                ✓ Resume generated successfully in {lastGenerationTime}s
-              </div>
-              <DriveUrlCopy url={driveUrl} error={driveError} colors={colors} />
-            </>
-          ) : null}
+          <GenerationFooter
+            disable={disable}
+            lastGenerationTime={lastGenerationTime}
+            driveUrl={driveUrl}
+            driveError={driveError}
+            colors={colors}
+          />
         </div>
       </div>
     </div>

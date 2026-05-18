@@ -1,6 +1,10 @@
 import React from "react";
 import { renderToBuffer } from "@react-pdf/renderer";
-import { isGoogleDriveConfigured, uploadPdfToGoogleDrive } from "@/lib/google-drive";
+import {
+  getGoogleDriveAuthMode,
+  isGoogleDriveConfigured,
+  uploadPdfToGoogleDrive,
+} from "@/lib/google-drive";
 
 export const MANUAL_PDF_RENDER_TIMEOUT_MS = 180_000;
 export const AI_PDF_RENDER_TIMEOUT_MS = 120_000;
@@ -43,21 +47,27 @@ export function sendPdfResponse(res, pdfBuffer, fileName, { driveUrl = null, dri
     res.setHeader("X-Google-Drive-Url", driveUrl);
   }
   if (driveError) {
-    res.setHeader("X-Google-Drive-Error", driveError.slice(0, 500));
+    res.setHeader("X-Google-Drive-Error", driveError.slice(0, 1500));
   }
   res.status(200).send(pdfBuffer);
 }
 
 /** Render PDF to client and upload a copy to Google Drive when configured. */
-export async function sendPdfResponseWithDrive(res, pdfBuffer, fileName) {
+export async function sendPdfResponseWithDrive(res, pdfBuffer, fileName, { profileName } = {}) {
   let driveUrl = null;
   let driveError = null;
 
-  if (isGoogleDriveConfigured()) {
+  const driveMode = getGoogleDriveAuthMode();
+  if (driveMode === "oauth_pending" && process.env.GOOGLE_DRIVE_FOLDER_ID?.trim()) {
+    driveError =
+      "Google Drive not connected. Open /api/google-drive/auth in your browser, sign in with Gmail, and add GOOGLE_OAUTH_REFRESH_TOKEN to .env.";
+  } else if (isGoogleDriveConfigured()) {
     try {
-      const uploaded = await uploadPdfToGoogleDrive(pdfBuffer, fileName);
+      const uploaded = await uploadPdfToGoogleDrive(pdfBuffer, fileName, { profileName });
       driveUrl = uploaded.url;
-      console.log(`[google-drive] uploaded ${fileName} -> ${driveUrl}`);
+      console.log(
+        `[google-drive] uploaded ${uploaded.drivePath ? `${uploaded.drivePath}/` : ""}${fileName} -> ${driveUrl}`
+      );
     } catch (err) {
       driveError = err?.message || "Google Drive upload failed";
       console.error("[google-drive] upload failed:", err);

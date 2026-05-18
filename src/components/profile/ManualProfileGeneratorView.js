@@ -3,7 +3,10 @@ import { loadPdfDownload } from "@/lib/load-pdf-download";
 import { useGenerationTimer } from "@/hooks/useGenerationTimer";
 import { profileColors as colors } from "@/lib/theme-colors";
 import ProfileModeSwitch from "@/components/profile/ProfileModeSwitch";
-import DriveUrlCopy from "@/components/profile/DriveUrlCopy";
+import GoogleDriveConnect from "@/components/profile/GoogleDriveConnect";
+import GenerationFooter from "@/components/profile/GenerationFooter";
+import FilenameFields from "@/components/profile/FilenameFields";
+import { getProfileFormStyles } from "@/components/profile/profile-form-styles";
 
 export default function ManualProfileGeneratorView({
   profileSlug,
@@ -22,28 +25,8 @@ export default function ManualProfileGeneratorView({
   const [copyPromptLoading, setCopyPromptLoading] = useState(false);
   const [generateError, setGenerateError] = useState(null);
   const { elapsedTime, start: startTimer, stop: stopTimer, finishElapsed } = useGenerationTimer();
-
+  const styles = getProfileFormStyles(colors);
   const expectedJobCount = selectedProfileData?.experience?.length ?? 0;
-
-  const filenameInputStyle = {
-    width: "100%",
-    padding: "8px 12px",
-    fontSize: "13px",
-    fontFamily: "inherit",
-    color: colors.text,
-    background: colors.inputBg,
-    border: `1px solid ${colors.inputBorder}`,
-    borderRadius: "6px",
-    boxSizing: "border-box",
-  };
-
-  const filenameLabelStyle = {
-    display: "block",
-    fontSize: "12px",
-    fontWeight: "500",
-    color: colors.textSecondary,
-    marginBottom: "4px",
-  };
 
   useEffect(() => {
     loadPdfDownload().catch(() => {});
@@ -101,7 +84,7 @@ export default function ManualProfileGeneratorView({
 
   const handleGenerate = async () => {
     if (!chatgptResponse.trim()) {
-      alert("Please paste the ChatGPT response (JSON) first");
+      alert("Paste the AI response (JSON) first");
       return;
     }
 
@@ -116,11 +99,7 @@ export default function ManualProfileGeneratorView({
     try {
       const pdfDownload = await loadPdfDownload();
       formatFetchError = pdfDownload.formatFetchError;
-      const {
-        fetchWithTimeout,
-        downloadPdfFromResponse,
-        MANUAL_GENERATE_TIMEOUT_MS,
-      } = pdfDownload;
+      const { fetchWithTimeout, downloadPdfFromResponse, MANUAL_GENERATE_TIMEOUT_MS } = pdfDownload;
 
       const response = await fetchWithTimeout(
         "/api/generate-manual",
@@ -161,12 +140,32 @@ export default function ManualProfileGeneratorView({
     { key: "email", label: "Email", value: selectedProfileData.email, icon: "📧" },
     { key: "phone", label: "Phone", value: selectedProfileData.phone, icon: "📞" },
     { key: "location", label: "Address", value: selectedProfileData.location, icon: "📍" },
-    { key: "postalCode", label: "Postal Code", value: selectedProfileData.postalCode, icon: "✉️" },
-    { key: "lastCompany", label: "Last Company", value: getLastCompany(), icon: "🏢" },
-    { key: "lastRole", label: "Last Role", value: getLastRole(), icon: "💼" },
-    { key: "linkedin", label: "LinkedIn", value: selectedProfileData.linkedin, icon: "💼" },
+    { key: "postalCode", label: "Postal", value: selectedProfileData.postalCode, icon: "✉️" },
+    { key: "lastCompany", label: "Company", value: getLastCompany(), icon: "🏢" },
+    { key: "lastRole", label: "Role", value: getLastRole(), icon: "💼" },
+    { key: "linkedin", label: "LinkedIn", value: selectedProfileData.linkedin, icon: "🔗" },
     { key: "github", label: "GitHub", value: selectedProfileData.github, icon: "💻" },
   ].filter((f) => f.value);
+
+  const cardStyle = {
+    background: colors.cardBg,
+    borderRadius: "8px",
+    border: `1px solid ${disable ? colors.infoText : colors.cardBorder}`,
+    padding: "16px",
+    transition: "border-color 0.2s ease",
+  };
+
+  const pillStyle = {
+    marginLeft: "8px",
+    padding: "2px 6px",
+    fontSize: "10px",
+    fontWeight: "600",
+    color: colors.textMuted,
+    background: colors.inputBg,
+    borderRadius: "4px",
+    textTransform: "none",
+    letterSpacing: 0,
+  };
 
   return (
     <div
@@ -174,37 +173,21 @@ export default function ManualProfileGeneratorView({
         minHeight: "100vh",
         background: colors.bg,
         color: colors.text,
-        fontFamily:
-          "-apple-system, BlinkMacSystemFont, 'Segoe UI', 'Roboto', sans-serif",
+        fontFamily: "-apple-system, BlinkMacSystemFont, 'Segoe UI', 'Roboto', sans-serif",
         padding: "16px",
       }}
     >
       <div style={{ maxWidth: "800px", margin: "0 auto" }}>
-        <div
-          style={{
-            background: colors.cardBg,
-            borderRadius: "8px",
-            border: `1px solid ${colors.cardBorder}`,
-            padding: "16px",
-            marginBottom: "12px",
-          }}
-        >
+        <div style={{ ...cardStyle, marginBottom: "12px" }}>
           <div
             style={{
               display: "flex",
               justifyContent: "space-between",
               alignItems: "center",
-              marginBottom: "12px",
+              marginBottom: quickCopyFields.length ? "12px" : 0,
             }}
           >
-            <div>
-              <h1 style={{ fontSize: "18px", fontWeight: 600, color: colors.text, margin: "0 0 2px" }}>
-                {profileName}
-              </h1>
-              <p style={{ fontSize: "12px", color: colors.textMuted, margin: 0 }}>
-                No API key • Use ChatGPT manually
-              </p>
-            </div>
+            <h1 style={{ fontSize: "18px", fontWeight: 600, margin: 0 }}>{profileName}</h1>
             <ProfileModeSwitch profileSlug={profileSlug} mode="manual" />
           </div>
 
@@ -212,7 +195,7 @@ export default function ManualProfileGeneratorView({
             <div
               style={{
                 display: "grid",
-                gridTemplateColumns: "repeat(auto-fill, minmax(90px, 1fr))",
+                gridTemplateColumns: "repeat(auto-fill, minmax(72px, 1fr))",
                 gap: "6px",
                 paddingTop: "10px",
                 borderTop: `1px solid ${colors.cardBorder}`,
@@ -223,18 +206,19 @@ export default function ManualProfileGeneratorView({
                   key={key}
                   type="button"
                   onClick={() => copyToClipboard(value, key)}
+                  title={label}
                   style={{
                     padding: "6px 4px",
                     background: copiedField === key ? colors.copyBg : colors.inputBg,
                     border: `1px solid ${colors.inputBorder}`,
                     borderRadius: "6px",
                     cursor: "pointer",
-                    minHeight: "44px",
+                    minHeight: "48px",
                   }}
                 >
                   <span style={{ fontSize: "14px" }}>{icon}</span>
                   <div style={{ fontSize: "9px", color: colors.textMuted }}>
-                    {copiedField === key ? "Copied!" : label}
+                    {copiedField === key ? "✓" : label}
                   </div>
                 </button>
               ))}
@@ -242,50 +226,28 @@ export default function ManualProfileGeneratorView({
           )}
         </div>
 
-        <div
-          style={{
-            background: colors.cardBg,
-            borderRadius: "8px",
-            border: `1px solid ${colors.cardBorder}`,
-            padding: "16px",
-          }}
-        >
+        <div style={cardStyle}>
           <div style={{ marginBottom: "12px" }}>
-            <label style={{ fontSize: "11px", fontWeight: 600, color: colors.textSecondary }}>
-              Step 1 — Job Description
-            </label>
+            <label style={styles.label}>Job description</label>
             <textarea
               value={jd}
               onChange={(e) => setJd(e.target.value)}
-              placeholder="Paste the job description here..."
+              placeholder="Paste job description…"
               rows={5}
-              style={{
-                width: "100%",
-                marginTop: "4px",
-                padding: "8px",
-                fontSize: "13px",
-                color: colors.text,
-                background: colors.textareaBg,
-                border: `1px solid ${colors.inputBorder}`,
-                borderRadius: "6px",
-                boxSizing: "border-box",
-              }}
+              style={{ ...styles.textarea, minHeight: "100px" }}
             />
           </div>
 
           <div style={{ marginBottom: "12px" }}>
-            <label style={{ fontSize: "11px", fontWeight: 600, color: colors.textSecondary }}>
-              Step 2 — Copy Prompt for ChatGPT
-            </label>
             <button
               type="button"
               onClick={copyPromptToClipboard}
               disabled={copyPromptLoading || !jd.trim()}
               style={{
                 width: "100%",
-                marginTop: "4px",
-                padding: "8px",
+                padding: "10px",
                 fontWeight: 600,
+                fontSize: "13px",
                 color: colors.buttonText,
                 background: copyPromptLoading || !jd.trim() ? colors.buttonDisabled : colors.buttonBg,
                 border: "none",
@@ -293,94 +255,36 @@ export default function ManualProfileGeneratorView({
                 cursor: copyPromptLoading || !jd.trim() ? "not-allowed" : "pointer",
               }}
             >
-              {copiedField === "prompt"
-                ? "✓ Copied! Paste into ChatGPT"
-                : copyPromptLoading
-                  ? "Building prompt..."
-                  : "Copy Prompt (Profile + JD) → Paste in ChatGPT"}
+              {copiedField === "prompt" ? "Copied" : copyPromptLoading ? "…" : "Copy prompt"}
             </button>
           </div>
 
           <div style={{ marginBottom: "12px" }}>
-            <label style={{ fontSize: "11px", fontWeight: 600, color: colors.textSecondary }}>
-              Step 3 — Paste ChatGPT Response (JSON)
+            <label style={styles.label}>
+              AI response
+              {expectedJobCount > 0 && <span style={pillStyle}>{expectedJobCount} jobs</span>}
             </label>
-            <p style={{ fontSize: "11px", color: colors.textMuted, margin: "4px 0 6px" }}>
-              Profile <strong>{profileName}</strong> has <strong>{expectedJobCount}</strong> job(s). JSON{" "}
-              <code style={{ fontSize: "10px" }}>experience</code> must have exactly{" "}
-              <strong>{expectedJobCount}</strong> entries (≤5 bullets each). Summary: one strong paragraph ~130–165 words.
-              James Davis JSON → profile ID <strong>jd1</strong>.
-            </p>
             <textarea
               value={chatgptResponse}
               onChange={(e) => setChatgptResponse(e.target.value)}
-              placeholder='Paste JSON from ChatGPT: {"title":"...","summary":"...","skills":{},"experience":[]}'
+              placeholder='{"title":"…","summary":"…","skills":{},"experience":[]}'
               rows={8}
-              style={{
-                width: "100%",
-                marginTop: "4px",
-                padding: "8px",
-                fontSize: "13px",
-                fontFamily: "monospace",
-                color: colors.text,
-                background: colors.textareaBg,
-                border: `1px solid ${colors.inputBorder}`,
-                borderRadius: "6px",
-                boxSizing: "border-box",
-              }}
+              style={{ ...styles.textarea, fontFamily: "monospace", fontSize: "12px" }}
             />
           </div>
 
-          <div style={{ marginBottom: "16px" }}>
-            <p
-              style={{
-                fontSize: "11px",
-                fontWeight: "600",
-                color: colors.textSecondary,
-                margin: "0 0 4px",
-                textTransform: "uppercase",
-                letterSpacing: "0.02em",
-              }}
-            >
-              PDF filename
-            </p>
-            <p style={{ fontSize: "11px", color: colors.textMuted, margin: "0 0 10px" }}>
-              Optional — adds company and role to the downloaded file name
-            </p>
-            <div
-              style={{
-                display: "grid",
-                gridTemplateColumns: "repeat(auto-fit, minmax(160px, 1fr))",
-                gap: "12px",
-              }}
-            >
-              <div>
-                <label htmlFor="manual-resume-company" style={filenameLabelStyle}>
-                  Company
-                </label>
-                <input
-                  id="manual-resume-company"
-                  type="text"
-                  value={companyName}
-                  onChange={(e) => setCompanyName(e.target.value)}
-                  placeholder="e.g. Google"
-                  style={filenameInputStyle}
-                />
-              </div>
-              <div>
-                <label htmlFor="manual-resume-role" style={filenameLabelStyle}>
-                  Role
-                </label>
-                <input
-                  id="manual-resume-role"
-                  type="text"
-                  value={roleName}
-                  onChange={(e) => setRoleName(e.target.value)}
-                  placeholder="e.g. Senior Software Engineer"
-                  style={filenameInputStyle}
-                />
-              </div>
-            </div>
+          <GoogleDriveConnect colors={colors} />
+
+          <div style={{ marginBottom: "14px" }}>
+            <FilenameFields
+              idPrefix="manual-resume"
+              companyName={companyName}
+              roleName={roleName}
+              onCompanyChange={setCompanyName}
+              onRoleChange={setRoleName}
+              colors={colors}
+              styles={styles}
+            />
           </div>
 
           <button
@@ -389,8 +293,9 @@ export default function ManualProfileGeneratorView({
             disabled={disable || !chatgptResponse.trim()}
             style={{
               width: "100%",
-              padding: "8px",
+              padding: "11px",
               fontWeight: 600,
+              fontSize: "14px",
               color: colors.buttonText,
               background: disable || !chatgptResponse.trim() ? colors.buttonDisabled : colors.buttonBg,
               border: "none",
@@ -398,48 +303,22 @@ export default function ManualProfileGeneratorView({
               cursor: disable || !chatgptResponse.trim() ? "not-allowed" : "pointer",
             }}
           >
-            {disable
-              ? elapsedTime < 30
-                ? `Building PDF... (${elapsedTime}s)`
-                : `Building PDF... (${elapsedTime}s — first run in dev can take 1–3 min)`
-              : "Generate Resume PDF"}
+            {disable ? `Building · ${elapsedTime}s` : "Generate PDF"}
           </button>
 
-          {generateError ? (
-            <div
-              style={{
-                marginTop: "12px",
-                padding: "10px",
-                background: "rgba(239, 68, 68, 0.1)",
-                border: "1px solid #ef4444",
-                borderRadius: "6px",
-                color: "#ef4444",
-                fontSize: "12px",
-              }}
-            >
+          {generateError && !disable && (
+            <p style={{ marginTop: "10px", fontSize: "12px", color: "#ef4444", lineHeight: 1.4 }}>
               {generateError}
-            </div>
-          ) : null}
+            </p>
+          )}
 
-          {lastGenerationTime ? (
-            <>
-              <div
-                style={{
-                  marginTop: "12px",
-                  padding: "10px",
-                  background: colors.successBg,
-                  border: `1px solid ${colors.successText}`,
-                  borderRadius: "6px",
-                  color: colors.successText,
-                  fontSize: "12px",
-                  textAlign: "center",
-                }}
-              >
-                ✓ Resume generated successfully in {lastGenerationTime}s
-              </div>
-              <DriveUrlCopy url={driveUrl} error={driveError} colors={colors} />
-            </>
-          ) : null}
+          <GenerationFooter
+            disable={disable}
+            lastGenerationTime={lastGenerationTime}
+            driveUrl={driveUrl}
+            driveError={driveError}
+            colors={colors}
+          />
         </div>
       </div>
     </div>
