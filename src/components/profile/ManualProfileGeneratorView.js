@@ -118,6 +118,10 @@ export default function ManualProfileGeneratorView({
       setDriveUrl(url);
       setDriveError(uploadError);
       setLastGenerationTime(finishElapsed());
+      setJd("");
+      setChatgptResponse("");
+      setCompanyName("");
+      setRoleName("");
     } catch (error) {
       console.error("Generation error:", error);
       stopTimer();

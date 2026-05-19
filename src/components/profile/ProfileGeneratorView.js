@@ -88,6 +88,9 @@ export default function ProfileGeneratorView({
       setDriveUrl(url);
       setDriveError(uploadError);
       setLastGenerationTime(finishElapsed());
+      setJd("");
+      setCompanyName("");
+      setRoleName("");
     } catch (error) {
       console.error("Generation error:", error);
       stopTimer();
