@@ -71,6 +71,16 @@ export const profileTemplateMapping = {
         template: "Resume-Classic-Charcoal",
         prompt: "default"
     },
+    "jp1": {
+        resume: "James Principe",
+        template: "Resume-Executive-Navy",
+        prompt: "james-principe"
+    },
+    "ap1": {
+        resume: "Angelica Penalba",
+        template: "Resume-Executive-Navy",
+        prompt: "james-davis"
+    },
 };
 
 
