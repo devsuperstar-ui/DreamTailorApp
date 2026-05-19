@@ -1,20 +1,20 @@
 {
     "name": "Kenton Brown",
-    "title": "Lead Full Stack Developer",
+    "title": "Senior Full Stack Developer",
     "email": "kenton.brownwork@outlook.com",
     "phone": "+1 (321) 404-7950",
-    "location": "Jacksonville, Florida, United States",
-    "address": "1173 Pecan Park Rd #2301",
-    "postalCode": "32218",
+    "location": "Miami, Florida, United States",
+    "address": "430 NE 158th Street",
+    "postalCode": "33162",
     "linkedin": "https://www.linkedin.com/in/kenton-brown-8687a8323/",
-    "linkedinShow": "",
+    "linkedinShow": "show",
     "website": "",
     "github": "https://github.com/topazcoder",
     "experience": [
         {
             "company": "Blenders",
             "location": "California, United States (Remote)",
-            "title": "Lead Full Stack Developer",
+            "title": "Senior Full Stack Developer",
             "start_date": "Jul 2023",
             "end_date": "Nov 2025",
             "industry": "Consumer Goods / Eyewear & Fashion Retail"

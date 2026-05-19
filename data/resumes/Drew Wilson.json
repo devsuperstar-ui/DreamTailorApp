@@ -1,14 +1,14 @@
 {
   "name": "Drew Wilson",
-  "email": "edw.rey@outlook.com",
-  "phone": "",
-  "location": "",
-  "address": "",
-  "postalCode": "",
+  "email": "drew.wilson.github@outlook.com",
+  "phone": "+1 (701) 581-8283",
+  "location": "Miami Gardens, Florida, United States",
+  "address": " 3020 NW 170th St",
+  "postalCode": "33056",
   "linkedin": "https://linkedin.com/in/drew-wilson-48940b63",
   "linkedinShow": "show",
   "website": "",
-  "github": "",
+  "github": "https://github.com/monsterdev914",
   "experience": [
     {
       "company": "Algolia",
@@ -38,7 +38,7 @@
       "company": "OfficeRnD",
       "industry": "Workplace Management & Coworking Software",
       "location": "Miami, FL",
-      "title": "Junior Software Engineer",
+      "title": "Software Engineer",
       "start_date": "Jun 2015",
       "end_date": "Jun 2016"
     }
@@ -46,7 +46,7 @@
   "education": [
     {
       "degree": "Bachelor of Science in Computer Science",
-      "school": "The College of Saint Rose",
+      "school": "The College of Saint Rose (NY)",
       "start_year": "2011",
       "end_year": "2015"
     }
