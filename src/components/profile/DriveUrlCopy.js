@@ -1,6 +1,6 @@
 import { useState } from "react";
 
-export default function DriveUrlCopy({ url, error, colors }) {
+export default function DriveUrlCopy({ url, fileName, error, colors }) {
   const [copied, setCopied] = useState(false);
 
   const copyUrl = async () => {
@@ -57,9 +57,9 @@ export default function DriveUrlCopy({ url, error, colors }) {
       <input
         type="text"
         readOnly
-        value={url}
+        value={fileName || url}
         onFocus={(e) => e.target.select()}
-        aria-label="Drive link"
+        aria-label="Drive file name"
         style={{
           flex: 1,
           minWidth: 0,

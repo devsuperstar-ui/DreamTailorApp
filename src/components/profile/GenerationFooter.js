@@ -4,6 +4,7 @@ export default function GenerationFooter({
   disable,
   lastGenerationTime,
   driveUrl,
+  driveFileName,
   driveError,
   colors,
 }) {
@@ -26,7 +27,12 @@ export default function GenerationFooter({
         <span>{lastGenerationTime}s</span>
       </div>
       {(driveUrl || driveError) && (
-        <DriveUrlCopy url={driveUrl} error={driveError} colors={colors} />
+        <DriveUrlCopy
+          url={driveUrl}
+          fileName={driveFileName}
+          error={driveError}
+          colors={colors}
+        />
       )}
     </div>
   );

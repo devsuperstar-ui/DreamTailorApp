@@ -21,6 +21,7 @@ export default function ManualProfileGeneratorView({
   const [disable, setDisable] = useState(false);
   const [lastGenerationTime, setLastGenerationTime] = useState(null);
   const [driveUrl, setDriveUrl] = useState(null);
+  const [driveFileName, setDriveFileName] = useState(null);
   const [driveError, setDriveError] = useState(null);
   const [copiedField, setCopiedField] = useState(null);
   const [generateError, setGenerateError] = useState(null);
@@ -85,6 +86,7 @@ export default function ManualProfileGeneratorView({
     setDisable(true);
     setLastGenerationTime(null);
     setDriveUrl(null);
+    setDriveFileName(null);
     setDriveError(null);
     setGenerateError(null);
     startTimer();
@@ -111,11 +113,12 @@ export default function ManualProfileGeneratorView({
       );
 
       const fallbackFilename = `${profileName?.replace(/\s+/g, "_") || profileSlug}.pdf`;
-      const { driveUrl: url, driveError: uploadError } = await downloadPdfFromResponse(
+      const { filename, driveUrl: url, driveError: uploadError } = await downloadPdfFromResponse(
         response,
         fallbackFilename
       );
       setDriveUrl(url);
+      setDriveFileName(url ? filename : null);
       setDriveError(uploadError);
       setLastGenerationTime(finishElapsed());
       setJd("");
@@ -314,6 +317,7 @@ export default function ManualProfileGeneratorView({
             disable={disable}
             lastGenerationTime={lastGenerationTime}
             driveUrl={driveUrl}
+            driveFileName={driveFileName}
             driveError={driveError}
             colors={colors}
           />

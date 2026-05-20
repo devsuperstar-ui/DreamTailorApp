@@ -19,6 +19,7 @@ export default function ProfileGeneratorView({
   const [disable, setDisable] = useState(false);
   const [lastGenerationTime, setLastGenerationTime] = useState(null);
   const [driveUrl, setDriveUrl] = useState(null);
+  const [driveFileName, setDriveFileName] = useState(null);
   const [driveError, setDriveError] = useState(null);
   const [copiedField, setCopiedField] = useState(null);
   const { elapsedTime, start: startTimer, stop: stopTimer, finishElapsed } = useGenerationTimer();
@@ -56,6 +57,7 @@ export default function ProfileGeneratorView({
     setDisable(true);
     setLastGenerationTime(null);
     setDriveUrl(null);
+    setDriveFileName(null);
     setDriveError(null);
     startTimer();
 
@@ -81,11 +83,12 @@ export default function ProfileGeneratorView({
       );
 
       const fallbackFilename = `${profileName?.replace(/\s+/g, "_") || profileSlug}.pdf`;
-      const { driveUrl: url, driveError: uploadError } = await downloadPdfFromResponse(
+      const { filename, driveUrl: url, driveError: uploadError } = await downloadPdfFromResponse(
         response,
         fallbackFilename
       );
       setDriveUrl(url);
+      setDriveFileName(url ? filename : null);
       setDriveError(uploadError);
       setLastGenerationTime(finishElapsed());
       setJd("");
@@ -247,6 +250,7 @@ export default function ProfileGeneratorView({
             disable={disable}
             lastGenerationTime={lastGenerationTime}
             driveUrl={driveUrl}
+            driveFileName={driveFileName}
             driveError={driveError}
             colors={colors}
           />
