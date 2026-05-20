@@ -107,7 +107,16 @@ export default function ProfileGeneratorView({
   const quickCopyFields = [
     { key: "email", label: "Email", value: selectedProfileData.email, icon: "📧" },
     { key: "phone", label: "Phone", value: selectedProfileData.phone, icon: "📞" },
-    { key: "location", label: "Address", value: selectedProfileData.location, icon: "📍" },
+    {
+      key: "address",
+      label: "Address",
+      value:
+        typeof selectedProfileData.address === "string"
+          ? selectedProfileData.address.trim()
+          : selectedProfileData.address,
+      icon: "🏠",
+    },
+    { key: "location", label: "Location", value: selectedProfileData.location, icon: "📍" },
     { key: "postalCode", label: "Postal", value: selectedProfileData.postalCode, icon: "✉️" },
     { key: "lastCompany", label: "Company", value: getLastCompany(), icon: "🏢" },
     { key: "lastRole", label: "Role", value: getLastRole(), icon: "💼" },
