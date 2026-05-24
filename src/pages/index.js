@@ -112,8 +112,21 @@ export default function Home() {
                   paddingTop: "20px",
                   borderTop: `1px solid ${colors.cardBorder}`,
                   textAlign: "center",
+                  display: "flex",
+                  flexDirection: "column",
+                  gap: 12,
                 }}
               >
+                <Link
+                  href="/templates/show"
+                  style={{
+                    color: colors.linkColor,
+                    fontSize: "14px",
+                    textDecoration: "none",
+                  }}
+                >
+                  Explore templates & styles (step through options) →
+                </Link>
                 <Link
                   href={profileSlug.trim() ? `/manual/${profileSlug.trim()}` : "/manual"}
                   prefetch

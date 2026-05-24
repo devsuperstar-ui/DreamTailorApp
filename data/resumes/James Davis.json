@@ -51,7 +51,5 @@
     ],
     
     "certifications": [],
-    "resumeStyle": "modern",
-    "template": "Resume-Modern-Green",
-    "headerLayout": "split"
+    "resumeStyle": "modern"
 }

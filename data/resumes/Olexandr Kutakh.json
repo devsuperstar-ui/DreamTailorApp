@@ -32,7 +32,5 @@
         "location": ""
       }
     ],
-    "resumeStyle": "academic",
-    "template": "Resume-Academic-Purple",
-    "headerLayout": "center"
+    "resumeStyle": "academic"
 }

@@ -27,7 +27,5 @@
     }
   ],
 
-  "resumeStyle": "classic",
-  "template": "Resume-Classic-Charcoal",
-  "headerLayout": "center"
+  "resumeStyle": "classic"
 }

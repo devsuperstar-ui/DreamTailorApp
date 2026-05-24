@@ -52,7 +52,5 @@
       }
     ],
     "certifications": [],
-    "resumeStyle": "bold-split",
-    "template": "Resume-Bold-Emerald",
-    "headerLayout": "split"
+    "resumeStyle": "bold-split"
 }

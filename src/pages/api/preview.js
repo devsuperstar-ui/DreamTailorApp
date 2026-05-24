@@ -1,8 +1,10 @@
 import { getTemplate } from "@/lib/pdf-templates";
+import { TEMPLATE_THEMES } from "@/lib/pdf-templates/template-themes";
 import { renderPdfBuffer } from "@/lib/pdf-render";
 import { loadProfilePreviewPayload } from "@/lib/profile-preview-server";
 import { mockResumeContentForExperienceCount } from "@/lib/preview-mock-content";
 import { buildResumePdfData } from "@/lib/profile-utils";
+import { RESUME_STYLE_PRESETS } from "@/lib/resume-style-presets";
 
 const GENERIC_MOCK_PROFILE = {
   name: "John Smith",
@@ -34,11 +36,19 @@ export default async function handler(req, res) {
   }
 
   try {
-    const { template, profile } = req.query;
+    const { template, profile, resumeStyle, headerLayout } = req.query;
     const templateOverride = typeof template === "string" ? template : null;
+    const resumeStyleKey =
+      typeof resumeStyle === "string" ? resumeStyle.trim().toLowerCase() : null;
+    const headerLayoutOverride =
+      typeof headerLayout === "string" ? headerLayout.trim().toLowerCase() : null;
 
-    if (!profile && !templateOverride) {
-      return res.status(400).send("Provide template=... or profile=... (slug, e.g. jd1)");
+    if (!profile && !templateOverride && !resumeStyleKey) {
+      return res
+        .status(400)
+        .send(
+          "Provide template=..., resumeStyle=..., headerLayout=..., or profile=... (slug, e.g. jd1)"
+        );
     }
 
     let templateName;
@@ -46,7 +56,10 @@ export default async function handler(req, res) {
     let filename = "preview";
 
     if (profile && typeof profile === "string") {
-      const loaded = loadProfilePreviewPayload(profile, templateOverride);
+      const loaded = loadProfilePreviewPayload(profile, {
+        templateOverride,
+        headerLayoutOverride,
+      });
       if (!loaded.ok) {
         return res.status(loaded.status).send(loaded.message);
       }
@@ -54,12 +67,30 @@ export default async function handler(req, res) {
       templateData = loaded.templateData;
       filename = `preview-${profile}-${templateName}`;
     } else {
-      templateName = templateOverride || "Resume";
+      const preset = resumeStyleKey ? RESUME_STYLE_PRESETS[resumeStyleKey] : null;
+      if (resumeStyleKey && !preset) {
+        return res.status(400).send(`Unknown resumeStyle: ${resumeStyleKey}`);
+      }
+
+      templateName = templateOverride || preset?.template || "Resume";
+      const theme = TEMPLATE_THEMES[templateName];
+      const presentation = {
+        template: templateName,
+        headerLayout:
+          headerLayoutOverride ||
+          (templateOverride ? theme?.headerLayout : null) ||
+          preset?.headerLayout ||
+          theme?.headerLayout ||
+          "center",
+      };
+
       const mockContent = mockResumeContentForExperienceCount(
         GENERIC_MOCK_PROFILE.experience.length
       );
-      templateData = buildResumePdfData(GENERIC_MOCK_PROFILE, mockContent);
-      filename = `preview-${templateName}`;
+      templateData = buildResumePdfData(GENERIC_MOCK_PROFILE, mockContent, presentation);
+      filename = resumeStyleKey
+        ? `preview-style-${resumeStyleKey}`
+        : `preview-${templateName}`;
     }
 
     const TemplateComponent = getTemplate(templateName);

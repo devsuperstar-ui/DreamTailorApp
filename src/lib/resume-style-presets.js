@@ -1,16 +1,15 @@
 /**
- * Resume presentation presets and per-resume overrides.
+ * Resume presentation: one field in each resume JSON is enough.
  *
- * Each resume JSON may include:
- *   - resumeStyle: preset key (classic, technical, executive, professional, …)
- *   - template: explicit PDF template id (overrides preset + profile mapping)
- *   - headerLayout: "center" | "split" | "left" (overrides preset alignment)
+ *   resumeStyle  — required in data/resumes/*.json (e.g. "technical-left")
+ *                  → sets PDF template + header alignment from RESUME_STYLE_PRESETS
  *
- * Resolution order for template:
- *   resume JSON "template" → preset template → profile-template-mapping → "Resume"
+ * Optional overrides (rare; omit in normal use):
+ *   template       — force a specific PDF template id
+ *   headerLayout   — force center | split | left
  *
- * Resolution order for headerLayout:
- *   resume JSON "headerLayout" → preset headerLayout → template default (center)
+ * Fallback when resumeStyle is missing:
+ *   profile-template-mapping.js (per URL slug) → template only
  */
 
 export const RESUME_STYLE_PRESETS = {
@@ -88,93 +87,6 @@ export const RESUME_STYLE_PRESETS = {
   },
 };
 
-/**
- * Canonical presentation per resume file (name without .json).
- * Each person has a unique resumeStyle; template + headerLayout are stored explicitly in JSON too.
- */
-export const RESUME_PRESENTATION_BY_NAME = {
-  "Adam Lee": {
-    resumeStyle: "bold",
-    template: "Resume-Bold-Emerald",
-    headerLayout: "center",
-  },
-  "Angelica Penalba": {
-    resumeStyle: "executive-left",
-    template: "Resume-Executive-Navy",
-    headerLayout: "left",
-  },
-  "Buck Young": {
-    resumeStyle: "classic",
-    template: "Resume-Classic-Charcoal",
-    headerLayout: "center",
-  },
-  "Chris Lewis": {
-    resumeStyle: "technical",
-    template: "Resume-Tech-Teal",
-    headerLayout: "split",
-  },
-  "Dawid Gupta": {
-    resumeStyle: "professional",
-    template: "Resume-Corporate-Slate",
-    headerLayout: "split",
-  },
-  "Drew Wilson": {
-    resumeStyle: "standard-left",
-    template: "Resume",
-    headerLayout: "left",
-  },
-  "Edward Reyes": {
-    resumeStyle: "academic-left",
-    template: "Resume-Academic-Purple",
-    headerLayout: "left",
-  },
-  "James Davis": {
-    resumeStyle: "modern",
-    template: "Resume-Modern-Green",
-    headerLayout: "split",
-  },
-  "James Principe": {
-    resumeStyle: "consultant",
-    template: "Resume-Consultant-Steel",
-    headerLayout: "center",
-  },
-  "Johnny Ha": {
-    resumeStyle: "creative",
-    template: "Resume-Creative-Burgundy",
-    headerLayout: "center",
-  },
-  "Kendall Lewis": {
-    resumeStyle: "technical-left",
-    template: "Resume-Tech-Teal",
-    headerLayout: "left",
-  },
-  "Kenton Brown": {
-    resumeStyle: "professional-center",
-    template: "Resume-Corporate-Slate",
-    headerLayout: "center",
-  },
-  "Michael Douglas": {
-    resumeStyle: "executive-split",
-    template: "Resume-Executive-Navy",
-    headerLayout: "split",
-  },
-  "Olexandr Kutakh": {
-    resumeStyle: "academic",
-    template: "Resume-Academic-Purple",
-    headerLayout: "center",
-  },
-  "Samuel Acord": {
-    resumeStyle: "bold-split",
-    template: "Resume-Bold-Emerald",
-    headerLayout: "split",
-  },
-  "Vinay Matoori": {
-    resumeStyle: "modern-center",
-    template: "Resume-Modern-Green",
-    headerLayout: "center",
-  },
-};
-
 const VALID_HEADER_LAYOUTS = new Set(["center", "split", "left"]);
 
 /**
@@ -219,7 +131,9 @@ export function getResumeStylePresetKeys() {
   return Object.keys(RESUME_STYLE_PRESETS);
 }
 
-/** Lookup canonical presentation for a resume file name (without .json). */
-export function getPresentationForResumeName(resumeName) {
-  return RESUME_PRESENTATION_BY_NAME[resumeName] || null;
+/** Expand a resumeStyle key to { template, headerLayout }. */
+export function getPresetPresentation(resumeStyle) {
+  if (!resumeStyle) return null;
+  const key = String(resumeStyle).trim().toLowerCase();
+  return RESUME_STYLE_PRESETS[key] || null;
 }

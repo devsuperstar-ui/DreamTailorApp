@@ -145,7 +145,7 @@ export default function ProfileTemplatePreviewPage() {
                 padding: "6px 10px",
               }}
             >
-              All templates
+              Style catalog
             </Link>
           </div>
         </header>

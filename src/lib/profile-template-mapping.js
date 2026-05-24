@@ -1,6 +1,6 @@
 // Profile to Template mapping
 // Maps profile ID (filename without .json) to template ID and optional prompt file
-// Keep template in sync with data/resumes/<name>.json (see RESUME_PRESENTATION_BY_NAME)
+// Fallback template per slug if resume JSON has no resumeStyle. Should match that person's resumeStyle preset.
 export const profileTemplateMapping = {
     "vm1": {
         resume: "Vinay Matoori",

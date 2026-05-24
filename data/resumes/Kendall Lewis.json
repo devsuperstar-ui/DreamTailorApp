@@ -53,7 +53,5 @@
       }
     ],
     "certifications": [],
-    "resumeStyle": "technical-left",
-    "template": "Resume-Tech-Teal",
-    "headerLayout": "left"
+    "resumeStyle": "technical-left"
 }
