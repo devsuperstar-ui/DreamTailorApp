@@ -42,6 +42,8 @@
         "end_date": "Aug 2014"
       }
     ],
-    "resumeStyle": "classic"
-  }
+    "resumeStyle": "professional",
+    "template": "Resume-Corporate-Slate",
+    "headerLayout": "split"
+}
   

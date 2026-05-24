@@ -1,19 +1,4 @@
-import { createResumeTemplate } from '../TemplateBase';
+import { buildTemplateComponent } from '../build-template';
 
-export const ResumeClassicCharcoal = createResumeTemplate({
-    fonts: {
-        body: 'Times-Roman',
-        title: 'Times-Bold',
-        baseSize: 10.5,
-        nameSize: 24,
-    },
-    sectionTitles: {
-        summary: 'Summary',
-        skills: 'Skills',
-        experience: 'Experience',
-        education: 'Education',
-    },
-    headerLayout: 'center',
-});
-
+export const ResumeClassicCharcoal = buildTemplateComponent('Resume-Classic-Charcoal');
 export default ResumeClassicCharcoal;

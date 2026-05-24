@@ -31,6 +31,8 @@
         "end_date": "Aug 2023",
         "location": ""
       }
-    ]
-  }
-  
+    ],
+    "resumeStyle": "academic",
+    "template": "Resume-Academic-Purple",
+    "headerLayout": "center"
+}

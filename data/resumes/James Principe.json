@@ -52,5 +52,7 @@
     ],
     
     "certifications": [],
-    "resumeStyle": "executive"
-  }
+    "resumeStyle": "consultant",
+    "template": "Resume-Consultant-Steel",
+    "headerLayout": "center"
+}

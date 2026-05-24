@@ -52,5 +52,7 @@
     }
   ],
   "certifications": [],
-  "resumeStyle": "classic"
+  "resumeStyle": "standard-left",
+  "template": "Resume",
+  "headerLayout": "left"
 }

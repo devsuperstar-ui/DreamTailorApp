@@ -1,19 +1,4 @@
-import { createResumeTemplate } from '../TemplateBase';
+import { buildTemplateComponent } from '../build-template';
 
-export const ResumeExecutiveNavy = createResumeTemplate({
-    fonts: {
-        body: 'Times-Roman',
-        title: 'Times-Bold',
-        baseSize: 10.5,
-        nameSize: 26,
-    },
-    sectionTitles: {
-        summary: 'Executive Summary',
-        skills: 'Core Competencies',
-        experience: 'Professional Experience',
-        education: 'Education',
-    },
-    headerLayout: 'center',
-});
-
+export const ResumeExecutiveNavy = buildTemplateComponent('Resume-Executive-Navy');
 export default ResumeExecutiveNavy;

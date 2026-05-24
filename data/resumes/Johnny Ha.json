@@ -53,5 +53,7 @@
     
     "certifications": [],
     
-    "resumeStyle": "executive"
-  }
+    "resumeStyle": "creative",
+    "template": "Resume-Creative-Burgundy",
+    "headerLayout": "center"
+}

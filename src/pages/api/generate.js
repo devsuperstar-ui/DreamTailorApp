@@ -3,6 +3,7 @@ import { getTemplateAsync } from "@/lib/pdf-templates";
 import { callAI } from "@/lib/ai-service";
 import { getTemplateForProfile, getProfileBySlug } from "@/lib/profile-template-mapping";
 import { buildResumePdfData } from "@/lib/profile-utils";
+import { resolveResumePresentation } from "@/lib/resume-style-presets";
 import { sanitizeResumeContentForPdf } from "@/lib/sanitize-resume-content";
 import { loadPromptForProfile, buildPromptVariables } from "@/lib/profile-prompt-server";
 import {
@@ -50,7 +51,6 @@ export default async function handler(req, res) {
     }
 
     const resumeName = profileConfig.resume;
-    const templateName = template || getTemplateForProfile(profileSlug) || "Resume";
 
     if (!["claude", "openai"].includes(provider)) {
       return res.status(400).send(`Unsupported provider: ${provider}. Supported: claude, openai`);
@@ -62,6 +62,9 @@ export default async function handler(req, res) {
     }
 
     const profileData = JSON.parse(fs.readFileSync(profilePath, "utf-8"));
+    const presentation = resolveResumePresentation(profileData, profileSlug, getTemplateForProfile);
+    const templateName = template || presentation.template;
+
     const prompt = loadPromptForProfile(profileSlug, buildPromptVariables(profileData, jd));
 
     const maxTokens = maxOutTokens(provider);
@@ -125,7 +128,8 @@ ${fragment}`;
 
     const templateData = buildResumePdfData(
       profileData,
-      sanitizeResumeContentForPdf(attempt.resumeContent)
+      sanitizeResumeContentForPdf(attempt.resumeContent),
+      presentation
     );
     const pdfBuffer = await renderPdfBuffer(TemplateComponent, templateData, AI_PDF_RENDER_TIMEOUT_MS);
     const fileName = pdfAttachmentFilename(resumeName, companyName, roleName);

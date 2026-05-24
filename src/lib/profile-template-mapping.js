@@ -1,9 +1,10 @@
 // Profile to Template mapping
 // Maps profile ID (filename without .json) to template ID and optional prompt file
+// Keep template in sync with data/resumes/<name>.json (see RESUME_PRESENTATION_BY_NAME)
 export const profileTemplateMapping = {
     "vm1": {
         resume: "Vinay Matoori",
-        template: "Resume-Corporate-Slate",
+        template: "Resume-Modern-Green",
         prompt: "vinay-matorio"
     },
     "ok1": {
@@ -13,7 +14,7 @@ export const profileTemplateMapping = {
     },
     "samuelacord": {
         resume: "Samuel Acord",
-        template: "Resume-Executive-Navy",
+        template: "Resume-Bold-Emerald",
         prompt: "samuel-acord"
     },
     "al1": {
@@ -23,22 +24,22 @@ export const profileTemplateMapping = {
     },
     "md1": {
         resume: "Michael Douglas",
-        template: "Resume-Corporate-Slate",
+        template: "Resume-Executive-Navy",
         prompt: "michael-douglas"
     },
     "jd1": {
         resume: "James Davis",
-        template: "Resume-Executive-Navy",
+        template: "Resume-Modern-Green",
         prompt: "james-davis"
     },
     "er1": {
         resume: "Edward Reyes",
-        template: "Resume-Classic-Charcoal",
+        template: "Resume-Academic-Purple",
         prompt: "default"
     },
     "jh1": {
         resume: "Johnny Ha",
-        template: "Resume-Executive-Navy",
+        template: "Resume-Creative-Burgundy",
         prompt: "default"
     },
     "kl1": {
@@ -53,7 +54,7 @@ export const profileTemplateMapping = {
     },
     "kb1": {
         resume: "Kenton Brown",
-        template: "Resume-Tech-Teal",
+        template: "Resume-Corporate-Slate",
         prompt: "default"
     },
     "cl1": {
@@ -63,17 +64,17 @@ export const profileTemplateMapping = {
     },
     "dg1": {
         resume: "Dawid Gupta",
-        template: "Resume-Classic-Charcoal",
+        template: "Resume-Corporate-Slate",
         prompt: "default"
     },
     "dw1": {
         resume: "Drew Wilson",
-        template: "Resume-Classic-Charcoal",
+        template: "Resume",
         prompt: "default"
     },
     "jp1": {
         resume: "James Principe",
-        template: "Resume-Executive-Navy",
+        template: "Resume-Consultant-Steel",
         prompt: "james-principe"
     },
     "ap1": {
@@ -82,7 +83,6 @@ export const profileTemplateMapping = {
         prompt: "james-davis"
     },
 };
-
 
 /**
  * Get profile configuration by slug (numeric ID)
@@ -133,4 +133,3 @@ export const getAvailableSlugs = () => {
 };
 
 export default profileTemplateMapping;
-

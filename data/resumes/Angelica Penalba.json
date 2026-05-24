@@ -44,5 +44,7 @@
     ],
     
     "certifications": [],
-    "resumeStyle": "executive"
-  }
+    "resumeStyle": "executive-left",
+    "template": "Resume-Executive-Navy",
+    "headerLayout": "left"
+}

@@ -1,19 +1,4 @@
-import { createResumeTemplate } from '../TemplateBase';
+import { buildTemplateComponent } from '../build-template';
 
-export const ResumeBoldEmerald = createResumeTemplate({
-    fonts: {
-        body: 'Helvetica',
-        title: 'Helvetica-Bold',
-        baseSize: 11,
-        nameSize: 26,
-    },
-    sectionTitles: {
-        summary: 'Summary',
-        skills: 'Skills',
-        experience: 'Experience',
-        education: 'Education',
-    },
-    headerLayout: 'center',
-});
-
+export const ResumeBoldEmerald = buildTemplateComponent('Resume-Bold-Emerald');
 export default ResumeBoldEmerald;

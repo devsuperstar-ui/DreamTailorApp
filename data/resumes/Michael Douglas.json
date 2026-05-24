@@ -57,5 +57,7 @@
     
     "certifications": [],
     
-    "resumeStyle": "executive"
-  }
+    "resumeStyle": "executive-split",
+    "template": "Resume-Executive-Navy",
+    "headerLayout": "split"
+}

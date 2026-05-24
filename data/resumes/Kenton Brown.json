@@ -61,5 +61,7 @@
         }
     ],
     "certifications": [],
-    "resumeStyle": "technical"
+    "resumeStyle": "professional-center",
+    "template": "Resume-Corporate-Slate",
+    "headerLayout": "center"
 }

@@ -1,19 +1,4 @@
-import { createResumeTemplate } from '../TemplateBase';
+import { buildTemplateComponent } from '../build-template';
 
-export const ResumeCorporateSlate = createResumeTemplate({
-    fonts: {
-        body: 'Times-Roman',
-        title: 'Helvetica-Bold',
-        baseSize: 11,
-        nameSize: 24,
-    },
-    sectionTitles: {
-        summary: 'Summary',
-        skills: 'Skills',
-        experience: 'Experience',
-        education: 'Education',
-    },
-    headerLayout: 'split',
-});
-
+export const ResumeCorporateSlate = buildTemplateComponent('Resume-Corporate-Slate');
 export default ResumeCorporateSlate;

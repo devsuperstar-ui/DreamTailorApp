@@ -39,7 +39,7 @@ export function getContactForPdf(profileData) {
 }
 
 /** Merge stored profile jobs with AI/pasted JSON bullets for React PDF templates. */
-export function buildResumePdfData(profileData, resumeContent) {
+export function buildResumePdfData(profileData, resumeContent, presentation = null) {
   const { phone, linkedin } = getContactForPdf(profileData);
   return {
     name: profileData.name,
@@ -61,6 +61,7 @@ export function buildResumePdfData(profileData, resumeContent) {
       details: resumeContent.experience[idx]?.details || [],
     })),
     education: profileData.education,
+    headerLayout: presentation?.headerLayout ?? profileData.headerLayout ?? null,
   };
 }
 

@@ -2,6 +2,7 @@ import fs from "fs";
 import { getTemplateAsync } from "@/lib/pdf-templates";
 import { getTemplateForProfile, getProfileBySlug } from "@/lib/profile-template-mapping";
 import { buildResumePdfData } from "@/lib/profile-utils";
+import { resolveResumePresentation } from "@/lib/resume-style-presets";
 import { sanitizeResumeContentForPdf } from "@/lib/sanitize-resume-content";
 import {
   extractJsonObjectString,
@@ -36,7 +37,6 @@ export default async function handler(req, res) {
     }
 
     const resumeName = profileConfig.resume;
-    const templateName = getTemplateForProfile(profileSlug) || "Resume";
     const profilePath = getResumePath(resumeName);
 
     if (!fs.existsSync(profilePath)) {
@@ -44,6 +44,8 @@ export default async function handler(req, res) {
     }
 
     const profileData = JSON.parse(fs.readFileSync(profilePath, "utf-8"));
+    const presentation = resolveResumePresentation(profileData, profileSlug, getTemplateForProfile);
+    const templateName = presentation.template;
     const jsonStr = extractJsonObjectString(rawResponse);
     const parsed = parseResumeJsonString(jsonStr);
     if (!parsed.ok) {
@@ -70,7 +72,7 @@ export default async function handler(req, res) {
     }
 
     const sanitized = sanitizeResumeContentForPdf(resumeContent);
-    const templateData = buildResumePdfData(profileData, sanitized);
+    const templateData = buildResumePdfData(profileData, sanitized, presentation);
     console.log(`[generate-manual] rendering PDF for ${resumeName} (${templateName})`);
     const pdfBuffer = await renderPdfBuffer(TemplateComponent, templateData, MANUAL_PDF_RENDER_TIMEOUT_MS);
     console.log(`[generate-manual] PDF ready (${pdfBuffer.length} bytes)`);

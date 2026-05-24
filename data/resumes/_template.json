@@ -8,22 +8,16 @@
   "linkedinShow": "show",
   "website": "https://yourwebsite.com",
   "github": "https://github.com/yourusername",
-  
+
   "experience": [
     {
       "company": "Company Name 1",
       "location": "City, State",
       "start_date": "Jan 2020",
       "end_date": "Present"
-    },
-    {
-      "company": "Company Name 2",
-      "location": "City, State",
-      "start_date": "Jan 2018",
-      "end_date": "Dec 2019"
     }
   ],
-  
+
   "education": [
     {
       "degree": "Bachelor of Science in Computer Science",
@@ -31,5 +25,9 @@
       "start_year": "2014",
       "end_year": "2018"
     }
-  ]
+  ],
+
+  "resumeStyle": "classic",
+  "template": "Resume-Classic-Charcoal",
+  "headerLayout": "center"
 }

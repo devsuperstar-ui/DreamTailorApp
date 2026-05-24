@@ -1,18 +1,4 @@
-import { createResumeTemplate } from '../TemplateBase';
+import { buildTemplateComponent } from '../build-template';
 
-export const ResumeTechTeal = createResumeTemplate({
-    fonts: {
-        body: 'Helvetica',
-        title: 'Helvetica-Bold',
-        baseSize: 10.5,
-    },
-    sectionTitles: {
-        summary: 'Summary',
-        skills: 'Technical Skills',
-        experience: 'Experience',
-        education: 'Education',
-    },
-    headerLayout: 'split',
-});
-
+export const ResumeTechTeal = buildTemplateComponent('Resume-Tech-Teal');
 export default ResumeTechTeal;

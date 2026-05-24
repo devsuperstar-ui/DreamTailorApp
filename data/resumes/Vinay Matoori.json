@@ -45,6 +45,8 @@
         "end_date": "Aug 2017",
         "location": "Foster City, California, United States (On-site)"
       }
-    ]
-  }
-  
+    ],
+    "resumeStyle": "modern-center",
+    "template": "Resume-Modern-Green",
+    "headerLayout": "center"
+}

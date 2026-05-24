@@ -20,15 +20,25 @@ export default function ProfileModeSwitch({ profileSlug, mode }) {
 
   if (mode === "manual") {
     return (
-      <Link href={`/${profileSlug}`} style={linkStyle}>
-        API
-      </Link>
+      <>
+        <Link href={`/${profileSlug}/show`} style={linkStyle}>
+          Preview style
+        </Link>
+        <Link href={`/${profileSlug}`} style={linkStyle}>
+          API
+        </Link>
+      </>
     );
   }
 
   return (
-    <Link href={`/manual/${profileSlug}`} style={linkStyle}>
-      Manual
-    </Link>
+    <>
+      <Link href={`/${profileSlug}/show`} style={linkStyle}>
+        Preview style
+      </Link>
+      <Link href={`/manual/${profileSlug}`} style={linkStyle}>
+        Manual
+      </Link>
+    </>
   );
 }

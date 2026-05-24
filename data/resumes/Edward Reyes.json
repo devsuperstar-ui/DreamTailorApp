@@ -48,5 +48,7 @@
       }
     ],
     "certifications": [],
-    "resumeStyle": "classic"
+    "resumeStyle": "academic-left",
+    "template": "Resume-Academic-Purple",
+    "headerLayout": "left"
   }

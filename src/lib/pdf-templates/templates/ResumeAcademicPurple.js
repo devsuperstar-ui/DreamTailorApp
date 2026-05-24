@@ -1,19 +1,4 @@
-import { createResumeTemplate } from '../TemplateBase';
+import { buildTemplateComponent } from '../build-template';
 
-export const ResumeAcademicPurple = createResumeTemplate({
-    fonts: {
-        body: 'Times-Roman',
-        title: 'Times-Bold',
-        baseSize: 11,
-        nameSize: 24,
-    },
-    sectionTitles: {
-        summary: 'Professional Summary',
-        skills: 'Core Competencies',
-        experience: 'Professional Experience',
-        education: 'Education & Credentials',
-    },
-    headerLayout: 'center',
-});
-
+export const ResumeAcademicPurple = buildTemplateComponent('Resume-Academic-Purple');
 export default ResumeAcademicPurple;
