@@ -118,16 +118,6 @@ export default function Home() {
                 }}
               >
                 <Link
-                  href="/templates/show"
-                  style={{
-                    color: colors.linkColor,
-                    fontSize: "14px",
-                    textDecoration: "none",
-                  }}
-                >
-                  Explore templates & styles (step through options) →
-                </Link>
-                <Link
                   href={profileSlug.trim() ? `/manual/${profileSlug.trim()}` : "/manual"}
                   prefetch
                   style={{
