@@ -35,12 +35,12 @@ export const profileTemplateMapping = {
     "er1": {
         resume: "Edward Reyes",
         template: "Resume-Academic-Purple",
-        prompt: "default"
+        prompt: "edward-reyes"
     },
     "jh1": {
         resume: "Johnny Ha",
         template: "Resume-Creative-Burgundy",
-        prompt: "default"
+        prompt: "johnny-ha"
     },
     "kl1": {
         resume: "Kendall Lewis",
@@ -50,27 +50,27 @@ export const profileTemplateMapping = {
     "by1": {
         resume: "Buck Young",
         template: "Resume-Classic-Charcoal",
-        prompt: "default"
+        prompt: "buck-young"
     },
     "kb1": {
         resume: "Kenton Brown",
         template: "Resume-Corporate-Slate",
-        prompt: "default"
+        prompt: "kenton-brown"
     },
     "cl1": {
         resume: "Chris Lewis",
         template: "Resume-Tech-Teal",
-        prompt: "default"
+        prompt: "chris-lewis"
     },
     "dg1": {
         resume: "Dawid Gupta",
         template: "Resume-Corporate-Slate",
-        prompt: "default"
+        prompt: "dawid-gupta"
     },
     "dw1": {
         resume: "Drew Wilson",
         template: "Resume",
-        prompt: "default"
+        prompt: "drew-wilson"
     },
     "jp1": {
         resume: "James Principe",
@@ -80,7 +80,7 @@ export const profileTemplateMapping = {
     "ap1": {
         resume: "Angelica Penalba",
         template: "Resume-Executive-Navy",
-        prompt: "james-davis"
+        prompt: "angelica-penalba"
     },
 };
 
