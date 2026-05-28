@@ -57,7 +57,6 @@ export function buildResumePdfData(profileData, resumeContent, presentation = nu
       location: job.location,
       start_date: job.start_date,
       end_date: job.end_date,
-      industry: job.industry,
       details: resumeContent.experience[idx]?.details || [],
     })),
     education: profileData.education,

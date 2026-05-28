@@ -283,13 +283,6 @@ function createStyles(config, headerLayout) {
             marginBottom: 3,
             fontStyle: companyItalic ? 'italic' : 'normal',
         },
-        expIndustry: {
-            fontSize: (fonts.expCompanySize || 10) - 0.5,
-            fontFamily: fonts.title || 'Helvetica-Bold',
-            fontWeight: 'bold',
-            color: GRAY.textDark,
-            marginBottom: 3,
-        },
         expDetails: {
             marginLeft: theme.sectionStyle === 'minimal' ? 10 : 14,
         },
@@ -548,9 +541,6 @@ export const createResumeTemplate = (config) => {
                                 {exp.company}
                                 {exp.location && `, ${exp.location}`}
                             </Text>
-                            {exp.industry ? (
-                                <Text style={styles.expIndustry}>{exp.industry}</Text>
-                            ) : null}
                             {exp.details?.length > 0 && (
                                 <View style={styles.expDetails}>
                                     {exp.details.map((detail, detailIdx) => (
