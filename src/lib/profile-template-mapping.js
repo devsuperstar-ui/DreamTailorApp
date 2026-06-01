@@ -82,6 +82,11 @@ export const profileTemplateMapping = {
         template: "Resume-Executive-Navy",
         prompt: "angelica-penalba"
     },
+    "mv1": {
+        resume: "Manuel Vargas",
+        template: "Resume",
+        prompt: "manuel-vargas"
+    },
 };
 
 /**
