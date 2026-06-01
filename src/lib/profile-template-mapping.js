@@ -87,6 +87,11 @@ export const profileTemplateMapping = {
         template: "Resume",
         prompt: "manuel-vargas"
     },
+    "jm1": {
+        resume: "Joel Matos",
+        template: "Resume",
+        prompt: "joel-matos"
+    },
 };
 
 /**
