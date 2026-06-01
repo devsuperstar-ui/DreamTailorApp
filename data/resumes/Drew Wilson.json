@@ -12,7 +12,6 @@
   "experience": [
     {
       "company": "Cargo Express Freight Corp",
-      "industry": "Logistics & Freight Transportation",
       "location": "Remote | Anaheim, CA",
       "title": "Senior Software Engineer",
       "start_date": "Mar 2022",
@@ -20,7 +19,6 @@
     },
     {
       "company": "Kiggla",
-      "industry": "Software Development & IT Consulting Services",
       "location": "Remote | Miami, FL",
       "title": "Senior Software Engineer",
       "start_date": "Sep 2019",
@@ -28,7 +26,6 @@
     },
     {
       "company": "Nearpod",
-      "industry": "Education Technology (EdTech)",
       "location": "Dania Beach, FL",
       "title": "Software Engineer",
       "start_date": "Jul 2016",
@@ -36,7 +33,6 @@
     },
     {
       "company": "OfficeRnD",
-      "industry": "Workplace Management & Coworking Software",
       "location": "Miami, FL",
       "title": "Software Engineer",
       "start_date": "Jun 2015",

@@ -25,7 +25,6 @@ export function buildPromptVariables(profileData, jd) {
       const parts = [`${idx + 1}. ${job.company}`];
       if (job.title) parts.push(job.title);
       if (job.location) parts.push(job.location);
-      if (job.industry) parts.push(`Industry: ${job.industry}`);
       parts.push(`${job.start_date} - ${job.end_date}`);
       return parts.join(" | ");
     })

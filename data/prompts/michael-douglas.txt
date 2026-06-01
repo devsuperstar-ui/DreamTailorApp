@@ -22,6 +22,11 @@ Format: {"title":"...","summary":"...","skills":{"Category":["Skill1",...]},"exp
 
 ---
 
+
+## JD-FIRST TAILORING
+
+Work history lists **companies, titles, dates, and locations only** (no industry field). Use the **JOB DESCRIPTION** as the primary source for domain language, technologies, compliance terms, seniority, and priorities. Tailor the title, summary, skills, and every experience bullet to the JD while keeping each role credible for its employer, title, and dates (~**70% JD** / ~**30%** plausible inference from role + company).
+
 ## SUMMARY
 
 **5–6 sentences, 140–175 words.** Lead with **{{resumeTitle}}** and breadth: **C#**/**.NET**, **JavaScript**/**TypeScript**, **SQL**, **Azure**/**AWS**, APIs, and scalable product delivery. One strong metric. Emphasize ownership and cross-functional leadership. **10–12 bold phrases**.

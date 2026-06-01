@@ -24,6 +24,11 @@ Format: {"title":"...","summary":"...","skills":{"Category":["Skill1",...]},"exp
 
 ---
 
+
+## JD-FIRST TAILORING
+
+Work history lists **companies, titles, dates, and locations only** (no industry field). Use the **JOB DESCRIPTION** as the primary source for domain language, technologies, compliance terms, seniority, and priorities. Tailor the title, summary, skills, and every experience bullet to the JD while keeping each role credible for its employer, title, and dates (~**70% JD** / ~**30%** plausible inference from role + company).
+
 ## RULES
 
 ### 1. Domain keywords
@@ -34,7 +39,7 @@ Extract **8–12** domain/compliance terms from the JD. Weave into the summary a
 Write **one cohesive paragraph** of **5 sentences** (**130–165 words**). This should read confident and senior—not a bullet list, not labeled "Line 1/2/3", and not a wall of keywords.
 
 **Structure (as flowing prose, not headings):**
-1. **{{resumeTitle}}** + {{yearsOfExperience}}+ years + domain/industry from the JD + startup/enterprise context.
+1. **{{resumeTitle}}** + {{yearsOfExperience}}+ years + domain and context **from the JD**.
 2. Depth in core JD stack (**3–5 exact technologies** from the JD, bold the tech names).
 3. Second strength: architecture, scale, security/compliance, or domain expertise (bold 2–3 terms).
 4. **Quantified impact:** one strong result (~%, $, latency, uptime, users, or deployment speed)—specific and believable.
@@ -48,7 +53,7 @@ Write **one cohesive paragraph** of **5 sentences** (**130–165 words**). This 
 ### 3. SKILLS — **40–48 skills**, **5–6 categories** (keep lean for speed)
 
 - **6–8 skills per category** only.
-- Match JD focus; 70% JD keywords + 30% from work history.
+- Match JD focus; ~70% JD keywords + ~30% plausible inference from employers/titles/dates (work history has no industry field).
 - No version spam. Group AWS services when helpful.
 
 ### 4. EXPERIENCE — exactly **{{experienceCount}}** entries (keep bullets lean)

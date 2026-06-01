@@ -22,6 +22,11 @@ Format: {"title":"...","summary":"...","skills":{"Category":["Skill1",...]},"exp
 
 ---
 
+
+## JD-FIRST TAILORING
+
+Work history lists **companies, titles, dates, and locations only** (no industry field). Use the **JOB DESCRIPTION** as the primary source for domain language, technologies, compliance terms, seniority, and priorities. Tailor the title, summary, skills, and every experience bullet to the JD while keeping each role credible for its employer, title, and dates (~**70% JD** / ~**30%** plausible inference from role + company).
+
 ## SUMMARY (priority — make this strong)
 
 **One paragraph, 5 sentences, 130–165 words.** Executive, readable, ATS-rich—not a keyword list.
