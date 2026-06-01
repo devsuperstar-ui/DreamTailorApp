@@ -1,12 +1,19 @@
 import { Readable } from "stream";
 import { google } from "googleapis";
+import {
+  getOAuthPublishingMode,
+  getOAuthRenewalInfo,
+  isOAuthTestingMode,
+  resolveOAuthRefreshToken,
+  TESTING_REFRESH_TOKEN_LIFETIME_DAYS,
+} from "@/lib/google-oauth-store";
 
 /** Full Drive access — upload PDFs to a My Drive folder you own. */
 const DRIVE_SCOPE = "https://www.googleapis.com/auth/drive";
 
 const CONNECT_HINT =
-  "Connect personal Gmail: add GOOGLE_OAUTH_CLIENT_ID and GOOGLE_OAUTH_CLIENT_SECRET to .env, " +
-  "then open /api/google-drive/auth once and add GOOGLE_OAUTH_REFRESH_TOKEN.";
+  "Connect personal Gmail: set GOOGLE_OAUTH_CLIENT_ID and GOOGLE_OAUTH_CLIENT_SECRET, " +
+  "then open /api/google-drive/auth once (token is saved to data/.google-oauth-token.json).";
 
 function getRedirectUri() {
   return (
@@ -31,7 +38,7 @@ export function hasOAuthClientCredentials() {
 }
 
 export function isOAuthConnected() {
-  return Boolean(hasOAuthClientCredentials() && process.env.GOOGLE_OAUTH_REFRESH_TOKEN?.trim());
+  return Boolean(hasOAuthClientCredentials() && resolveOAuthRefreshToken()?.refreshToken);
 }
 
 function isServiceAccountConfigured() {
@@ -56,23 +63,71 @@ export function isGoogleDriveConfigured() {
   return mode === "oauth" || mode === "service_account";
 }
 
-export function getGoogleDriveStatus() {
+/** Try to exchange the refresh token for an access token (catches invalid_grant). */
+export async function verifyOAuthRefreshToken() {
+  if (!isOAuthConnected()) {
+    return {
+      ok: false,
+      error:
+        "No refresh token. Open /api/google-drive/auth (saves to data/.google-oauth-token.json) " +
+        "or set GOOGLE_OAUTH_REFRESH_TOKEN in .env.",
+    };
+  }
+  try {
+    const auth = getOAuth2Client();
+    await auth.getAccessToken();
+    return { ok: true };
+  } catch (err) {
+    return { ok: false, error: formatDriveError(err) };
+  }
+}
+
+export async function getGoogleDriveStatus() {
   const folderId = process.env.GOOGLE_DRIVE_FOLDER_ID?.trim() || null;
   const mode = getGoogleDriveAuthMode();
+  const resolved = resolveOAuthRefreshToken();
+  let oauthToken = null;
+  if (mode === "oauth") {
+    oauthToken = await verifyOAuthRefreshToken();
+  }
+  const oauthTokenValid = oauthToken?.ok === true;
+  const oauthTokenError = oauthToken?.ok === false ? oauthToken.error : null;
+  const renewal = getOAuthRenewalInfo(resolved?.obtainedAt ?? null);
   return {
     folderId,
     mode,
-    ready: Boolean(folderId && (mode === "oauth" || mode === "service_account")),
+    ready: Boolean(
+      folderId &&
+        (mode === "service_account" || (mode === "oauth" && oauthTokenValid))
+    ),
+    oauthTokenValid: mode === "oauth" ? oauthTokenValid : null,
+    oauthTokenError,
+    oauthTokenSource: resolved?.source ?? null,
+    oauthTokenObtainedAt: resolved?.obtainedAt ?? null,
+    oauthTokenAgeDays: renewal.ageDays,
+    daysUntilTestingExpiry: renewal.daysUntilTestingExpiry,
+    needsRenewalSoon: renewal.needsRenewalSoon,
+    oauthPublishingMode: getOAuthPublishingMode(),
+    testingRefreshTokenLifetimeDays: isOAuthTestingMode() ? TESTING_REFRESH_TOKEN_LIFETIME_DAYS : null,
+    testingRenewalNote: renewal.testingRenewalNote,
     connectUrl: "/api/google-drive/auth",
     usesPersonalGmail: mode === "oauth" || mode === "oauth_pending",
     dailyFolder: getDailyFolderName(),
     dailyFolderPattern: "Profile name / YYYY-MM-DD / resume.pdf",
+    refreshTokenExpiryHint:
+      mode === "oauth" && oauthTokenValid === false && oauthTokenError
+        ? isOAuthTestingMode()
+          ? `Testing OAuth: refresh tokens expire after ${TESTING_REFRESH_TOKEN_LIFETIME_DAYS} days. Re-connect at /api/google-drive/auth.`
+          : "Refresh token invalid or revoked. Re-connect at /api/google-drive/auth (Production OAuth keeps long-lived tokens)."
+        : renewal.needsRenewalSoon && oauthTokenValid
+          ? renewal.testingRenewalNote
+          : null,
   };
 }
 
 export function getOAuth2Client() {
   const client = createOAuth2Client();
-  const refreshToken = process.env.GOOGLE_OAUTH_REFRESH_TOKEN?.trim();
+  const refreshToken = resolveOAuthRefreshToken()?.refreshToken;
   if (refreshToken) {
     client.setCredentials({ refresh_token: refreshToken });
   }
@@ -117,7 +172,7 @@ function formatDriveError(err) {
     );
   }
   if (/invalid_grant|token has been expired|revoked/i.test(message)) {
-    return `${message} Re-connect at /api/google-drive/auth and update GOOGLE_OAUTH_REFRESH_TOKEN.`;
+    return `${message} Re-connect at /api/google-drive/auth${isOAuthTestingMode() ? " (or publish OAuth app to Production)." : "."}`;
   }
   return message;
 }

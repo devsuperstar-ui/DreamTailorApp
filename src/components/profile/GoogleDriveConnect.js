@@ -2,16 +2,37 @@ import { useEffect, useState } from "react";
 
 /** Minimal Drive connect prompt — only when sign-in is still needed. */
 export default function GoogleDriveConnect({ colors }) {
-  const [needsConnect, setNeedsConnect] = useState(false);
+  const [banner, setBanner] = useState(null);
 
   useEffect(() => {
     fetch("/api/google-drive/status")
       .then((r) => r.json())
-      .then((s) => setNeedsConnect(s?.mode === "oauth_pending"))
-      .catch(() => setNeedsConnect(false));
+      .then((s) => {
+        if (s?.mode === "oauth_pending") {
+          setBanner({ type: "connect", message: "Connect Google Drive to upload PDFs." });
+        } else if (s?.mode === "oauth" && s?.oauthTokenValid === false) {
+          setBanner({
+            type: "reconnect",
+            message:
+              s.oauthTokenError ||
+              s.refreshTokenExpiryHint ||
+              "Google Drive token expired. Re-connect to get a new refresh token.",
+          });
+        } else if (s?.mode === "oauth" && s?.needsRenewalSoon) {
+          setBanner({
+            type: "renew",
+            message:
+              s.refreshTokenExpiryHint ||
+              `Drive token is ${s.oauthTokenAgeDays} day(s) old. Re-connect before day ${s.testingRefreshTokenLifetimeDays} (Testing OAuth).`,
+          });
+        } else {
+          setBanner(null);
+        }
+      })
+      .catch(() => setBanner(null));
   }, []);
 
-  if (!needsConnect) return null;
+  if (!banner) return null;
 
   return (
     <a
@@ -30,7 +51,11 @@ export default function GoogleDriveConnect({ colors }) {
         textDecoration: "none",
       }}
     >
-      Connect Drive
+      {banner.type === "reconnect"
+        ? "Reconnect Drive"
+        : banner.type === "renew"
+          ? "Renew Drive (before 7 days)"
+          : "Connect Drive"}
     </a>
   );
 }
