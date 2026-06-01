@@ -59,7 +59,7 @@ Write **one cohesive paragraph** of **5 sentences** (**130–165 words**). This 
 ### 4. EXPERIENCE — exactly **{{experienceCount}}** entries (keep bullets lean)
 
 - Same order as work history (most recent first).
-- **Bullet counts:** newest role **5 bullets**, second **5**, older roles **4–5** each. **Do not exceed 5 bullets per job.**
+- **Bullet counts:** newest role **8 bullets**, second **8**, older roles **6–8** each. **Do not exceed 8 bullets per job.**
 - **28–38 words per bullet**—one achievement per bullet, not two merged.
 - **2–3 bold JD/tech phrases** per bullet; include a metric on most bullets.
 - Tools/stacks must be realistic for each role's dates.
@@ -72,6 +72,6 @@ Write **one cohesive paragraph** of **5 sentences** (**130–165 words**). This 
 ## CHECKLIST
 - Valid JSON; `"experience"` length = {{experienceCount}}
 - Summary: **5 sentences, 130–165 words**, **10–12 bold phrases**
-- Skills: ~40–48 items | Experience: **≤5 bullets/job**, 28–38 words each
+- Skills: ~40–48 items | Experience: **≤8 bullets/job**, 28–38 words each
 
 Return ONLY: {"title":"...","summary":"...","skills":{...},"experience":[{"title":"...","details":[...]}]}

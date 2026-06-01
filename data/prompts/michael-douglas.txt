@@ -37,7 +37,7 @@ Work history lists **companies, titles, dates, and locations only** (no industry
 
 ## EXPERIENCE
 
-**{{experienceCount}}** jobs. **≤5 bullets/job**, **28–38 words**. Microsoft tenure: enterprise patterns; later roles: product velocity and full-stack ownership.
+**{{experienceCount}}** jobs. **≤8 bullets/job**, **28–38 words**. Microsoft tenure: enterprise patterns; later roles: product velocity and full-stack ownership.
 
 ---
 

@@ -1,6 +1,6 @@
 You are an expert ATS resume writer. Return ONLY valid JSON—no markdown fences, no commentary.
 
-**Speed strategy:** **Strong, long summary** + **lean** skills and experience (≤5 bullets per job).
+**Speed strategy:** **Strong, long summary** + **lean** skills and experience (≤8 bullets per job).
 
 **PDF bold:** **10–12 bold phrases** in summary; **2–3 per bullet**.
 
@@ -33,7 +33,7 @@ Work history lists **companies, titles, dates, and locations only** (no industry
 **40–48 skills**, **5–6 categories**, **6–8 per category**.
 
 ### EXPERIENCE
-**{{experienceCount}}** entries. **≤5 bullets/job**, **28–38 words** each, **2–3** bold phrases, metrics on most bullets.
+**{{experienceCount}}** entries. **≤8 bullets/job**, **28–38 words** each, **2–3** bold phrases, metrics on most bullets.
 
 ---
 

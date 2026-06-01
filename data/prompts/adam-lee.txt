@@ -37,7 +37,7 @@ Work history lists **companies, titles, dates, and locations only** (no industry
 
 ## EXPERIENCE
 
-**{{experienceCount}}** jobs. **≤5 bullets/job**, **28–38 words**. Earlier roles: junior-appropriate scope; later roles: depth aligned to the JD and title seniority.
+**{{experienceCount}}** jobs. **≤8 bullets/job**, **28–38 words**. Earlier roles: junior-appropriate scope; later roles: depth aligned to the JD and title seniority.
 
 ---
 

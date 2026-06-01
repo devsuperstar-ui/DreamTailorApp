@@ -37,7 +37,7 @@ Work history lists **companies, titles, dates, and locations only** (no industry
 
 ## EXPERIENCE
 
-**{{experienceCount}}** jobs. **≤5 bullets/job**, **28–38 words**, **2–3 bold** JD terms. Stacks and domain language must fit each role's dates and employer while matching the JD.
+**{{experienceCount}}** jobs. **≤8 bullets/job**, **28–38 words**, **2–3 bold** JD terms. Stacks and domain language must fit each role's dates and employer while matching the JD.
 
 ---
 
