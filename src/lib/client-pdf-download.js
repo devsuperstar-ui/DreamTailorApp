@@ -93,7 +93,7 @@ export function formatFetchError(error, { manual = false } = {}) {
     if (manual) {
       return (
         "Request timed out while building the PDF. In dev, the first PDF after restart can take 1–3 minutes. " +
-        "Run: npm run clean && npm run dev, use profile jd1 for James Davis JSON, and keep ≤9 bullets per job."
+        "Run: npm run clean && npm run dev, use profile jd1 for James Davis JSON, and keep ≤10 bullets per job."
       );
     }
     return "Request timed out. Resume generation can take several minutes—try a shorter job description or try again.";

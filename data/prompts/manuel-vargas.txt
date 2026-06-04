@@ -49,7 +49,7 @@ Use **10–12 bold phrases** across the paragraph.
 
 Exactly **{{experienceCount}}** jobs, same order as work history (most recent first).
 
-**Bullet counts:** newest role **8**, second **8**, older roles **6–8**. **Do not exceed 8 bullets per job**.
+**Bullet counts (most recent job first):** **10** bullets (newest), **9** (second), **8** (third), **7** (fourth and any older). If fewer than four jobs, use **10** then **9** then **8** for available roles only. Never exceed **10** on one job.
 
 **28–38 words per bullet**—one achievement per bullet, not two merged. **2–3 bold phrases** per bullet; include a metric on most bullets.
 

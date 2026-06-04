@@ -37,7 +37,7 @@ Work history lists **companies, titles, dates, and locations only** (no industry
 
 ## EXPERIENCE
 
-**{{experienceCount}}** jobs. **≤8 bullets/job**, **28–38 words**. Epic/SoFi: regulated and financial context; Adobe: UI scale; Airbnb: AI product impact.
+**{{experienceCount}}** jobs. **10 / 9 / 8 / 7 bullets** per role (newest → oldest), **28–38 words**. Epic/SoFi: regulated and financial context; Adobe: UI scale; Airbnb: AI product impact.
 
 ---
 

@@ -108,7 +108,8 @@ export default async function handler(req, res) {
       const repairPrompt = `You are fixing incomplete or invalid resume JSON.
 
 Return ONLY a single valid JSON object (no markdown, no commentary). Root keys: "title" (string), "summary" (string), "skills" (object: category -> array of strings), "experience" (array).
-The "experience" array MUST have exactly ${experienceCount} entries, in the same order as the candidate work history. Each entry MUST have "title" and "details" (non-empty array of strings). Fill gaps sensibly from context if the fragment is truncated.
+The "experience" array MUST have exactly ${experienceCount} entries, in the same order as the candidate work history. Each entry MUST have "title" and "details" (non-empty array of strings).
+Bullet counts (most recent job first): 10, 9, 8, 7 (4th job and older: 7). Fill gaps sensibly from context if the fragment is truncated.
 
 Fragment to repair:
 ${fragment}`;

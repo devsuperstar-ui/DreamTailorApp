@@ -37,7 +37,7 @@ Work history lists **companies, titles, dates, and locations only** (no industry
 
 ## EXPERIENCE
 
-**{{experienceCount}}** jobs. **≤8 bullets/job**, **28–38 words**. Accenture/Infosys early career: consulting delivery; later: product ownership.
+**{{experienceCount}}** jobs. **10 / 9 / 8 / 7 bullets** per role (newest → oldest), **28–38 words**. Accenture/Infosys early career: consulting delivery; later: product ownership.
 
 ---
 
