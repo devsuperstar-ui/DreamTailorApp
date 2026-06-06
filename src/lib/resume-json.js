@@ -8,7 +8,7 @@ export function makeConcisePrompt(fullPrompt) {
   return (
     fullPrompt +
     "\n\n**RETRY — fix JSON only; do NOT shorten bullets:** Keep summary 5–6 sentences (~140–175 words). " +
-    "Skills max 48 total. Use 10/9/8/7 bullets per job (newest first). **Every bullet MUST be 34–40 words** — expand any under 34. Return valid JSON only."
+    "Skills max 48 total. Use 10/9/8/7 bullets per job (newest first). **Every bullet MUST be 38–43 words** — expand any under 38. Return valid JSON only."
   );
 }
 
