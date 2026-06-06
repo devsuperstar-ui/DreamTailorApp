@@ -1,21 +1,22 @@
 /**
  * Visual themes for the 10 resume templates.
  * Each theme changes layout, section chrome, spacing, and accent (print-safe grayscale).
+ * All templates use standard PDF fonts (Helvetica) for maximum ATS compatibility.
  */
 
-import { RESUME_FONT_FAMILY } from '../resume-font-family';
+import { RESUME_BODY_FONT, RESUME_TITLE_FONT } from '../resume-font-family';
 
-const resumeFont = { body: RESUME_FONT_FAMILY, title: RESUME_FONT_FAMILY };
+const atsFont = { body: RESUME_BODY_FONT, title: RESUME_TITLE_FONT };
 
 const baseFonts = {
-  sans: resumeFont,
+  helvetica: atsFont,
 };
 
 export const TEMPLATE_THEMES = {
   Resume: {
     id: 'Resume',
     label: 'Classic (Default)',
-    fonts: { ...baseFonts.sans, baseSize: 11, nameSize: 24 },
+    fonts: { ...baseFonts.helvetica, baseSize: 11, nameSize: 24 },
     headerLayout: 'center',
     theme: {
       accent: '#1a1a1a',
@@ -39,7 +40,7 @@ export const TEMPLATE_THEMES = {
   'Resume-Classic-Charcoal': {
     id: 'Resume-Classic-Charcoal',
     label: 'Classic Charcoal',
-    fonts: { ...baseFonts.sans, baseSize: 10.5, nameSize: 26, sectionSize: 9.5 },
+    fonts: { ...baseFonts.helvetica, baseSize: 10.5, nameSize: 26, sectionSize: 9.5 },
     headerLayout: 'center',
     theme: {
       accent: '#333333',
@@ -63,7 +64,7 @@ export const TEMPLATE_THEMES = {
   'Resume-Tech-Teal': {
     id: 'Resume-Tech-Teal',
     label: 'Tech Teal',
-    fonts: { ...baseFonts.sans, baseSize: 10.5, nameSize: 22, contactSize: 9 },
+    fonts: { ...baseFonts.helvetica, baseSize: 10.5, nameSize: 22, contactSize: 9 },
     headerLayout: 'split',
     theme: {
       accent: '#2d6a6a',
@@ -87,7 +88,7 @@ export const TEMPLATE_THEMES = {
   'Resume-Executive-Navy': {
     id: 'Resume-Executive-Navy',
     label: 'Executive Navy',
-    fonts: { ...baseFonts.sans, baseSize: 10.5, nameSize: 28, sectionSize: 9 },
+    fonts: { ...baseFonts.helvetica, baseSize: 10.5, nameSize: 28, sectionSize: 9 },
     headerLayout: 'center',
     theme: {
       accent: '#1e3a5f',
@@ -111,7 +112,7 @@ export const TEMPLATE_THEMES = {
   'Resume-Corporate-Slate': {
     id: 'Resume-Corporate-Slate',
     label: 'Corporate Slate',
-    fonts: { ...baseFonts.sans, baseSize: 11, nameSize: 24 },
+    fonts: { ...baseFonts.helvetica, baseSize: 11, nameSize: 24 },
     headerLayout: 'split',
     theme: {
       accent: '#4a5568',
@@ -135,7 +136,7 @@ export const TEMPLATE_THEMES = {
   'Resume-Bold-Emerald': {
     id: 'Resume-Bold-Emerald',
     label: 'Bold Emerald',
-    fonts: { ...baseFonts.sans, baseSize: 11, nameSize: 32, titleSize: 12, sectionSize: 11 },
+    fonts: { ...baseFonts.helvetica, baseSize: 11, nameSize: 32, titleSize: 12, sectionSize: 11 },
     headerLayout: 'center',
     theme: {
       accent: '#1a4d3e',
@@ -159,7 +160,7 @@ export const TEMPLATE_THEMES = {
   'Resume-Academic-Purple': {
     id: 'Resume-Academic-Purple',
     label: 'Academic Purple',
-    fonts: { ...baseFonts.sans, baseSize: 11, nameSize: 23, sectionSize: 10 },
+    fonts: { ...baseFonts.helvetica, baseSize: 11, nameSize: 23, sectionSize: 10 },
     headerLayout: 'left',
     theme: {
       accent: '#4a3f6b',
@@ -184,7 +185,7 @@ export const TEMPLATE_THEMES = {
   'Resume-Creative-Burgundy': {
     id: 'Resume-Creative-Burgundy',
     label: 'Creative Burgundy',
-    fonts: { ...baseFonts.sans, baseSize: 11, nameSize: 26, titleSize: 12, sectionSize: 10 },
+    fonts: { ...baseFonts.helvetica, baseSize: 11, nameSize: 26, titleSize: 12, sectionSize: 10 },
     headerLayout: 'center',
     theme: {
       accent: '#6b2d3c',
@@ -208,7 +209,7 @@ export const TEMPLATE_THEMES = {
   'Resume-Modern-Green': {
     id: 'Resume-Modern-Green',
     label: 'Modern Green',
-    fonts: { ...baseFonts.sans, baseSize: 10, nameSize: 20, contactSize: 8.5, sectionSize: 9.5 },
+    fonts: { ...baseFonts.helvetica, baseSize: 10, nameSize: 20, contactSize: 8.5, sectionSize: 9.5 },
     headerLayout: 'split',
     theme: {
       accent: '#2f5d3a',
@@ -233,7 +234,7 @@ export const TEMPLATE_THEMES = {
   'Resume-Consultant-Steel': {
     id: 'Resume-Consultant-Steel',
     label: 'Consultant Steel',
-    fonts: { ...baseFonts.sans, baseSize: 10, nameSize: 22, contactSize: 8.5 },
+    fonts: { ...baseFonts.helvetica, baseSize: 10, nameSize: 22, contactSize: 8.5 },
     headerLayout: 'center',
     theme: {
       accent: '#5c6b7a',

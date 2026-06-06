@@ -1,10 +1,10 @@
 import React, { useMemo } from 'react';
 import { Document, Page, Text, View, StyleSheet } from '@react-pdf/renderer';
-import { RESUME_FONT_FAMILY } from '../resume-font-family';
+import { RESUME_BODY_FONT, RESUME_TITLE_FONT } from '../resume-font-family';
 import { extractYear, BoldText } from './utils';
 
-const BODY_FONT = RESUME_FONT_FAMILY;
-const TITLE_FONT = RESUME_FONT_FAMILY;
+const BODY_FONT = RESUME_BODY_FONT;
+const TITLE_FONT = RESUME_TITLE_FONT;
 
 const GRAY = {
     textDark: '#1a1a1a',
@@ -12,7 +12,7 @@ const GRAY = {
     textLight: '#6b6b6b',
 };
 
-const STYLE_CACHE_VERSION = 3;
+const STYLE_CACHE_VERSION = 4;
 const styleCache = new Map();
 
 function cacheKey(config, headerLayout) {
@@ -107,7 +107,7 @@ function createStyles(config, headerLayout) {
         name: {
             fontSize: fonts.nameSize || 24,
             fontFamily: fonts.title || TITLE_FONT,
-            fontWeight: 700,
+            fontWeight: 'bold',
             marginBottom: 3,
             color: theme.headerStyle === 'banner' ? '#ffffff' : '#000000',
             textTransform: theme.nameUppercase ? 'uppercase' : 'none',
@@ -116,7 +116,7 @@ function createStyles(config, headerLayout) {
         title: {
             fontSize: fonts.titleSize || 11,
             fontFamily: fonts.body || BODY_FONT,
-            fontWeight: fonts.titleWeight || 400,
+            fontWeight: fonts.titleWeight || 'normal',
             marginBottom: 6,
             color: theme.headerStyle === 'banner' ? '#e8e8e8' : GRAY.textMedium,
         },
@@ -140,7 +140,7 @@ function createStyles(config, headerLayout) {
         sectionTitleBase: {
             fontSize: fonts.sectionSize || 10,
             fontFamily: fonts.title || TITLE_FONT,
-            fontWeight: 700,
+            fontWeight: 'bold',
             color: theme.sectionStyle === 'pill' ? '#ffffff' : accent,
             marginBottom: 8,
         },
@@ -241,7 +241,7 @@ function createStyles(config, headerLayout) {
         skillsLabel: {
             fontSize: fonts.skillsLabelSize || 9.5,
             fontFamily: fonts.title || TITLE_FONT,
-            fontWeight: 700,
+            fontWeight: 'bold',
             color: GRAY.textDark,
             marginBottom: 3,
             textTransform: theme.sectionStyle === 'labeled' ? 'none' : 'uppercase',
@@ -268,14 +268,14 @@ function createStyles(config, headerLayout) {
         expTitle: {
             fontSize: fonts.expTitleSize || 10.5,
             fontFamily: fonts.title || TITLE_FONT,
-            fontWeight: 700,
+            fontWeight: 'bold',
             color: '#000000',
         },
         expDates: {
             fontSize: fonts.expDatesSize || 9.5,
             fontFamily: fonts.body || BODY_FONT,
             color: GRAY.textMedium,
-            fontWeight: 400,
+            fontWeight: 'normal',
         },
         expDatesBelow: {
             fontSize: fonts.expDatesSize || 9,
@@ -312,14 +312,14 @@ function createStyles(config, headerLayout) {
         eduDegree: {
             fontSize: fonts.eduDegreeSize || 10.5,
             fontFamily: fonts.title || TITLE_FONT,
-            fontWeight: 700,
+            fontWeight: 'bold',
             color: '#000000',
         },
         eduDates: {
             fontSize: fonts.eduDatesSize || 9.5,
             fontFamily: fonts.body || BODY_FONT,
             color: GRAY.textMedium,
-            fontWeight: 400,
+            fontWeight: 'normal',
         },
         eduSchool: {
             fontSize: fonts.eduSchoolSize || 10,

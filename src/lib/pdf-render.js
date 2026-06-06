@@ -5,13 +5,10 @@ import {
   isGoogleDriveConfigured,
   uploadPdfToGoogleDrive,
 } from "@/lib/google-drive";
-import { registerResumeFonts } from "@/lib/register-resume-fonts";
-
 export const MANUAL_PDF_RENDER_TIMEOUT_MS = 180_000;
 export const AI_PDF_RENDER_TIMEOUT_MS = 120_000;
 
 export async function renderPdfBuffer(TemplateComponent, templateData, timeoutMs = MANUAL_PDF_RENDER_TIMEOUT_MS) {
-  registerResumeFonts();
   const doc = React.createElement(TemplateComponent, { data: templateData });
 
   let timeoutId;

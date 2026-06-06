@@ -1,2 +1,6 @@
-/** Shared resume PDF font family name (registered in register-resume-fonts.js). */
-export const RESUME_FONT_FAMILY = "SourceSans3";
+/**
+ * Standard PDF fonts — best ATS parseability (no custom embedding).
+ * Helvetica is a core PDF font readable by virtually all ATS parsers.
+ */
+export const RESUME_BODY_FONT = "Helvetica";
+export const RESUME_TITLE_FONT = "Helvetica-Bold";

@@ -43,9 +43,40 @@ export const ATS_100_PROMPT_BLOCK = `
 Only return JSON after this check passes.
 `;
 
+/** James Principe — appended last so it overrides the generic 4–6 metric cap. */
+export const JAMES_PRINCIPE_METRICS_BLOCK = `
+---
+
+## JAMES PRINCIPE — METRICS OVERRIDE (final rule; supersedes generic metric limits above)
+
+Use **6–8 quantified outcomes** across summary + all experience bullets:
+
+- **3–4 percentage improvements** — latency, cost, deployment time, error rate, throughput, test coverage, or incident reduction. Use credible ranges (**15–45%**), prefix estimates with **~**, and **bold the number** (e.g. cut API latency by **~32%**).
+- **2–3 scale metrics** — subscribers, daily requests, services, teams, or uptime (e.g. **2M+ subscribers**, **99.9% uptime**).
+- Place **≥2 % metrics** on **Kiggla** (newest) and **≥2 % metrics** on **Lebara**; at most **1 % metric** on older roles.
+- **One % or scale metric** in the summary is encouraged.
+- Do **not** put a **%** in every bullet — mix with technical depth bullets.
+- Every % claim must tie to a **specific action** (optimization, migration, automation, caching, CI/CD) — never a standalone vanity KPI.
+`;
+
 /** Append ATS block once (avoids duplicate if template already includes it). */
 export function appendAtsBlock(prompt) {
   if (!prompt?.trim()) return prompt;
   if (prompt.includes("ATS 100% TARGET")) return prompt;
   return `${prompt.trim()}\n${ATS_100_PROMPT_BLOCK}`;
+}
+
+/** Profile-specific suffixes (e.g. James metrics) — always appended after ATS block. */
+export function appendProfilePromptSuffix(prompt, profileSlug) {
+  if (!prompt?.trim()) return prompt;
+  const isJames =
+    profileSlug === "jp1" || prompt.includes("James Principe — credible across");
+  if (isJames && !prompt.includes("JAMES PRINCIPE — METRICS OVERRIDE")) {
+    return `${prompt.trim()}\n${JAMES_PRINCIPE_METRICS_BLOCK}`;
+  }
+  return prompt;
+}
+
+export function finalizeResumePrompt(prompt, profileSlug) {
+  return appendProfilePromptSuffix(appendAtsBlock(prompt), profileSlug);
 }

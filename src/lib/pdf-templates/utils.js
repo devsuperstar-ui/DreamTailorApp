@@ -1,6 +1,6 @@
 import React from 'react';
 import { Text } from '@react-pdf/renderer';
-import { RESUME_FONT_FAMILY } from '../resume-font-family';
+import { RESUME_BODY_FONT } from '../resume-font-family';
 
 // Helper function to extract year from date string
 export const extractYear = (dateStr) => {
@@ -67,10 +67,13 @@ export const BoldText = ({ text, style }) => {
     return <Text style={style}>{stripBoldTags(normalized)}</Text>;
   }
 
-  const baseFont = (style && style.fontFamily) || RESUME_FONT_FAMILY;
-  const boldStyle = style
-    ? [style, { fontFamily: baseFont, fontWeight: 700 }]
-    : { fontFamily: baseFont, fontWeight: 700 };
+  const baseFont = (style && style.fontFamily) || RESUME_BODY_FONT;
+  const boldFont = baseFont.includes('Times')
+    ? 'Times-Bold'
+    : baseFont.includes('Courier')
+      ? 'Courier-Bold'
+      : 'Helvetica-Bold';
+  const boldStyle = style ? [style, { fontFamily: boldFont }] : { fontFamily: boldFont };
 
   return (
     <Text style={style}>
