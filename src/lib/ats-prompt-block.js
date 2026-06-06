@@ -28,7 +28,7 @@ export const ATS_100_PROMPT_BLOCK = `
 3. **\`"skills"\`** — include **every required** skill/tool (exact wording) **and** a dedicated category such as **"Industry & Domain"** or **"Compliance & Regulations"** listing JD industry/compliance/workflow terms. Include **≥80% of preferred** skills. ~40–48 skills total. **Never omit a required JD or industry keyword.**
 4. **\`"experience"\` bullets** — every **required** technical keyword **and** the top **industry/domain/compliance** terms from the JD must each appear **at least once** across bullets (credible per employer/dates). Frame achievements in the **JD's industry context** (e.g. healthcare payer workflows, freight TMS integrations)—not a generic software-only voice unless the JD is generic.
 5. **Terminology** — use the JD's exact industry and tool spellings; do not substitute synonyms for named sectors, regulations, or products.
-6. **Metrics** — only **4–6 metrics total** for the **entire resume** (summary + all experience bullets). Prefer concrete scale (e.g. **1.2M daily transactions**) over vanity **%** claims. All other bullets stay technical.
+6. **Metrics** — **6–8 quantified outcomes** total (summary + all experience bullets): **3–4 % improvements** (credible **15–45%**, use **~**) plus **2–3 scale metrics**. Do not put a **%** in every bullet.
 
 ### Step 3 — Industry ATS self-check (silent, before output)
 - [ ] JD **industry/sector** named or clearly signaled in summary
@@ -38,25 +38,9 @@ export const ATS_100_PROMPT_BLOCK = `
 - [ ] **Preferred** skills: ≥80% covered
 - [ ] Job title matches JD; seniority tone matches JD
 - [ ] Natural prose — not a keyword dump
-- [ ] **≤6 metrics total** across summary + all bullets (count before output)
+- [ ] **6–8 metrics total** (**3–4 %** + **2–3 scale**) across summary + all bullets (count before output)
 
 Only return JSON after this check passes.
-`;
-
-/** James Principe — appended last so it overrides the generic 4–6 metric cap. */
-export const JAMES_PRINCIPE_METRICS_BLOCK = `
----
-
-## JAMES PRINCIPE — METRICS OVERRIDE (final rule; supersedes generic metric limits above)
-
-Use **6–8 quantified outcomes** across summary + all experience bullets:
-
-- **3–4 percentage improvements** — latency, cost, deployment time, error rate, throughput, test coverage, or incident reduction. Use credible ranges (**15–45%**), prefix estimates with **~**, and **bold the number** (e.g. cut API latency by **~32%**).
-- **2–3 scale metrics** — subscribers, daily requests, services, teams, or uptime (e.g. **2M+ subscribers**, **99.9% uptime**).
-- Place **≥2 % metrics** on **Kiggla** (newest) and **≥2 % metrics** on **Lebara**; at most **1 % metric** on older roles.
-- **One % or scale metric** in the summary is encouraged.
-- Do **not** put a **%** in every bullet — mix with technical depth bullets.
-- Every % claim must tie to a **specific action** (optimization, migration, automation, caching, CI/CD) — never a standalone vanity KPI.
 `;
 
 /** Append ATS block once (avoids duplicate if template already includes it). */
@@ -66,17 +50,6 @@ export function appendAtsBlock(prompt) {
   return `${prompt.trim()}\n${ATS_100_PROMPT_BLOCK}`;
 }
 
-/** Profile-specific suffixes (e.g. James metrics) — always appended after ATS block. */
-export function appendProfilePromptSuffix(prompt, profileSlug) {
-  if (!prompt?.trim()) return prompt;
-  const isJames =
-    profileSlug === "jp1" || prompt.includes("James Principe — credible across");
-  if (isJames && !prompt.includes("JAMES PRINCIPE — METRICS OVERRIDE")) {
-    return `${prompt.trim()}\n${JAMES_PRINCIPE_METRICS_BLOCK}`;
-  }
-  return prompt;
-}
-
-export function finalizeResumePrompt(prompt, profileSlug) {
-  return appendProfilePromptSuffix(appendAtsBlock(prompt), profileSlug);
+export function finalizeResumePrompt(prompt) {
+  return appendAtsBlock(prompt);
 }

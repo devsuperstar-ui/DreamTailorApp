@@ -1,9 +1,7 @@
 import { useCallback, useEffect, useMemo, useState } from "react";
 import Head from "next/head";
-import Link from "next/link";
 import { useRouter } from "next/router";
 import LoadingSpinner from "@/components/LoadingSpinner";
-import ProfileModeSwitch from "@/components/profile/ProfileModeSwitch";
 import { useProfileLoader } from "@/hooks/useProfileLoader";
 import { profileColors as colors } from "@/lib/theme-colors";
 
@@ -120,33 +118,6 @@ export default function ProfileTemplatePreviewPage() {
             <p style={{ margin: "4px 0 0", fontSize: 13, color: colors.textMuted }}>
               Sample bullets only · your name, jobs, and contact are real · no AI generation
             </p>
-          </div>
-          <div style={{ display: "flex", gap: 8, flexWrap: "wrap", alignItems: "center" }}>
-            <ProfileModeSwitch profileSlug={profileSlug} mode="api" />
-            <Link
-              href={`/${profileSlug}`}
-              style={{
-                fontSize: 12,
-                color: colors.infoText,
-                textDecoration: "none",
-                padding: "6px 10px",
-                border: `1px solid ${colors.inputBorder}`,
-                borderRadius: 6,
-              }}
-            >
-              Generate
-            </Link>
-            <Link
-              href="/templates/show"
-              style={{
-                fontSize: 12,
-                color: colors.linkColor,
-                textDecoration: "none",
-                padding: "6px 10px",
-              }}
-            >
-              Style catalog
-            </Link>
           </div>
         </header>
 

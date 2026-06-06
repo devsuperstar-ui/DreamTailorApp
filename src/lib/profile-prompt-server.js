@@ -20,7 +20,7 @@ export function loadPromptTemplateForProfile(profileSlug) {
 
 export function loadPromptForProfile(profileSlug, variables) {
   const template = loadPromptTemplateForProfile(profileSlug);
-  return finalizeResumePrompt(applyPromptVariables(template, variables), profileSlug);
+  return finalizeResumePrompt(applyPromptVariables(template, variables));
 }
 
 export { buildPromptVariables, buildManualPrompt } from "./profile-prompt";

@@ -58,7 +58,6 @@ export function buildManualPrompt(profileData, jd, promptTemplate) {
     throw new Error("Prompt template not loaded");
   }
   return finalizeResumePrompt(
-    applyPromptVariables(promptTemplate, buildPromptVariables(profileData, jd)),
-    profileData?.slug || null
+    applyPromptVariables(promptTemplate, buildPromptVariables(profileData, jd))
   );
 }
