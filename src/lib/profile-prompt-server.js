@@ -2,6 +2,7 @@ import fs from "fs";
 import { getPromptForProfile } from "./profile-template-mapping";
 import { getPromptPath, defaultPromptPath } from "./paths";
 import { applyPromptVariables } from "./profile-prompt";
+import { appendAtsBlock } from "./ats-prompt-block";
 
 export function loadPromptTemplateForProfile(profileSlug) {
   const promptName = getPromptForProfile(profileSlug);
@@ -19,7 +20,7 @@ export function loadPromptTemplateForProfile(profileSlug) {
 
 export function loadPromptForProfile(profileSlug, variables) {
   const template = loadPromptTemplateForProfile(profileSlug);
-  return applyPromptVariables(template, variables);
+  return appendAtsBlock(applyPromptVariables(template, variables));
 }
 
 export { buildPromptVariables, buildManualPrompt } from "./profile-prompt";

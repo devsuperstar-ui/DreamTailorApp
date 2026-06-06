@@ -27,22 +27,22 @@ Format: {"title":"...","summary":"...","skills":{"Category":["Skill1",...]},"exp
 
 ## JD-FIRST TAILORING
 
-Work history lists **companies, titles, dates, and locations only** (no industry field). Use the **JOB DESCRIPTION** as the primary source for domain language, technologies, compliance terms, seniority, and priorities. Tailor the title, summary, skills, and every experience bullet to the JD while keeping each role credible for its employer, title, and dates (~**70% JD** / ~**30%** plausible inference from role + company).
+Work history lists **companies, titles, dates, and locations only** (no industry field on the profile). **Derive industry entirely from the JOB DESCRIPTION** — sector, vertical, compliance, and workflow terms are the **#1 ATS priority**. Tailor title, summary, skills (include an **Industry & Domain** category), and every bullet to that JD industry context while staying credible per employer and dates (~**70% JD** / ~**30%** inference from role + company).
 
 ## RULES
 
-### 1. Domain keywords
-Extract **8–12** domain/compliance terms from the JD. Weave into the summary and bullets naturally—do not dump them in one list.
+### 1. Industry & domain keywords (ATS 100% — priority)
+From the JD, extract the **industry/sector**, **compliance terms** (HIPAA, SOC 2, PCI, etc.), and **workflow/domain nouns** (EHR, TMS, ERP, claims, etc.) plus every required/preferred technical skill. **All industry and required keywords must appear** in summary, skills (use **Industry & Domain** category), or experience — exact JD spelling. Target **≥10 industry/domain terms** across the resume. Weave naturally—do not dump into one list.
 
 ### 2. SUMMARY — strong, executive paragraph (**priority section**)
 
 Write **one cohesive paragraph** of **5 sentences** (**130–165 words**). This should read confident and senior—not a bullet list, not labeled "Line 1/2/3", and not a wall of keywords.
 
 **Structure (as flowing prose, not headings):**
-1. **{{resumeTitle}}** + {{yearsOfExperience}}+ years + domain and context **from the JD**.
+1. **{{resumeTitle}}** + {{yearsOfExperience}}+ years + **industry/sector and domain context from the JD** (e.g. healthcare payer, freight logistics, B2B SaaS).
 2. Depth in core JD stack (**3–5 exact technologies** from the JD, bold the tech names).
 3. Second strength: architecture, scale, security/compliance, or domain expertise (bold 2–3 terms).
-4. **Quantified impact:** one strong result (~%, $, latency, uptime, users, or deployment speed)—specific and believable.
+4. **One impact line** in the summary only (concrete scale, latency, or deployment)—not a stack of percentage claims.
 5. Close on leadership/collaboration, Agile delivery, and 2 priority outcomes from the JD (bold 1–2 phrases).
 
 **Tone:** Active verbs, concrete scope, ATS keywords woven in naturally. Avoid repeating "Proven track record / Proficient in / Strong focus on" as three separate formulaic sentences.
@@ -61,17 +61,26 @@ Write **one cohesive paragraph** of **5 sentences** (**130–165 words**). This 
 - Same order as work history (most recent first).
 - **Bullet counts (most recent job first):** **10** bullets (newest), **9** (second), **8** (third), **7** (fourth and any older). If fewer than four jobs, use **10** then **9** then **8** for available roles only. Never exceed **10** on one job.
 - **28–38 words per bullet**—one achievement per bullet, not two merged.
-- **2–3 bold JD/tech phrases** per bullet; include a metric on most bullets.
+- **2–3 bold JD/tech phrases** per bullet. **At most 2–3 metrics per role** (strongest only)—other bullets stay technical: architecture, integrations, APIs, cloud, reliability, concrete scale.
 - Tools/stacks must be realistic for each role's dates.
 
 **Verbs:** Architected, Built, Designed, Developed, Implemented, Led, Optimized, Automated, Deployed  
 **Avoid:** "Responsible for", "Duties included", "Worked on"
 
+### Bullet quality — selective metrics, senior technical voice
+
+- **Do not** put a percentage in every bullet. Avoid lines like "improved/reduced by **45%**" on most bullets—that reads estimated.
+- Prefer **concrete scope**: "supporting over **1.2M daily transactions**" beats "improved throughput by **50%**."
+- **Strong:** "Designed **Azure**-hosted API orchestration services for ERP synchronization supporting over **1.2M daily transactions**."
+- **Weak:** "Improved throughput by **50%** through optimization."
+- Mix bullet types: design → build → integrate → optimize (metric optional) → lead/own.
+
 ---
 
 ## CHECKLIST
 - Valid JSON; `"experience"` length = {{experienceCount}}
+- **ATS 100%:** JD **industry/sector** + compliance/domain terms in summary, skills, bullets; every **required** technical keyword; **≥80% preferred** skills
 - Summary: **5 sentences, 130–165 words**, **10–12 bold phrases**
-- Skills: ~40–48 items | Experience: **10 / 9 / 8 / 7 bullets** per role (newest → oldest), 28–38 words each
+- Skills: ~40–48 items | Experience: **10 / 9 / 8 / 7 bullets** per role, **≤2–3 metrics per role**, rest technical
 
 Return ONLY: {"title":"...","summary":"...","skills":{...},"experience":[{"title":"...","details":[...]}]}

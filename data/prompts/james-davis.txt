@@ -25,7 +25,7 @@ Format: {"title":"...","summary":"...","skills":{"Category":["Skill1",...]},"exp
 
 ## JD-FIRST TAILORING
 
-Work history lists **companies, titles, dates, and locations only** (no industry field). Use the **JOB DESCRIPTION** as the primary source for domain language, technologies, compliance terms, seniority, and priorities. Tailor the title, summary, skills, and every experience bullet to the JD while keeping each role credible for its employer, title, and dates (~**70% JD** / ~**30%** plausible inference from role + company).
+Work history has **no industry field** — **derive industry entirely from the JOB DESCRIPTION** (sector, compliance, workflow terms). Industry/domain is the **#1 ATS priority**. Tailor title, summary, skills (**Industry & Domain** category), and bullets to the JD industry context; stay credible per employer and dates (~**70% JD** / ~**30%** inference).
 
 ## SUMMARY (priority — make this strong)
 
@@ -34,7 +34,7 @@ Work history lists **companies, titles, dates, and locations only** (no industry
 1. Open: **{{resumeTitle}}**, years, software/domain fit to the JD.
 2. Core stack: **Node.js**, **TypeScript**, **APIs**, cloud/data tools from the JD (bold tech names only).
 3. Architecture, scale, security, or platform strengths (2–3 bold terms).
-4. One sharp metric (deployment speed, latency, uptime, cost, or scale).
+4. **One** strong impact line in the summary (concrete scale preferred over a lone %).
 5. Collaboration, ownership, Agile delivery, priorities from the JD.
 
 Use **10–12 bold phrases** across the paragraph. Match the JD's seniority and stack.

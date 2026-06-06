@@ -27,7 +27,7 @@ Format: {"title":"...","summary":"...","skills":{"Category":["Skill1",...]},"exp
 
 ## JD-FIRST TAILORING
 
-Work history lists **companies, titles, dates, and locations only** (no industry field). Use the **JOB DESCRIPTION** as the primary source for domain language, technologies, compliance terms, seniority, and priorities. Tailor the title, summary, skills, and every experience bullet to the JD while keeping each role credible for its employer, title, and dates (~**70% JD** / ~**30%** plausible inference from role + company).
+Work history has **no industry field** — **derive industry entirely from the JOB DESCRIPTION** (sector, compliance, workflow terms). Industry/domain is the **#1 ATS priority**. Tailor title, summary, skills (**Industry & Domain** category), and bullets to the JD industry context; stay credible per employer and dates (~**70% JD** / ~**30%** inference).
 
 ## SUMMARY
 
@@ -36,7 +36,7 @@ Work history lists **companies, titles, dates, and locations only** (no industry
 1. Open with **{{resumeTitle}}**, years of experience, and domain fit **from the JD**.
 2. Core stack depth: **3–5 JD technologies** (bold tech names only)—e.g. **Node.js**, **TypeScript**, **REST APIs**, **SQL**, cloud services from the JD.
 3. Strong second dimension: distributed reliability, integration-heavy workflows, or platform security (**2–3 bold terms**).
-4. One credible quantified win (throughput, latency, reliability/uptime, deployment cadence, cost, or operational efficiency).
+4. **One** credible impact line in the summary (concrete scale or reliability)—not multiple % metrics.
 5. Close on collaboration/ownership and delivery approach aligned to the JD (bold 1–2 phrases).
 
 Use **10–12 bold phrases** across the paragraph.
@@ -51,7 +51,7 @@ Exactly **{{experienceCount}}** jobs, same order as work history (most recent fi
 
 **Bullet counts (most recent job first):** **10** bullets (newest), **9** (second), **8** (third), **7** (fourth and any older). If fewer than four jobs, use **10** then **9** then **8** for available roles only. Never exceed **10** on one job.
 
-**28–38 words per bullet**—one achievement per bullet, not two merged. **2–3 bold phrases** per bullet; include a metric on most bullets.
+**28–38 words per bullet**—one achievement per bullet, not two merged. **2–3 bold phrases** per bullet. **At most 2–3 metrics per role**; other bullets technical without % KPIs.
 
 **Realism:** Each bullet must fit that employer, title, and dates while prioritizing JD keywords—not assumed industry labels.
 
