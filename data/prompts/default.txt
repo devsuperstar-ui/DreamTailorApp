@@ -91,7 +91,7 @@ This skills block is the primary **keyword inventory** — every required JD ski
 
 Exactly **{{experienceCount}}** jobs, same order as work history (most recent first).
 
-**Bullet counts (most recent job first):** **10** bullets (newest), **9** (second), **8** (third), **7** (fourth and any older). If fewer than four jobs, use **10** then **9** then **8** for available roles only. Never exceed **10** on one job.
+**Bullet counts (most recent job first):** **8** bullets (newest), **7** (second), **6** (third), **5** (fourth and any older). If fewer than four jobs, use **8** then **7** then **6** for available roles only. Never exceed **8** on one job.
 
 **38–43 words per bullet (HARD MINIMUM 38)** — count words in each bullet before returning JSON. Bullets under 38 words are **invalid** — expand with tech stack, business context, collaborators, and measurable outcome. One achievement per bullet, not two merged. Plain text only — no bold or markup.
 
@@ -136,7 +136,7 @@ Architected, Built, Designed, Developed, Engineered, Implemented, Integrated, Le
 - Valid JSON; `"experience"` length = {{experienceCount}}
 - Silent ATS self-score **≥90%** on required JD keywords before returning
 - Summary: **5–6 sentences, 140–175 words**, plain text only (no bold/markup)
-- Skills: ~40–48 items including **Industry & Domain** | Experience: **10 / 9 / 8 / 7 bullets** per role (newest → oldest), **38–43 words each (min 38)**, **6–8 metrics** (**3–4 %** + **2–3 scale**)
+- Skills: ~40–48 items including **Industry & Domain** | Experience: **8 / 7 / 6 / 5 bullets** per role (newest → oldest), **38–43 words each (min 38)**, **6–8 metrics** (**3–4 %** + **2–3 scale**)
 - **Word-count pass:** every `"details"` bullet is **38–43 words**; expand any under 38 before returning JSON
 
 Return ONLY: {"title":"...","summary":"...","skills":{...},"experience":[{"title":"...","details":[...]}]}
