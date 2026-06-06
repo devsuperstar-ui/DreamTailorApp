@@ -1,44 +1,41 @@
 /**
  * Appended to every resume prompt (auto + manual) to maximize ATS keyword match.
- * Goal: 100% coverage of required JD terms — especially industry/domain language.
+ * Industry/domain language comes from the JD only — never from resume JSON.
  */
 export const ATS_100_PROMPT_BLOCK = `
 ---
 
 ## ATS 100% TARGET (mandatory — verify before returning JSON)
 
-**Goal:** Score **100%** on keyword-matching ATS for this JOB DESCRIPTION — with **industry/domain** as the top priority after the job title.
+**Goal:** Score **100%** on keyword-matching ATS for this JOB DESCRIPTION.
+
+**Industry rule:** Resume JSON has **no industry field**. Extract sector/domain/compliance terms **only from the JD**. Do not infer industry from employer names unless the JD supports that framing.
 
 ### Step 1 — Extract JD keywords (do this first)
 
-**A. Industry & domain (highest ATS priority)**
-- Identify the JD **industry/sector** (e.g. healthcare, fintech, logistics, EdTech, SaaS, manufacturing, telecom, insurance).
-- Extract **every** domain phrase, vertical term, product type, customer segment, and business context word from the JD.
-- Extract **compliance/regulatory** terms (e.g. **HIPAA**, **SOC 2**, **PCI-DSS**, **GDPR**, **FDA**, **SOX**) if mentioned or implied by the sector.
-- Extract **workflow/domain nouns** (e.g. EHR, claims processing, TMS, ERP sync, payment rails, underwriting, fleet operations).
-
-**B. Technical & role keywords**
+**From the JD:**
 - Every **required** and **preferred** skill, tool, platform, framework, cloud service, methodology, certification.
-- **Exact job title** phrasing and **seniority** from the JD.
+- **Industry/sector**, product type, and business-context phrases **as written in the JD**.
+- **Compliance/regulatory** terms (HIPAA, SOC 2, PCI-DSS, GDPR, etc.) **only if the JD mentions them**.
+- **Workflow/domain nouns** (EHR, TMS, ERP, payment rails, etc.) **only if the JD mentions them**.
+- **Exact job title** phrasing and **seniority**.
 
 ### Step 2 — 100% coverage rules
 
 1. **\`"title"\`** — JD job title **verbatim**.
-2. **\`"summary"\`** — open with title + **industry/domain fit from the JD** (sector, product type, compliance). Include **all must-have technologies** (exact JD spelling) plus **10–15 industry/domain keywords** from the JD woven naturally.
-3. **\`"skills"\`** — include **every required** skill/tool (exact wording) **and** a dedicated category such as **"Industry & Domain"** or **"Compliance & Regulations"** listing JD industry/compliance/workflow terms. Include **≥80% of preferred** skills. ~40–48 skills total. **Never omit a required JD or industry keyword.**
-4. **\`"experience"\` bullets** — every **required** technical keyword **and** the top **industry/domain/compliance** terms from the JD must each appear **at least once** across bullets (credible per employer/dates). Frame achievements in the **JD's industry context** (e.g. healthcare payer workflows, freight TMS integrations)—not a generic software-only voice unless the JD is generic.
-5. **Terminology** — use the JD's exact industry and tool spellings; do not substitute synonyms for named sectors, regulations, or products.
-6. **Metrics** — **6–8 quantified outcomes** total (summary + all experience bullets): **3–4 % improvements** (credible **15–45%**, use **~**) plus **2–3 scale metrics**. Do not put a **%** in every bullet.
+2. **\`"summary"\`** — open with title + years + **JD role/sector fit** (use JD industry terms when present). Include all must-have technologies (exact JD spelling).
+3. **\`"skills"\`** — every **required** skill/tool (exact wording). Add **Industry & Domain** category **only when the JD signals a sector** — list terms from the JD, not from profile JSON. **≥80% of preferred** skills. ~40–48 skills total.
+4. **\`"experience"\` bullets** — every **required** JD keyword plus **JD industry/domain terms** (when present) appear at least once, framed credibly per employer/dates.
+5. **Terminology** — exact JD spellings for tools, sectors, regulations, and products named in the JD.
+6. **Metrics** — **6–8 quantified outcomes** total: **3–4 % improvements** (**15–45%**, use **~**) + **2–3 scale metrics**.
 
-### Step 3 — Industry ATS self-check (silent, before output)
-- [ ] JD **industry/sector** named or clearly signaled in summary
-- [ ] **Every** compliance/regulatory term from the JD appears in skills or bullets
-- [ ] **≥10 industry/domain/workflow** terms from the JD appear across summary + skills + bullets
+### Step 3 — ATS self-check (silent, before output)
+- [ ] Industry/domain terms used **only if present in the JD** (not invented from employers)
 - [ ] Every **required** technical skill in skills, summary, or experience
 - [ ] **Preferred** skills: ≥80% covered
 - [ ] Job title matches JD; seniority tone matches JD
 - [ ] Natural prose — not a keyword dump
-- [ ] **6–8 metrics total** (**3–4 %** + **2–3 scale**) across summary + all bullets (count before output)
+- [ ] **6–8 metrics total** across summary + all bullets
 
 Only return JSON after this check passes.
 `;

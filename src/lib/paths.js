@@ -6,8 +6,4 @@ export function getResumePath(name) {
   return path.join(DATA_DIR, "resumes", `${name}.json`);
 }
 
-export function getPromptPath(promptName) {
-  return path.join(DATA_DIR, "prompts", `${promptName}.txt`);
-}
-
 export const defaultPromptPath = path.join(DATA_DIR, "prompts", "default.txt");
