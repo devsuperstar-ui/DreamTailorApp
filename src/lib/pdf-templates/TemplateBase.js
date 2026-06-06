@@ -1,7 +1,7 @@
 import React, { useMemo } from 'react';
 import { Document, Page, Text, View, StyleSheet } from '@react-pdf/renderer';
 import { RESUME_BODY_FONT, RESUME_TITLE_FONT } from '../resume-font-family';
-import { extractYear, BoldText } from './utils';
+import { extractYear } from './utils';
 
 const BODY_FONT = RESUME_BODY_FONT;
 const TITLE_FONT = RESUME_TITLE_FONT;
@@ -552,10 +552,9 @@ export const createResumeTemplate = (config) => {
                                 <View style={styles.expDetails}>
                                     {exp.details.map((detail, detailIdx) => (
                                         <View key={detailIdx} style={{ marginBottom: 2 }}>
-                                            <BoldText
-                                                text={`${bullet}  ${String(detail ?? '')}`}
-                                                style={styles.expDetailItem}
-                                            />
+                                            <Text style={styles.expDetailItem}>
+                                                {`${bullet}  ${String(detail ?? '')}`}
+                                            </Text>
                                         </View>
                                     ))}
                                 </View>
@@ -578,7 +577,7 @@ export const createResumeTemplate = (config) => {
                                 styles={styles}
                                 theme={t}
                             />
-                            <BoldText text={summary} style={styles.summary} />
+                            <Text style={styles.summary}>{summary}</Text>
                         </View>
                     )}
 

@@ -13,10 +13,13 @@ function trimText(value, maxLen) {
   return s.slice(0, maxLen - 1) + "…";
 }
 
-/** Plain text renders much faster than hundreds of **bold** segments in react-pdf. */
+/** Strip markdown/HTML bold so PDF output is plain text only. */
 export function stripMarkdownBold(text) {
   if (typeof text !== "string") return text;
-  return text.replace(/\*\*(.+?)\*\*/g, "$1");
+  return text
+    .replace(/\*\*(.+?)\*\*/g, "$1")
+    .replace(/<strong[^>]*>([\s\S]*?)<\/strong\s*>/gi, "$1")
+    .replace(/<b[^>]*>([\s\S]*?)<\/b\s*>/gi, "$1");
 }
 
 export function sanitizeResumeContentForPdf(resumeContent) {
@@ -29,8 +32,7 @@ export function sanitizeResumeContentForPdf(resumeContent) {
   }
 
   if (typeof out.summary === "string") {
-    // Keep **bold** in summary for PDF emphasis; only trim excessive length.
-    out.summary = trimText(out.summary, MAX_SUMMARY_CHARS);
+    out.summary = stripMarkdownBold(trimText(out.summary, MAX_SUMMARY_CHARS));
   }
 
   if (out.skills && typeof out.skills === "object") {
@@ -51,7 +53,7 @@ export function sanitizeResumeContentForPdf(resumeContent) {
       const details = Array.isArray(exp.details)
         ? exp.details
             .slice(0, maxBullets)
-            .map((d) => trimText(d, MAX_BULLET_CHARS))
+            .map((d) => stripMarkdownBold(trimText(d, MAX_BULLET_CHARS)))
         : exp.details;
       return {
         ...exp,
