@@ -95,7 +95,7 @@ Exactly **{{experienceCount}}** jobs, same order as work history (most recent fi
 
 **Bullet counts (most recent job first):** **10** bullets (newest), **9** (second), **8** (third), **7** (fourth and any older). If fewer than four jobs, use **10** then **9** then **8** for available roles only. Never exceed **10** on one job.
 
-**30–40 words per bullet (HARD MINIMUM 30)** — count words in each bullet before returning JSON. Bullets under 30 words are **invalid** — expand with tech stack, business context, collaborators, and measurable outcome. One achievement per bullet, not two merged. **2–3 bold** JD/tech phrases per bullet.
+**34–40 words per bullet (HARD MINIMUM 34)** — count words in each bullet before returning JSON. Bullets under 34 words are **invalid** — expand with tech stack, business context, collaborators, and measurable outcome. One achievement per bullet, not two merged. **2–3 bold** JD/tech phrases per bullet.
 
 **Bullet structure (fills word count):** [Action verb] + [what you built] + [2–3 JD technologies, bolded] + [business/domain context from JD] + [team/stakeholder scope] + [**~%** improvement or scale metric]
 
@@ -113,12 +113,12 @@ Architected, Built, Designed, Developed, Engineered, Implemented, Integrated, Le
 
 **Bullet quality pattern:** [Action verb] + [what you built/did] + [tech stack bolded] + [**~30%** improvement or scale outcome]
 
-**Strong examples (30–40 words each — match this length, not shorter):**
-- "Engineered and deployed a **Node.js**/**TypeScript** microservices layer on **AWS ECS** with **Docker** and **Terraform**, integrating **PostgreSQL** and **Redis** for high-throughput billing workflows while partnering with cross-functional squads to harden **CI/CD** gates and cut p95 API latency by **~32%** across **15+** production services."
-- "Automated **CI/CD** release pipelines with **GitHub Actions**, **Jenkins**, and infrastructure-as-code checks, enabling safer multi-environment deployments for distributed engineering teams and reducing deployment lead time by **~40%** while improving release reliability across **20+** microservices."
+**Strong examples (34–40 words each — match this length, not shorter):**
+- "Engineered a **Node.js**/**TypeScript** microservices layer on **AWS ECS** with **Docker** and **Terraform**, integrating **PostgreSQL** and **Redis** for high-throughput billing workflows while partnering with cross-functional squads to harden **CI/CD** gates and cut p95 API latency by **~32%** across **15+** services."
+- "Automated **CI/CD** release pipelines with **GitHub Actions**, **Jenkins**, and infrastructure-as-code checks, enabling safer multi-environment deployments for distributed engineering teams and reducing deployment lead time by **~40%** while improving release reliability across **20+** microservices in production."
 - "Refactored legacy integration services into event-driven **API** endpoints with robust observability and error handling, collaborating with product and QA stakeholders to lower production error rates by **~25%** during peak traffic without sacrificing throughput for customer-facing workflows."
 
-**Weak (avoid):** bullets under 30 words / "Improved performance significantly." / "% on every bullet"
+**Weak (avoid):** bullets under 34 words / "Improved performance significantly." / "% on every bullet"
 
 **Realism:** Tools and stacks must fit each role's title, company, and dates. Domain terms belong on the employer where they are most credible.
 
@@ -138,7 +138,7 @@ Architected, Built, Designed, Developed, Engineered, Implemented, Integrated, Le
 - Valid JSON; `"experience"` length = {{experienceCount}}
 - Silent ATS self-score **≥90%** on required JD keywords before returning
 - Summary: **5–6 sentences, 140–175 words**, **10–12 bold phrases**
-- Skills: ~40–48 items including **Industry & Domain** | Experience: **10 / 9 / 8 / 7 bullets** per role (newest → oldest), **30–40 words each (min 30)**, **6–8 metrics** (**3–4 %** + **2–3 scale**)
-- **Word-count pass:** every `"details"` bullet is **30–40 words**; expand any under 30 before returning JSON
+- Skills: ~40–48 items including **Industry & Domain** | Experience: **10 / 9 / 8 / 7 bullets** per role (newest → oldest), **34–40 words each (min 34)**, **6–8 metrics** (**3–4 %** + **2–3 scale**)
+- **Word-count pass:** every `"details"` bullet is **34–40 words**; expand any under 34 before returning JSON
 
 Return ONLY: {"title":"...","summary":"...","skills":{...},"experience":[{"title":"...","details":[...]}]}

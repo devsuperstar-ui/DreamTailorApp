@@ -109,7 +109,7 @@ export default async function handler(req, res) {
 
 Return ONLY a single valid JSON object (no markdown, no commentary). Root keys: "title" (string), "summary" (string), "skills" (object: category -> array of strings), "experience" (array).
 The "experience" array MUST have exactly ${experienceCount} entries, in the same order as the candidate work history. Each entry MUST have "title" and "details" (non-empty array of strings).
-Bullet counts (most recent job first): 10, 9, 8, 7 (4th job and older: 7). **Each bullet MUST be 30–40 words** (minimum 30). Include every required JD keyword across skills/summary/experience (ATS 100%). Fill gaps sensibly from context if the fragment is truncated.
+Bullet counts (most recent job first): 10, 9, 8, 7 (4th job and older: 7). **Each bullet MUST be 34–40 words** (minimum 34). Include every required JD keyword across skills/summary/experience (ATS 100%). Fill gaps sensibly from context if the fragment is truncated.
 
 Fragment to repair:
 ${fragment}`;
