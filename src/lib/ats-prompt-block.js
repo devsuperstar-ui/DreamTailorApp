@@ -25,7 +25,7 @@ export const ATS_100_PROMPT_BLOCK = `
 1. **\`"title"\`** — JD job title **verbatim**.
 2. **\`"summary"\`** — open with title + years + **JD role/sector fit** (use JD industry terms when present). Include all must-have technologies (exact JD spelling).
 3. **\`"skills"\`** — every **required** skill/tool (exact wording). Add **Industry & Domain** category **only when the JD signals a sector** — list terms from the JD, not from profile JSON. **≥80% of preferred** skills. ~40–48 skills total.
-4. **\`"experience"\` bullets** — every **required** JD keyword plus **JD industry/domain terms** (when present) appear at least once, framed credibly per employer/dates.
+4. **\`"experience"\` bullets** — every **required** JD keyword plus **JD industry/domain terms** (when present) appear at least once, framed credibly per employer/dates. **Each bullet MUST be 30–40 words** (hard minimum 30). Short bullets (~20 words) fail ATS depth — expand with stack, scope, stakeholders, and outcome.
 5. **Terminology** — exact JD spellings for tools, sectors, regulations, and products named in the JD.
 6. **Metrics** — **6–8 quantified outcomes** total: **3–4 % improvements** (**15–45%**, use **~**) + **2–3 scale metrics**.
 
@@ -36,6 +36,7 @@ export const ATS_100_PROMPT_BLOCK = `
 - [ ] Job title matches JD; seniority tone matches JD
 - [ ] Natural prose — not a keyword dump
 - [ ] **6–8 metrics total** across summary + all bullets
+- [ ] **Every experience bullet is 30–40 words** (count words; expand any under 30)
 
 Only return JSON after this check passes.
 `;

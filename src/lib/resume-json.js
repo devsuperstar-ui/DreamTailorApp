@@ -7,8 +7,8 @@ const JSONC_OPTS = { allowTrailingComma: true };
 export function makeConcisePrompt(fullPrompt) {
   return (
     fullPrompt +
-    "\n\n**RETRY — trim only bullets/skills:** Keep summary 5 sentences (~130 words). " +
-    "Skills max 38 total. Use 10/9/8/7 bullets per job (newest first). 22-30 words each. Return valid JSON only."
+    "\n\n**RETRY — fix JSON only; do NOT shorten bullets:** Keep summary 5–6 sentences (~140–175 words). " +
+    "Skills max 48 total. Use 10/9/8/7 bullets per job (newest first). **Every bullet MUST be 30–40 words** — expand any under 30. Return valid JSON only."
   );
 }
 
