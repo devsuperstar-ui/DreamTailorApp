@@ -1,6 +1,10 @@
 import React, { useMemo } from 'react';
 import { Document, Page, Text, View, StyleSheet } from '@react-pdf/renderer';
+import { RESUME_FONT_FAMILY } from '../resume-font-family';
 import { extractYear, BoldText } from './utils';
+
+const BODY_FONT = RESUME_FONT_FAMILY;
+const TITLE_FONT = RESUME_FONT_FAMILY;
 
 const GRAY = {
     textDark: '#1a1a1a',
@@ -8,10 +12,11 @@ const GRAY = {
     textLight: '#6b6b6b',
 };
 
+const STYLE_CACHE_VERSION = 3;
 const styleCache = new Map();
 
 function cacheKey(config, headerLayout) {
-    return `${headerLayout}:${JSON.stringify(config.fonts || {})}:${JSON.stringify(config.theme || {})}:${JSON.stringify(config.sectionTitles || {})}`;
+    return `${STYLE_CACHE_VERSION}:${headerLayout}:${JSON.stringify(config.fonts || {})}:${JSON.stringify(config.theme || {})}:${JSON.stringify(config.sectionTitles || {})}`;
 }
 
 function createStyles(config, headerLayout) {
@@ -31,7 +36,7 @@ function createStyles(config, headerLayout) {
         page: {
             padding: theme.pagePadding || '15mm',
             fontSize: fonts.baseSize || 11,
-            fontFamily: fonts.body || 'Helvetica',
+            fontFamily: fonts.body || BODY_FONT,
             color: GRAY.textDark,
         },
         header: {
@@ -101,8 +106,8 @@ function createStyles(config, headerLayout) {
         headerLeft: { flex: 1 },
         name: {
             fontSize: fonts.nameSize || 24,
-            fontFamily: fonts.title || 'Helvetica-Bold',
-            fontWeight: 'bold',
+            fontFamily: fonts.title || TITLE_FONT,
+            fontWeight: 700,
             marginBottom: 3,
             color: theme.headerStyle === 'banner' ? '#ffffff' : '#000000',
             textTransform: theme.nameUppercase ? 'uppercase' : 'none',
@@ -110,14 +115,14 @@ function createStyles(config, headerLayout) {
         },
         title: {
             fontSize: fonts.titleSize || 11,
-            fontFamily: fonts.body || 'Helvetica',
-            fontWeight: fonts.titleWeight || 'normal',
+            fontFamily: fonts.body || BODY_FONT,
+            fontWeight: fonts.titleWeight || 400,
             marginBottom: 6,
             color: theme.headerStyle === 'banner' ? '#e8e8e8' : GRAY.textMedium,
         },
         contact: {
             fontSize: fonts.contactSize || 9.5,
-            fontFamily: fonts.body || 'Helvetica',
+            fontFamily: fonts.body || BODY_FONT,
             color: theme.headerStyle === 'banner' ? '#d0d0d0' : GRAY.textLight,
             lineHeight: 1.4,
             textAlign: isSplit ? 'right' : isLeft ? 'left' : 'center',
@@ -134,8 +139,8 @@ function createStyles(config, headerLayout) {
         },
         sectionTitleBase: {
             fontSize: fonts.sectionSize || 10,
-            fontFamily: fonts.title || 'Helvetica-Bold',
-            fontWeight: 'bold',
+            fontFamily: fonts.title || TITLE_FONT,
+            fontWeight: 700,
             color: theme.sectionStyle === 'pill' ? '#ffffff' : accent,
             marginBottom: 8,
         },
@@ -223,7 +228,7 @@ function createStyles(config, headerLayout) {
         },
         summary: {
             fontSize: fonts.summarySize || 10.5,
-            fontFamily: fonts.body || 'Helvetica',
+            fontFamily: fonts.body || BODY_FONT,
             lineHeight: theme.summaryItalic ? 1.65 : 1.6,
             textAlign: 'left',
             color: GRAY.textDark,
@@ -235,8 +240,8 @@ function createStyles(config, headerLayout) {
         },
         skillsLabel: {
             fontSize: fonts.skillsLabelSize || 9.5,
-            fontFamily: fonts.title || 'Helvetica-Bold',
-            fontWeight: 'bold',
+            fontFamily: fonts.title || TITLE_FONT,
+            fontWeight: 700,
             color: GRAY.textDark,
             marginBottom: 3,
             textTransform: theme.sectionStyle === 'labeled' ? 'none' : 'uppercase',
@@ -244,7 +249,7 @@ function createStyles(config, headerLayout) {
         },
         skillsList: {
             fontSize: fonts.skillsListSize || 9.5,
-            fontFamily: fonts.body || 'Helvetica',
+            fontFamily: fonts.body || BODY_FONT,
             color: GRAY.textMedium,
             lineHeight: 1.5,
         },
@@ -262,23 +267,25 @@ function createStyles(config, headerLayout) {
         },
         expTitle: {
             fontSize: fonts.expTitleSize || 10.5,
-            fontFamily: fonts.title || 'Helvetica-Bold',
-            fontWeight: 'bold',
+            fontFamily: fonts.title || TITLE_FONT,
+            fontWeight: 700,
             color: '#000000',
         },
         expDates: {
             fontSize: fonts.expDatesSize || 9.5,
-            fontFamily: fonts.body || 'Helvetica',
+            fontFamily: fonts.body || BODY_FONT,
             color: GRAY.textMedium,
-            fontWeight: 'normal',
+            fontWeight: 400,
         },
         expDatesBelow: {
             fontSize: fonts.expDatesSize || 9,
+            fontFamily: fonts.body || BODY_FONT,
             color: accent,
             marginBottom: 2,
         },
         expCompany: {
             fontSize: fonts.expCompanySize || 10,
+            fontFamily: fonts.body || BODY_FONT,
             color: GRAY.textMedium,
             marginBottom: 3,
             fontStyle: companyItalic ? 'italic' : 'normal',
@@ -288,7 +295,7 @@ function createStyles(config, headerLayout) {
         },
         expDetailItem: {
             fontSize: fonts.expDetailSize || 10,
-            fontFamily: fonts.body || 'Helvetica',
+            fontFamily: fonts.body || BODY_FONT,
             lineHeight: 1.45,
             marginBottom: 2,
             color: GRAY.textDark,
@@ -304,19 +311,19 @@ function createStyles(config, headerLayout) {
         },
         eduDegree: {
             fontSize: fonts.eduDegreeSize || 10.5,
-            fontFamily: fonts.title || 'Helvetica-Bold',
-            fontWeight: 'bold',
+            fontFamily: fonts.title || TITLE_FONT,
+            fontWeight: 700,
             color: '#000000',
         },
         eduDates: {
             fontSize: fonts.eduDatesSize || 9.5,
-            fontFamily: fonts.body || 'Helvetica',
+            fontFamily: fonts.body || BODY_FONT,
             color: GRAY.textMedium,
-            fontWeight: 'normal',
+            fontWeight: 400,
         },
         eduSchool: {
             fontSize: fonts.eduSchoolSize || 10,
-            fontFamily: fonts.body || 'Helvetica',
+            fontFamily: fonts.body || BODY_FONT,
             color: GRAY.textMedium,
             fontStyle: 'italic',
         },

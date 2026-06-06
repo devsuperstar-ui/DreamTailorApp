@@ -10,6 +10,7 @@
     },
     "dependencies": {
         "@anthropic-ai/sdk": "^0.32.1",
+        "@fontsource/source-sans-3": "^5.2.9",
         "@react-pdf/renderer": "^3.4.4",
         "formidable": "^2.1.1",
         "googleapis": "^171.4.0",
