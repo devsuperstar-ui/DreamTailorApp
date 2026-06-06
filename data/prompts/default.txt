@@ -52,13 +52,13 @@ Compare the JD keyword list against the work history above (most recent role fir
 - Target **≥90% ATS keyword match** on required terms; **≥80%** on preferred terms
 
 ### Step 4 — Self-score (silent, before output)
-Estimate ATS match **0–100%**. If below **90%**, add missing required keywords credibly and re-check. Do not output the score — use it only to validate completeness.
+Estimate ATS match **0–100%**. If below **98%**, add missing required keywords credibly and re-check. Do not output the score — use it only to validate completeness.
 
 ---
 
 ## JD-FIRST TAILORING
 
-Work history has **no industry field** — companies, titles, dates, and locations only. **Derive industry entirely from the JOB DESCRIPTION** (sector, compliance, workflow terms). Industry/domain is the **#1 ATS priority**. Tailor title, summary, skills (**Industry & Domain** category), and bullets to the JD industry context; stay credible per employer and dates (~**70% JD** / ~**30%** inference from role + company).
+Work history has **no industry field** — companies, titles, dates, and locations only. **Derive industry entirely from the JOB DESCRIPTION** (sector, compliance, workflow terms). Industry/domain is the **#1 ATS priority**. Tailor title, summary, skills (**Industry & Domain** category), and bullets to the JD industry context; stay credible per employer and dates (~**80% JD** / ~**20%** inference from role + company).
 
 **Credibility anchors (use when JD aligns):**
 - Anchor achievements to each employer's plausible technical scope and scale
@@ -95,7 +95,7 @@ Exactly **{{experienceCount}}** jobs, same order as work history (most recent fi
 
 **Bullet counts (most recent job first):** **10** bullets (newest), **9** (second), **8** (third), **7** (fourth and any older). If fewer than four jobs, use **10** then **9** then **8** for available roles only. Never exceed **10** on one job.
 
-**28–38 words per bullet** — one achievement per bullet, not two merged. **2–3 bold** JD/tech phrases per bullet.
+**35–45 words per bullet** — one achievement per bullet, not two merged. **2–3 bold** JD/tech phrases per bullet.
 
 **Action verbs (rotate — do not repeat the same opener on consecutive bullets):**  
 Architected, Built, Designed, Developed, Engineered, Implemented, Integrated, Led, Optimized, Automated, Deployed, Scaled, Streamlined, Migrated, Refactored
@@ -136,6 +136,6 @@ Architected, Built, Designed, Developed, Engineered, Implemented, Integrated, Le
 - Valid JSON; `"experience"` length = {{experienceCount}}
 - Silent ATS self-score **≥90%** on required JD keywords before returning
 - Summary: **5–6 sentences, 140–175 words**, **10–12 bold phrases**
-- Skills: ~40–48 items including **Industry & Domain** | Experience: **10 / 9 / 8 / 7 bullets** per role (newest → oldest), **28–38 words each**, **6–8 metrics** (**3–4 %** + **2–3 scale**)
+- Skills: ~40–48 items including **Industry & Domain** | Experience: **10 / 9 / 8 / 7 bullets** per role (newest → oldest), **35–45 words each**, **6–8 metrics** (**3–4 %** + **2–3 scale**)
 
 Return ONLY: {"title":"...","summary":"...","skills":{...},"experience":[{"title":"...","details":[...]}]}
