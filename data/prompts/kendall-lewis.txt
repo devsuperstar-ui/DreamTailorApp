@@ -33,7 +33,7 @@ Work history has **no industry field** — **derive industry entirely from the J
 **40–48 skills**, **5–6 categories**, **6–8 per category**.
 
 ### EXPERIENCE
-**{{experienceCount}}** entries. **10 / 9 / 8 / 7 bullets** per role (newest → oldest), **28–38 words** each, **2–3** bold phrases. **At most 2–3 metrics per role**; balance with technical bullets.
+**{{experienceCount}}** entries. **10 / 9 / 8 / 7 bullets** per role (newest → oldest), **28–38 words** each, **2–3** bold phrases. **Only 4–6 metrics total** for the whole resume; balance with technical bullets.
 
 ---
 

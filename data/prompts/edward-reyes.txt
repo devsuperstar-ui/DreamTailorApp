@@ -37,7 +37,7 @@ Work history has **no industry field** — **derive industry entirely from the J
 
 ## EXPERIENCE
 
-**Metrics discipline:** at most **2–3 metrics per role** (strongest only). Other bullets = architecture, integrations, APIs, cloud, concrete scale (e.g. **1.2M daily transactions**)—not a **%** KPI on every line.
+**Metrics (entire resume):** only **4–6 metrics total** across summary + all experience bullets (strongest only). Other bullets = architecture, integrations, APIs, cloud, concrete scale (e.g. **1.2M daily transactions**)—not a **%** KPI on every line.
 
 **{{experienceCount}}** jobs. **10 / 9 / 8 / 7 bullets** per role (newest → oldest), **28–38 words**. Junior civil-engineering-adjacent role stays light on AI claims; later roles carry model/production depth.
 

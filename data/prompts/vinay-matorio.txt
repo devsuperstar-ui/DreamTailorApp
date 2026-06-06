@@ -49,7 +49,7 @@ Use **10–12 bold phrases** across the paragraph.
 
 Exactly **{{experienceCount}}** jobs, same order as work history (most recent first).
 
-**Bullet counts (most recent first):** **10**, **9**, **8**, **7** (fourth job and older: **7**). **28–38 words** each; **2–3 bold** phrases. **At most 2–3 metrics per role**; other bullets = architecture, integrations, and stack depth.
+**Bullet counts (most recent first):** **10**, **9**, **8**, **7** (fourth job and older: **7**). **28–38 words** each; **2–3 bold** phrases. **Only 4–6 metrics total** for the whole resume; other bullets = architecture, integrations, and stack depth.
 
 **Realism:** Stacks must fit each role's company, title, and dates (consulting vs Thermo Fisher vs product teams).
 

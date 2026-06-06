@@ -28,6 +28,7 @@ export const ATS_100_PROMPT_BLOCK = `
 3. **\`"skills"\`** — include **every required** skill/tool (exact wording) **and** a dedicated category such as **"Industry & Domain"** or **"Compliance & Regulations"** listing JD industry/compliance/workflow terms. Include **≥80% of preferred** skills. ~40–48 skills total. **Never omit a required JD or industry keyword.**
 4. **\`"experience"\` bullets** — every **required** technical keyword **and** the top **industry/domain/compliance** terms from the JD must each appear **at least once** across bullets (credible per employer/dates). Frame achievements in the **JD's industry context** (e.g. healthcare payer workflows, freight TMS integrations)—not a generic software-only voice unless the JD is generic.
 5. **Terminology** — use the JD's exact industry and tool spellings; do not substitute synonyms for named sectors, regulations, or products.
+6. **Metrics** — only **4–6 metrics total** for the **entire resume** (summary + all experience bullets). Prefer concrete scale (e.g. **1.2M daily transactions**) over vanity **%** claims. All other bullets stay technical.
 
 ### Step 3 — Industry ATS self-check (silent, before output)
 - [ ] JD **industry/sector** named or clearly signaled in summary
@@ -37,6 +38,7 @@ export const ATS_100_PROMPT_BLOCK = `
 - [ ] **Preferred** skills: ≥80% covered
 - [ ] Job title matches JD; seniority tone matches JD
 - [ ] Natural prose — not a keyword dump
+- [ ] **≤6 metrics total** across summary + all bullets (count before output)
 
 Only return JSON after this check passes.
 `;
