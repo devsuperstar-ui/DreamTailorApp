@@ -1,5 +1,4 @@
-/** Normalize AI JSON before PDF render — keeps pages fast and avoids timeouts. */
-import { getBulletLimitForJobIndex } from "@/lib/resume-bullet-limits";
+/** Normalize AI JSON before PDF render — safety trims only; content rules live in each profile prompt. */
 
 const MAX_SUMMARY_CHARS = 2200;
 const MAX_BULLET_CHARS = 400;
@@ -47,13 +46,10 @@ export function sanitizeResumeContentForPdf(resumeContent) {
   }
 
   if (Array.isArray(out.experience)) {
-    out.experience = out.experience.map((exp, jobIndex) => {
+    out.experience = out.experience.map((exp) => {
       if (!exp || typeof exp !== "object") return exp;
-      const maxBullets = getBulletLimitForJobIndex(jobIndex);
       const details = Array.isArray(exp.details)
-        ? exp.details
-            .slice(0, maxBullets)
-            .map((d) => stripMarkdownBold(trimText(d, MAX_BULLET_CHARS)))
+        ? exp.details.map((d) => stripMarkdownBold(trimText(d, MAX_BULLET_CHARS)))
         : exp.details;
       return {
         ...exp,

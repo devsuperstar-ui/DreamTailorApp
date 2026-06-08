@@ -1,5 +1,4 @@
 /** Client-safe prompt building (no Node fs). */
-import { finalizeResumePrompt } from "./ats-prompt-block";
 
 export function applyPromptVariables(template, variables) {
   let out = template;
@@ -57,7 +56,5 @@ export function buildManualPrompt(profileData, jd, promptTemplate) {
   if (!promptTemplate?.trim()) {
     throw new Error("Prompt template not loaded");
   }
-  return finalizeResumePrompt(
-    applyPromptVariables(promptTemplate, buildPromptVariables(profileData, jd))
-  );
+  return applyPromptVariables(promptTemplate, buildPromptVariables(profileData, jd));
 }
