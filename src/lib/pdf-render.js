@@ -5,8 +5,10 @@ import {
   isGoogleDriveConfigured,
   uploadPdfToGoogleDrive,
 } from "@/lib/google-drive";
-export const MANUAL_PDF_RENDER_TIMEOUT_MS = 180_000;
-export const AI_PDF_RENDER_TIMEOUT_MS = 120_000;
+import { pdfRenderTimeoutMs, skipGoogleDriveUpload } from "@/lib/runtime-limits";
+
+export const MANUAL_PDF_RENDER_TIMEOUT_MS = pdfRenderTimeoutMs();
+export const AI_PDF_RENDER_TIMEOUT_MS = pdfRenderTimeoutMs({ ai: true });
 
 export async function renderPdfBuffer(TemplateComponent, templateData, timeoutMs = MANUAL_PDF_RENDER_TIMEOUT_MS) {
   const doc = React.createElement(TemplateComponent, { data: templateData });
@@ -55,6 +57,11 @@ export function sendPdfResponse(res, pdfBuffer, fileName, { driveUrl = null, dri
 export async function sendPdfResponseWithDrive(res, pdfBuffer, fileName, { profileName } = {}) {
   let driveUrl = null;
   let driveError = null;
+
+  if (skipGoogleDriveUpload()) {
+    sendPdfResponse(res, pdfBuffer, fileName);
+    return;
+  }
 
   const driveMode = getGoogleDriveAuthMode();
   if (driveMode === "oauth_pending" && process.env.GOOGLE_DRIVE_FOLDER_ID?.trim()) {

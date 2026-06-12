@@ -4,6 +4,7 @@ import { useRouter } from "next/router";
 import LoadingSpinner from "@/components/LoadingSpinner";
 import { useProfileLoader } from "@/hooks/useProfileLoader";
 import { profileColors as colors } from "@/lib/theme-colors";
+import DeploymentNotice, { isPreviewEnabledClient } from "@/components/profile/DeploymentNotice";
 
 export default function ProfileTemplatePreviewPage() {
   const router = useRouter();
@@ -165,7 +166,11 @@ export default function ProfileTemplatePreviewPage() {
         </div>
 
         <div style={{ flex: 1, minHeight: 0, padding: 8 }}>
-          {pdfSrc ? (
+          {!isPreviewEnabledClient() ? (
+            <div style={{ padding: 16, maxWidth: 640 }}>
+              <DeploymentNotice feature="preview" />
+            </div>
+          ) : pdfSrc ? (
             <iframe
               key={pdfKey}
               title="Resume template preview"

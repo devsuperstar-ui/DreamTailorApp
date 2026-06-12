@@ -5,6 +5,7 @@ import { loadProfilePreviewPayload } from "@/lib/profile-preview-server";
 import { mockResumeContentForExperienceCount } from "@/lib/preview-mock-content";
 import { buildResumePdfData } from "@/lib/profile-utils";
 import { RESUME_STYLE_PRESETS } from "@/lib/resume-style-presets";
+import { heavyApiDisabledMessage, isPreviewEnabled } from "@/lib/runtime-limits";
 
 const GENERIC_MOCK_PROFILE = {
   name: "John Smith",
@@ -33,6 +34,10 @@ const GENERIC_MOCK_PROFILE = {
 export default async function handler(req, res) {
   if (req.method !== "GET") {
     return res.status(405).send("Method not allowed");
+  }
+
+  if (!isPreviewEnabled()) {
+    return res.status(503).send(heavyApiDisabledMessage("Template preview"));
   }
 
   try {

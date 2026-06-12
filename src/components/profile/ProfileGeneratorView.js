@@ -7,6 +7,7 @@ import GoogleDriveConnect from "@/components/profile/GoogleDriveConnect";
 import GenerationFooter from "@/components/profile/GenerationFooter";
 import FilenameFields from "@/components/profile/FilenameFields";
 import { getProfileFormStyles } from "@/components/profile/profile-form-styles";
+import DeploymentNotice, { isAiGenerateEnabledClient } from "@/components/profile/DeploymentNotice";
 
 export default function ProfileGeneratorView({
   profileSlug,
@@ -211,6 +212,7 @@ export default function ProfileGeneratorView({
         </div>
 
         <div style={cardStyle}>
+          <DeploymentNotice feature="ai" />
           <div style={{ marginBottom: "14px" }}>
             <label style={styles.label}>Job description</label>
             <textarea
@@ -239,17 +241,23 @@ export default function ProfileGeneratorView({
           <button
             type="button"
             onClick={handleGenerate}
-            disabled={disable || !jd.trim()}
+            disabled={disable || !jd.trim() || !isAiGenerateEnabledClient()}
             style={{
               width: "100%",
               padding: "11px 16px",
               fontSize: "14px",
               fontWeight: "600",
               color: colors.buttonText,
-              background: disable || !jd.trim() ? colors.buttonDisabled : colors.buttonBg,
+              background:
+                disable || !jd.trim() || !isAiGenerateEnabledClient()
+                  ? colors.buttonDisabled
+                  : colors.buttonBg,
               border: "none",
               borderRadius: "6px",
-              cursor: disable || !jd.trim() ? "not-allowed" : "pointer",
+              cursor:
+                disable || !jd.trim() || !isAiGenerateEnabledClient()
+                  ? "not-allowed"
+                  : "pointer",
             }}
           >
             {disable ? `Generating · ${elapsedTime}s` : "Generate PDF"}

@@ -8,6 +8,7 @@ import GenerationFooter from "@/components/profile/GenerationFooter";
 import FilenameFields from "@/components/profile/FilenameFields";
 import { getProfileFormStyles } from "@/components/profile/profile-form-styles";
 import { buildManualPrompt } from "@/lib/profile-prompt";
+import DeploymentNotice, { isManualPdfEnabledClient } from "@/components/profile/DeploymentNotice";
 
 export default function ManualProfileGeneratorView({
   profileSlug,
@@ -237,6 +238,7 @@ export default function ManualProfileGeneratorView({
         </div>
 
         <div style={cardStyle}>
+          <DeploymentNotice feature="manual" />
           <div style={{ marginBottom: "12px" }}>
             <label style={styles.label}>Job description</label>
             <textarea
@@ -300,17 +302,23 @@ export default function ManualProfileGeneratorView({
           <button
             type="button"
             onClick={handleGenerate}
-            disabled={disable || !chatgptResponse.trim()}
+            disabled={disable || !chatgptResponse.trim() || !isManualPdfEnabledClient()}
             style={{
               width: "100%",
               padding: "11px",
               fontWeight: 600,
               fontSize: "14px",
               color: colors.buttonText,
-              background: disable || !chatgptResponse.trim() ? colors.buttonDisabled : colors.buttonBg,
+              background:
+                disable || !chatgptResponse.trim() || !isManualPdfEnabledClient()
+                  ? colors.buttonDisabled
+                  : colors.buttonBg,
               border: "none",
               borderRadius: "6px",
-              cursor: disable || !chatgptResponse.trim() ? "not-allowed" : "pointer",
+              cursor:
+                disable || !chatgptResponse.trim() || !isManualPdfEnabledClient()
+                  ? "not-allowed"
+                  : "pointer",
             }}
           >
             {disable ? `Building · ${elapsedTime}s` : "Generate PDF"}

@@ -16,12 +16,17 @@ import {
   MANUAL_PDF_RENDER_TIMEOUT_MS,
 } from "@/lib/pdf-render";
 import { getResumePath } from "@/lib/paths";
+import { heavyApiDisabledMessage, isManualPdfEnabled } from "@/lib/runtime-limits";
 
 /**
  * POST: { profile: slug, chatgptResponse: string, companyName?: string, roleName?: string }
  */
 export default async function handler(req, res) {
   if (req.method !== "POST") return res.status(405).send("Method not allowed");
+
+  if (!isManualPdfEnabled()) {
+    return res.status(503).send(heavyApiDisabledMessage("Manual PDF generation"));
+  }
 
   try {
     const { profile: profileSlug, chatgptResponse: rawResponse, companyName = null, roleName = null } = req.body;

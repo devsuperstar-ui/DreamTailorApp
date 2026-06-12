@@ -20,6 +20,13 @@ import {
   AI_PDF_RENDER_TIMEOUT_MS,
 } from "@/lib/pdf-render";
 import { getResumePath } from "@/lib/paths";
+import {
+  aiCallRetries,
+  aiCallTimeoutMs,
+  aiGenerateMaxAttempts,
+  heavyApiDisabledMessage,
+  isAiGenerateEnabled,
+} from "@/lib/runtime-limits";
 
 const RESUME_MAX_TOKENS_OPENAI = 16384;
 const RESUME_MAX_TOKENS_CLAUDE = 8192;
@@ -30,6 +37,10 @@ function maxOutTokens(provider) {
 
 export default async function handler(req, res) {
   if (req.method !== "POST") return res.status(405).send("Method not allowed");
+
+  if (!isAiGenerateEnabled()) {
+    return res.status(503).send(heavyApiDisabledMessage("AI resume generation"));
+  }
 
   try {
     const {
@@ -71,8 +82,12 @@ export default async function handler(req, res) {
     const aiOpts = { jsonObject: provider === "openai" };
     const experienceCount = profileData.experience.length;
 
+    const aiRetries = aiCallRetries();
+    const aiTimeout = aiCallTimeoutMs();
+    const maxAttempts = aiGenerateMaxAttempts();
+
     async function tryResumeJson(userPrompt, label) {
-      const resp = await callAI(userPrompt, provider, model, maxTokens, 2, 180000, aiOpts);
+      const resp = await callAI(userPrompt, provider, model, maxTokens, aiRetries, aiTimeout, aiOpts);
       console.log(`[resume AI ${label}] stop=${resp.stop_reason} out=${resp.usage?.output_tokens}`);
       const raw = resp.content[0]?.text ?? "";
       if (isAiRefusal(raw)) {
@@ -99,11 +114,11 @@ export default async function handler(req, res) {
         attempt.resp.stop_reason === "length" ||
         attempt.resp.stop_reason === "content_filter");
 
-    if (!attempt.ok && retry) {
+    if (!attempt.ok && retry && maxAttempts >= 2) {
       attempt = await tryResumeJson(makeConcisePrompt(prompt), "concise");
     }
 
-    if (!attempt.ok) {
+    if (!attempt.ok && maxAttempts >= 3) {
       const fragment = (attempt.raw || "").slice(0, 120000);
       const repairPrompt = `You are fixing incomplete or invalid resume JSON.
 

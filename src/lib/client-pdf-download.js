@@ -101,8 +101,12 @@ export function formatFetchError(error, { manual = false } = {}) {
   return error?.message || "Unknown error";
 }
 
+const vercelLimited =
+  process.env.NEXT_PUBLIC_AI_GENERATE_ENABLED === "0" &&
+  process.env.NEXT_PUBLIC_MANUAL_PDF_ENABLED === "1";
+
 /** Manual PDF — must be longer than server render timeout (see MANUAL_PDF_RENDER_TIMEOUT_MS). */
-export const MANUAL_GENERATE_TIMEOUT_MS = 210_000;
+export const MANUAL_GENERATE_TIMEOUT_MS = vercelLimited ? 70_000 : 210_000;
 
 /** AI + PDF — allow several minutes. */
-export const AI_GENERATE_TIMEOUT_MS = 600_000;
+export const AI_GENERATE_TIMEOUT_MS = vercelLimited ? 120_000 : 600_000;
